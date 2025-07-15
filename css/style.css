@@ -9,8 +9,8 @@
     1. Global & Page Setup
     2. Navigation
     3. Hero & Countdown
-    4. Story Slider Section (REWORKED)
-    5. Menu Section
+    4. Story Slider Section
+    5. Menu Section (REWORKED)
     6. Vibe / Gallery Section
     7. Location / Map Section
     8. Contact & Socials Section
@@ -181,7 +181,7 @@ main {
     line-height: 1;
 }
 
-/* 4. Story Slider Section (REWORKED) */
+/* 4. Story Slider Section */
 #story {
     padding: 0;
 }
@@ -196,23 +196,21 @@ main {
 
 .story-slide {
     position: absolute;
-    inset: 0; /* A modern shorthand for top:0, right:0, bottom:0, left:0 */
-    
+    inset: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--gap) * 2);
     align-items: center;
     padding: 0 6rem;
-
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
-    pointer-events: none; /* Make invisible slides unclickable */
+    pointer-events: none;
 }
 
 .story-slide.is-active {
     opacity: 1;
     pointer-events: auto;
-    z-index: 2; /* Ensure active slide is on top */
+    z-index: 2;
 }
 
 .story-slide-image {
@@ -242,7 +240,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 5; /* Arrows must be above the slides */
+    z-index: 5;
     background: #ffffff10;
     border: 1px solid #ffffff20;
     border-radius: 50%;
@@ -276,46 +274,79 @@ main {
 }
 
 
-/* 5. Menu Section */
+/* 5. Menu Section (REWORKED) */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--gap);
     width: 100%;
 }
+
 .menu-item-card {
     background: #00000020;
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: var(--radius);
     text-align: left;
     border: 1px solid #ffffff15;
     transition: transform .3s, box-shadow .3s;
+    position: relative; /* Required for absolute positioning of the image */
+    overflow: hidden; /* Ensures the image doesn't spill out */
+    box-shadow: 0 5px 15px #00000020;
 }
+
+.menu-item-card .card-content {
+    position: relative;
+    z-index: 2; /* Ensures text is on top of the image */
+}
+
+.menu-item-card .card-image {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    z-index: 1; /* Places the image behind the content */
+    opacity: 0.15;
+    filter: invert(1);
+    transition: transform .4s ease-out, opacity .4s;
+}
+
 .menu-item-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px #00000030;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px #00000030;
 }
+
+.menu-item-card:hover .card-image {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0.25;
+}
+
 .menu-item-card h3 {
     font-family: 'Vidaloka', serif;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--highlight);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
+
 .menu-item-card p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--ink-dim);
-    line-height: 1.6;
+    line-height: 1.7;
+    max-width: 90%; /* Prevents text from overlapping the image */
 }
+
 .menu-item-card .tag {
     display: inline-block;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     font-size: .75rem;
-    padding: .25em .75em;
+    padding: .3em .8em;
     background: var(--highlight);
     color: var(--bg-1);
     border-radius: 2rem;
     font-weight: 700;
 }
+
 
 /* 6. Vibe / Gallery Section */
 .vibe-gallery {
@@ -449,14 +480,14 @@ main {
         min-height: 80vh;
     }
     .story-slide {
-        position: relative; /* Change from absolute for mobile stacking */
-        display: none; /* Hide all slides by default on mobile */
+        position: relative;
+        display: none;
         grid-template-columns: 1fr;
         height: auto;
         padding: 4rem 1.5rem 6rem;
     }
     .story-slide.is-active {
-        display: grid; /* Only show the active slide */
+        display: grid;
     }
     .story-slide-text {
         text-align: center;
@@ -480,5 +511,17 @@ main {
     }
     .arrow-right {
         right: 1.5rem;
+    }
+
+    /* Menu Card Mobile Adjustments */
+    .menu-item-card p {
+        max-width: 100%;
+    }
+    .menu-item-card .card-image {
+        opacity: 0.1;
+        width: 90px;
+        height: 90px;
+        right: 0px;
+        top: 0px;
     }
 }
