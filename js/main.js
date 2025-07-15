@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // --- 2. STORY SLIDER (REWORKED) ---
+    // --- 2. STORY SLIDER ---
     function initStorySlider() {
         const container = document.querySelector('.story-slider-container');
         if (!container) return;
@@ -49,13 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0;
 
         const showSlide = (index) => {
-            // Remove 'is-active' from all slides
             slides.forEach(slide => slide.classList.remove('is-active'));
-            
-            // Add 'is-active' to the target slide
             slides[index].classList.add('is-active');
-            
-            // Update the state of the navigation arrows
             prevButton.disabled = index === 0;
             nextButton.disabled = index === slides.length - 1;
         };
@@ -74,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Show the first slide initially
         showSlide(currentIndex);
     }
 
@@ -90,9 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
             menuItems.forEach(item => {
                 menuHTML += `
                     <div class="menu-item-card">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <span class="tag">${item.tag}</span>
+                        <img src="${item.image}" alt="" class="card-image" loading="lazy">
+                        <div class="card-content">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                            <span class="tag">${item.tag}</span>
+                        </div>
                     </div>
                 `;
             });
