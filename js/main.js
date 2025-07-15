@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. COUNTDOWN TIMER ---
     function initCountdown() {
-        // Set a target date in mid-to-late August
-        const targetDate = new Date('August 24, 2025 09:00:00').getTime();
-
+        const targetDate = new Date('August 24, 2024 09:00:00').getTime();
         const countdownElement = document.getElementById('countdown');
         if (!countdownElement) return;
 
@@ -40,41 +38,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // --- 2. STORY SLIDER ---
+    // --- 2. STORY SLIDER (REWORKED) ---
     function initStorySlider() {
-        const track = document.querySelector('.story-slider-track');
-        if (!track) return;
+        const container = document.querySelector('.story-slider-container');
+        if (!container) return;
 
-        const slides = Array.from(track.children);
-        const nextButton = document.querySelector('.arrow-right');
-        const prevButton = document.querySelector('.arrow-left');
+        const slides = Array.from(container.querySelectorAll('.story-slide'));
+        const nextButton = container.querySelector('.arrow-right');
+        const prevButton = container.querySelector('.arrow-left');
         let currentIndex = 0;
 
-        const moveToSlide = (targetIndex) => {
-            track.style.transform = 'translateX(-' + targetIndex * 100 + '%)';
-            currentIndex = targetIndex;
-            updateArrows();
-        };
-
-        const updateArrows = () => {
-            prevButton.disabled = currentIndex === 0;
-            nextButton.disabled = currentIndex === slides.length - 1;
+        const showSlide = (index) => {
+            // Remove 'is-active' from all slides
+            slides.forEach(slide => slide.classList.remove('is-active'));
+            
+            // Add 'is-active' to the target slide
+            slides[index].classList.add('is-active');
+            
+            // Update the state of the navigation arrows
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === slides.length - 1;
         };
 
         nextButton.addEventListener('click', () => {
             if (currentIndex < slides.length - 1) {
-                moveToSlide(currentIndex + 1);
+                currentIndex++;
+                showSlide(currentIndex);
             }
         });
 
         prevButton.addEventListener('click', () => {
             if (currentIndex > 0) {
-                moveToSlide(currentIndex - 1);
+                currentIndex--;
+                showSlide(currentIndex);
             }
         });
 
-        // Initialize arrow states on load
-        updateArrows();
+        // Show the first slide initially
+        showSlide(currentIndex);
     }
 
     // --- 3. POPULATE MENU FROM (MOCK) FIRESTORE ---
