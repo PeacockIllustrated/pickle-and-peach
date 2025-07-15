@@ -333,7 +333,7 @@ main {
 /* THE FIX: Adjusted the Y-translation to lift the image higher on hover */
 .menu-item-card:hover .card-image,
 .menu-item-card.is-hovered .card-image {
-    transform: translate(-50%, -75%) scale(2); /* Lifts image up by 75% of its height */
+    transform: translate(-50%, -90%) scale(2); /* Lifts image up by 75% of its height */
     box-shadow: 0 25px 40px #00000050;
 }
 
