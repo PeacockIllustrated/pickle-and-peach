@@ -10,7 +10,7 @@
     2. Navigation
     3. Hero & Countdown
     4. Story Slider Section
-    5. Menu Section (IMPACTFUL REWORK)
+    5. Menu Section (FINAL REWORK)
     6. Vibe / Gallery Section
     7. Location / Map Section
     8. Contact & Socials Section
@@ -29,7 +29,7 @@
     --ink: #F0EAD6;
     --ink-dim: #A8B8BB;
     --accent: #B873331A;
-    --radius: .75rem; /* Increased radius for a softer look */
+    --radius: .75rem;
     --gap: 2rem;
 }
 
@@ -59,7 +59,7 @@ main {
 .panel {
     min-height: 100vh;
     width: 100%;
-    padding: 8rem var(--gap); /* Increased vertical padding for more breathing room */
+    padding: 8rem var(--gap);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -273,9 +273,8 @@ main {
     right: 2rem;
 }
 
-/* 5. Menu Section (IMPACTFUL REWORK) */
+/* 5. Menu Section (FINAL REWORK) */
 #menu {
-    /* Give more vertical space for the floating medallions */
     padding-top: 12rem;
     padding-bottom: 8rem;
 }
@@ -283,7 +282,7 @@ main {
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: calc(var(--gap) * 2.5); /* Increase gap between cards */
+    gap: calc(var(--gap) * 2.5);
     width: 100%;
 }
 
@@ -292,9 +291,9 @@ main {
     border-radius: var(--radius);
     border: 1px solid #ffffff15;
     text-align: center;
-    position: relative; /* CRITICAL for positioning the image */
+    position: relative;
     transition: transform .3s ease-out, box-shadow .3s ease-out;
-    margin-top: 50px; /* Make space for the top half of the image */
+    margin-top: 50px;
 }
 
 .menu-item-card:hover {
@@ -303,38 +302,42 @@ main {
 }
 
 .card-image {
-    /* Positioning the medallion */
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center horizontally, lift vertically */
-    
-    /* Medallion Style */
+    transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
     background: var(--bg-2);
     border-radius: 50%;
     border: 3px solid var(--highlight);
     box-shadow: 0 10px 20px #00000030;
-    
-    /* Icon Style inside */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px; /* Space around the icon */
-    
-    /* Interaction */
     transition: transform .4s ease-out, box-shadow .4s ease-out;
     z-index: 5;
 }
 
+/* THE FIX: Target the IMG tag directly */
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(1.1); /* Make image larger than its container */
+    filter: drop-shadow(0 3px 5px #00000050); /* Add shadow to the icon itself */
+    transition: transform .4s ease-out;
+}
+
 .menu-item-card:hover .card-image {
-    transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
     box-shadow: 0 15px 30px #00000040;
 }
 
+.menu-item-card:hover .card-image img {
+    transform: scale(1.2) rotate(10deg); /* Enhance hover effect on the image */
+}
+
 .card-content {
-    /* Add padding to the top to not be covered by the image */
     padding: 70px 1.5rem 2rem;
 }
 
