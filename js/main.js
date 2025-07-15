@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. COUNTDOWN TIMER ---
     function initCountdown() {
-        const targetDate = new Date('August 24, 2025 09:00:00').getTime();
+        const targetDate = new Date('August 24, 2024 09:00:00').getTime();
         const countdownElement = document.getElementById('countdown');
         if (!countdownElement) return;
 
@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
             menuItems.forEach(item => {
                 menuHTML += `
                     <div class="menu-item-card">
-                        <img src="${item.image}" alt="" class="card-image" loading="lazy">
+                        <div class="card-image">
+                           <img src="${item.image}" alt="" loading="lazy">
+                        </div>
                         <div class="card-content">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
@@ -101,8 +103,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- 4. TOUCH INTERACTION FOR MENU CARDS (NEW) ---
+    function initMenuCardTouch() {
+        // This function adds a click-to-hover behavior on touch devices.
+        const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        if (isTouchDevice()) {
+            const menuCards = document.querySelectorAll('.menu-item-card');
+            
+            menuCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Prevent interfering with other clicks if needed
+                    e.stopPropagation();
+
+                    // Remove the hover state from all other cards
+                    menuCards.forEach(c => {
+                        if (c !== this) {
+                            c.classList.remove('is-hovered');
+                        }
+                    });
+                    
+                    // Toggle the hover state on the clicked card
+                    this.classList.toggle('is-hovered');
+                });
+            });
+
+            // Add a listener to the document to close the "hover" state when clicking away
+            document.addEventListener('click', function() {
+                 menuCards.forEach(c => c.classList.remove('is-hovered'));
+            });
+        }
+    }
+
+
     // --- INITIALIZE ALL FUNCTIONS ---
     initCountdown();
     initStorySlider();
-    populateMenu();
+    // Populate menu and *then* add touch listeners
+    populateMenu().then(() => {
+        initMenuCardTouch();
+    });
 });
