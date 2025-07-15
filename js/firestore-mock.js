@@ -15,7 +15,7 @@ export function fetchMenuItems() {
             name: "Artisan Flat White",
             description: "Expertly pulled espresso shot with perfectly steamed, velvety milk. Our signature coffee.",
             tag: "Coffee",
-            image: "https://cdn.icon-icons.com/icons2/952/PNG/512/Coffee-drink-caffeine-cup-beverage-espresso_73105.png" // Coffee cup
+            image: "https://github.com/PeacockIllustrated/pickle-and-peach/blob/main/assets/Flat%20White%20Artisan.png?raw=true" // Coffee cup
         },
         {
             name: "Peach Crumble Cake",
