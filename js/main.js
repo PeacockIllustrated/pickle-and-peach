@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 1. COUNTDOWN TIMER ---
     function initCountdown() {
         // Set a target date in mid-to-late August
-        const targetDate = new Date('August 24, 2025 09:00:00').getTime();
+        const targetDate = new Date('August 24, 2024 09:00:00').getTime();
 
         const countdownElement = document.getElementById('countdown');
         if (!countdownElement) return;
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (distance < 0) {
                 clearInterval(timerInterval);
                 countdownElement.innerHTML = `<h2 class="section-title">We Are Open!</h2>`;
+                countdownElement.style.textAlign = 'center';
                 return;
             }
 
@@ -39,7 +40,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // --- 2. POPULATE MENU FROM (MOCK) FIRESTORE ---
+    // --- 2. STORY SLIDER ---
+    function initStorySlider() {
+        const track = document.querySelector('.story-slider-track');
+        if (!track) return;
+
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.arrow-right');
+        const prevButton = document.querySelector('.arrow-left');
+        let currentIndex = 0;
+
+        const moveToSlide = (targetIndex) => {
+            track.style.transform = 'translateX(-' + targetIndex * 100 + '%)';
+            currentIndex = targetIndex;
+            updateArrows();
+        };
+
+        const updateArrows = () => {
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex === slides.length - 1;
+        };
+
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < slides.length - 1) {
+                moveToSlide(currentIndex + 1);
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                moveToSlide(currentIndex - 1);
+            }
+        });
+
+        // Initialize arrow states on load
+        updateArrows();
+    }
+
+    // --- 3. POPULATE MENU FROM (MOCK) FIRESTORE ---
     async function populateMenu() {
         const menuGrid = document.getElementById('menu-grid');
         if (!menuGrid) return;
@@ -67,5 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZE ALL FUNCTIONS ---
     initCountdown();
+    initStorySlider();
     populateMenu();
 });
