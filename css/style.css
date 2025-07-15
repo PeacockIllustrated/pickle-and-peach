@@ -9,7 +9,7 @@
     1. Global & Page Setup
     2. Navigation
     3. Hero & Countdown
-    4. Story Slider Section
+    4. Story Slider Section (REWORKED)
     5. Menu Section
     6. Vibe / Gallery Section
     7. Location / Map Section
@@ -181,18 +181,10 @@ main {
     line-height: 1;
 }
 
-/* 4. Story Slider Section */
+/* 4. Story Slider Section (REWORKED) */
 #story {
     padding: 0;
-    justify-content: center;
-    /* 
-     * THE FIX: This rule ensures that any overflow from its children
-     * (specifically the 400% wide .story-slider-track) is clipped
-     * and does not affect the rest of the document layout.
-    */
-    overflow: hidden;
 }
-
 .story-slider-container {
     position: relative;
     width: 100%;
@@ -200,32 +192,33 @@ main {
     height: 70vh;
     min-height: 500px;
     margin: auto;
-    overflow: hidden;
-}
-
-.story-slider-track {
-    display: flex;
-    height: 100%;
-    width: 400%; /* 100% per slide * 4 slides */
-    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .story-slide {
-    flex: 1 0 100%;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0; /* A modern shorthand for top:0, right:0, bottom:0, left:0 */
+    
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--gap) * 2);
     align-items: center;
     padding: 0 6rem;
+
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    pointer-events: none; /* Make invisible slides unclickable */
+}
+
+.story-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2; /* Ensure active slide is on top */
 }
 
 .story-slide-image {
     width: 100%;
     height: 90%;
     max-height: 550px;
-    min-width: 0;
 }
 
 .story-slide-image img {
@@ -249,7 +242,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 5;
+    z-index: 5; /* Arrows must be above the slides */
     background: #ffffff10;
     border: 1px solid #ffffff20;
     border-radius: 50%;
@@ -281,6 +274,7 @@ main {
 .arrow-right {
     right: 2rem;
 }
+
 
 /* 5. Menu Section */
 .menu-grid {
@@ -446,7 +440,7 @@ main {
     }
     
     .menu {
-        display: none; /* Simpler nav on mobile */
+        display: none;
     }
 
     /* Story Slider Mobile Adjustments */
@@ -455,9 +449,14 @@ main {
         min-height: 80vh;
     }
     .story-slide {
+        position: relative; /* Change from absolute for mobile stacking */
+        display: none; /* Hide all slides by default on mobile */
         grid-template-columns: 1fr;
         height: auto;
         padding: 4rem 1.5rem 6rem;
+    }
+    .story-slide.is-active {
+        display: grid; /* Only show the active slide */
     }
     .story-slide-text {
         text-align: center;
