@@ -1,0 +1,160 @@
+/* 0. Design Tokens */
+:root {
+    --bg-1: #2c3539;
+    --bg-2: #465358;
+    --highlight: #B87333;
+    --ink: #F0EAD6;
+    --ink-dim: #A8B8BB;
+    --accent: #B873331A;
+    --radius: .5rem;
+    --gap: 2rem;
+}
+
+/* 1. Global & Page Setup */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    font-family: 'Cera Pro', 'Poppins', sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 50% 0, var(--bg-2) 0, var(--bg-1) 100%);
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+main {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.panel {
+    min-height: 100vh;
+    width: 100%;
+    padding: 6rem var(--gap);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    scroll-snap-align: start;
+    border-bottom: 1px solid #ffffff10;
+}
+
+.content-grid {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--gap) * 2);
+    align-items: center;
+    text-align: left;
+}
+
+.section-title {
+    font-family: 'Vidaloka', serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    letter-spacing: .05em;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    max-width: 60ch;
+    margin: 0 auto 2rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+}
+
+/* 2. Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem var(--gap);
+    display: flex;
+    justify-content: space-between;
+    font-size: .875rem;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    z-index: 10;
+    background: linear-gradient(to bottom, var(--bg-1) 0%, transparent 100%);
+}
+.logo-vertical { line-height: 1; font-weight: 700; }
+.menu { display: flex; gap: 2rem; list-style: none; }
+.menu a { color: var(--ink); text-decoration: none; position: relative; padding-bottom: 0.5rem; }
+.menu a::after { content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--highlight); transition: width .3s; }
+.menu a:hover::after { width: 100%; }
+
+/* 3. Hero & Countdown */
+#hero .display { font-family: 'Vidaloka', serif; font-size: clamp(3.5rem, 10vw, 6.5rem); font-weight: 400; line-height: 1.1; }
+#hero .eyebrow { letter-spacing: .4em; font-size: .75rem; color: var(--ink-dim); margin-bottom: 1rem; }
+#hero .caption { margin-top: 1.5rem; letter-spacing: .3em; font-size: .75rem; color: var(--ink-dim); }
+
+.countdown-container { display: flex; gap: 2rem; margin-top: 2rem; }
+.countdown-item { display: flex; flex-direction: column; }
+.countdown-item span { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--highlight); line-height: 1; }
+
+/* 4. Story Section */
+.story-image img { width: 100%; height: auto; border-radius: var(--radius); }
+.story-text p { color: var(--ink-dim); line-height: 1.8; margin-bottom: 1.5rem; }
+
+/* 5. Menu Section */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--gap);
+    width: 100%;
+}
+.menu-item-card {
+    background: #00000020;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    text-align: left;
+    border: 1px solid #ffffff15;
+    transition: transform .3s, box-shadow .3s;
+}
+.menu-item-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px #00000030; }
+.menu-item-card h3 { font-family: 'Vidaloka', serif; font-size: 1.5rem; color: var(--highlight); margin-bottom: 0.5rem; }
+.menu-item-card p { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.6; }
+.menu-item-card .tag { display: inline-block; margin-top: 1rem; font-size: .75rem; padding: .25em .75em; background: var(--highlight); color: var(--bg-1); border-radius: 2rem; font-weight: 700; }
+
+/* 6. Vibe / Gallery Section */
+.vibe-gallery { display: flex; gap: var(--gap); filter: brightness(.9); }
+.vibe-gallery img { width: 100%; max-width: 220px; aspect-ratio: 3 / 5; object-fit: cover; border-radius: var(--radius); }
+
+/* 7. Location / Map */
+.map-container { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid #ffffff15; }
+#location-map { width: 100%; height: 450px; border: 0; filter: grayscale(1) invert(0.9) contrast(0.9); }
+
+/* 8. Contact & Socials */
+.contact-info address { font-style: normal; line-height: 1.7; margin: 1.5rem 0; color: var(--ink-dim); }
+.contact-info strong { color: var(--ink); }
+.social-links-contact { display: flex; gap: 1.5rem; margin-top: 2rem; }
+.social-links-contact a { display: block; }
+.social-links-contact img { width: 24px; height: 24px; filter: invert(0.8); transition: filter .3s; }
+.social-links-contact a:hover img { filter: invert(0.6); }
+
+.contact-form { background: #00000020; padding: 2rem; border-radius: var(--radius); border: 1px solid #ffffff15; }
+.contact-form h3 { margin-bottom: 1rem; letter-spacing: .15em; }
+.contact-form input, .contact-form textarea { width: 100%; margin-bottom: 1rem; padding: .75rem 1rem; background: #0000004D; border: none; border-radius: 4px; color: var(--ink); font-family: inherit; }
+.contact-form button { width: 100%; padding: .9rem; border: none; border-radius: 4px; background: var(--highlight); color: var(--bg-1); font-weight: 700; letter-spacing: .15em; cursor: pointer; }
+
+/* 9. Footer */
+.thanks { padding: 3rem 1rem; text-align: center; font-size: .75rem; letter-spacing: .2em; color: var(--ink-dim); background: var(--bg-1); }
+
+/* 10. Responsive Adjustments */
+@media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; text-align: center; }
+    .story-image { max-width: 350px; margin: 0 auto 2rem; }
+    .contact-info { text-align: center; }
+    .social-links-contact { justify-content: center; }
+    .vibe-gallery { flex-direction: column; align-items: center; }
+    .top-nav { padding: 1rem; }
+    .menu { display: none; } /* Simpler nav on mobile */
+}
