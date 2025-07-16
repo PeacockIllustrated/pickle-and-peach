@@ -1,15 +1,15 @@
 /*
 ==========================================================================
-    Pickle & Peach Cafe - App Stylesheet (Reworked to match brand)
+    Pickle & Peach Cafe - App Stylesheet (Reworked for Brand Cohesion)
 ==========================================================================
 */
 
 /* 0. Design Tokens & Global Setup */
 :root {
-    /* Pickle & Peach Brand Palette */
     --bg-1: #2c3539;
     --bg-2: #465358;
-    --highlight: #B87333;
+    --highlight: #CC843D;
+    --highlight-glint: #FDE4C9;
     --ink: #F0EAD6;
     --ink-dim: #A8B8BB;
     --radius-small: 8px;
@@ -18,15 +18,16 @@
     --font-display: 'Vidaloka', serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: var(--font-body);
-    background: var(--bg-1); /* Use the brand's dark background */
+    background: var(--bg-1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,212 +39,227 @@ body {
     max-width: 420px;
     height: 100vh;
     max-height: 900px;
-    background: var(--bg-1); /* Dark container background */
+    background: radial-gradient(circle at 50% 0, var(--bg-2) 0, var(--bg-1) 100%);
     border-radius: 24px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    color: var(--ink); /* Set default text color */
-}
-
-/* 1. Login Page */
-.login-view {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    background: radial-gradient(circle at 50% 0, var(--bg-2) 0, var(--bg-1) 100%);
-}
-.logo-container { text-align: center; margin-bottom: 3rem; }
-.brand-name { font-family: var(--font-display); font-size: 2.5rem; color: var(--ink); }
-.slogan { color: var(--ink-dim); }
-.form-title { font-family: var(--font-display); text-align: center; margin-bottom: 2rem; color: var(--ink); }
-.input-group { margin-bottom: 1rem; }
-.input-group input {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #ffffff15;
-    border-radius: var(--radius-small);
-    background: #00000020;
     color: var(--ink);
-    font-size: 1rem;
-    font-family: var(--font-body);
 }
-.input-group input::placeholder { color: var(--ink-dim); }
-.btn-primary {
-    width: 100%;
-    padding: 1rem;
-    border: none;
-    border-radius: var(--radius-small);
-    background: var(--highlight);
-    color: var(--bg-1);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: filter .2s;
-}
-.btn-primary:hover { filter: brightness(1.1); }
-.form-footer { text-align: center; margin-top: 2rem; color: var(--ink-dim); }
-.form-footer a { color: var(--highlight); text-decoration: none; }
 
-
-/* 2. Main App Structure */
+/* 1. Main App Structure & Typography */
 .main-content {
     flex-grow: 1;
     overflow-y: auto;
-    padding-bottom: 80px; /* Space for bottom nav */
+    padding-bottom: 80px;
 }
-.app-view {
-    display: none;
-    padding: 1.5rem;
+.app-view { display: none; padding: 2rem; }
+.app-view.is-active { display: block; }
+
+.view-header { margin-bottom: 2rem; }
+.view-title { 
+    font-family: var(--font-display); 
+    font-size: 2.5rem; 
+    color: var(--ink); 
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
 }
-.app-view.is-active {
-    display: block;
+.view-subtitle { color: var(--ink-dim); line-height: 1.6; max-width: 35ch; }
+.section-heading { 
+    font-family: var(--font-display); 
+    font-size: 1.5rem; 
+    color: var(--ink); 
+    margin: 2rem 0 1.5rem; 
 }
 
-/* 3. Bottom Navigation */
+.sticky-header {
+    position: sticky;
+    top: -1px;
+    background: linear-gradient(to bottom, var(--bg-1) 85%, transparent 100%);
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    z-index: 10;
+    margin: -2rem -2rem 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* 2. Bottom Navigation */
 .bottom-nav {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 70px;
-    background: var(--bg-2); /* Dark nav background */
+    background: var(--bg-2);
     border-top: 1px solid #ffffff15;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    padding: 0 1rem;
 }
 .nav-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    color: var(--ink-dim);
-    transition: color 0.2s;
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; color: var(--ink-dim); transition: color 0.2s;
 }
-.nav-button img {
-    width: 24px;
-    height: 24px;
-    stroke: var(--ink-dim);
-    transition: stroke 0.2s;
-}
+.nav-button img { width: 24px; height: 24px; stroke: var(--ink-dim); transition: stroke 0.2s; }
 .nav-button span { font-size: 0.7rem; }
-.nav-button.is-active { color: var(--highlight); }
+.nav-button.is-active span {
+    color: var(--highlight);
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; text-fill-color: transparent;
+    animation: shimmer 5s linear infinite;
+}
 .nav-button.is-active img { stroke: var(--highlight); }
 
-
-/* 4. Shared App Components */
-.view-header { margin-bottom: 1.5rem; }
-.view-title { font-family: var(--font-display); font-size: 2rem; color: var(--ink); }
-.view-subtitle { color: var(--ink-dim); }
-.section-heading { font-family: var(--font-display); font-size: 1.25rem; color: var(--ink); margin: 1.5rem 0 1rem; }
-.sticky-header {
-    position: sticky;
-    top: 0;
-    background: linear-gradient(to bottom, var(--bg-1) 80%, transparent 100%);
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
-    z-index: 10;
-}
-.btn-secondary {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid var(--highlight);
-    border-radius: var(--radius-small);
-    background: none;
-    color: var(--highlight);
-    cursor: pointer;
-    transition: background .2s;
-}
-.btn-secondary:hover { background-color: #ffffff10; }
-
-/* 5. Home View Specifics */
-.promo-banner { position: relative; border-radius: var(--radius-large); overflow: hidden; }
+/* 3. Home & Menu Views */
+.promo-banner { position: relative; border-radius: var(--radius-large); overflow: hidden; margin-bottom: 1rem; }
 .promo-banner img { width: 100%; height: 180px; object-fit: cover; display: block; filter: brightness(0.9); }
 .promo-banner .promo-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; }
 .promo-text h3 { font-family: var(--font-display); font-size: 1.5rem; }
 
-.category-scroller { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 1rem; -ms-overflow-style: none; scrollbar-width: none; }
-.category-scroller::-webkit-scrollbar { display: none; }
-.category-chip { white-space: nowrap; padding: 0.5rem 1rem; background: var(--bg-2); border-radius: 2rem; color: var(--ink); border: 1px solid #ffffff15; }
-
-.item-list { display: grid; gap: 1rem; }
-.item-card {
-    display: flex;
-    gap: 1rem;
+.menu-item-list-entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
     align-items: center;
-    background: #ffffff08;
-    padding: 1rem;
-    border-radius: var(--radius-large);
-    border: 1px solid #ffffff10;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #ffffff15;
 }
-.item-card img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-small); }
-.item-info h4 { font-family: var(--font-body); font-weight: 700; color: var(--ink); }
-.item-info p { color: var(--ink-dim); font-size: 0.9rem; }
-.item-info .price { font-weight: 700; color: var(--highlight); margin-top: 0.5rem; }
-
-/* 6. Menu View Specifics */
-.search-bar input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 2rem;
-    border: 1px solid #ffffff15;
-    background: var(--bg-2);
-    color: var(--ink);
-    font-family: var(--font-body);
+.menu-item-list-entry:last-child { border-bottom: none; }
+.menu-item-list-entry img { width: 100px; height: 100px; object-fit: cover; border-radius: var(--radius-small); }
+.menu-item-info h4 { font-family: var(--font-body); font-weight: 700; color: var(--ink); margin-bottom: 0.25rem; font-size: 1.1rem; }
+.menu-item-info p { color: var(--ink-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; }
+.menu-item-info .price {
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--highlight);
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; text-fill-color: transparent;
+    animation: shimmer 6s linear infinite;
 }
-.search-bar input::placeholder { color: var(--ink-dim); }
-.full-menu .item-card img { width: 100px; height: 100px; }
 
+/* 4. Profile & Loyalty View */
+#profile-view.is-redeemable #loyalty-collecting-state { display: none; }
+#profile-view:not(.is-redeemable) #loyalty-redeem-state { display: none; }
 
-/* 7. Profile & Loyalty View Specifics */
-.loyalty-card {
-    background: linear-gradient(145deg, var(--bg-2), var(--bg-1));
+.loyalty-certificate {
+    background: linear-gradient(145deg, #ffffff0A, #ffffff03);
     border-radius: var(--radius-large);
-    padding: 1.5rem;
+    padding: 2rem;
     border: 1px solid #ffffff15;
     box-shadow: 0 10px 30px #00000030;
-    color: var(--ink);
     margin-bottom: 2rem;
+    text-align: center;
 }
-.loyalty-header { text-align: center; margin-bottom: 1.5rem; }
-.loyalty-header h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); }
+.loyalty-header .brand-name { font-family: var(--font-display); font-size: 1.75rem; color: var(--ink); }
 .loyalty-header p { color: var(--ink-dim); }
-.loyalty-stamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.loyalty-stamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
 .stamp {
-    aspect-ratio: 1 / 1; /* Make it a perfect circle */
+    aspect-ratio: 1 / 1;
     border: 2px dashed var(--highlight);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    opacity: 0.5;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; opacity: 0.4;
 }
 .stamp.filled {
+    border-style: solid; border-color: transparent; opacity: 1;
     background: var(--highlight);
-    border-style: solid;
-    border-color: var(--highlight);
-    opacity: 1;
 }
-.stamp.filled img {
-    stroke: var(--bg-1);
-    width: 60%;
-    height: 60%;
-}
+.stamp-icon { width: 50%; height: 50%; fill: var(--bg-1); }
 .loyalty-progress { text-align: center; color: var(--ink-dim); }
 .loyalty-progress progress { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;}
 progress::-webkit-progress-bar { background-color: #00000030; }
-progress::-webkit-progress-value { background-color: var(--highlight); }
+progress::-webkit-progress-value {
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%; animation: shimmer 3s linear infinite;
+}
 #loyalty-count { color: var(--ink); font-weight: 700; }
 
-.empty-state { text-align: center; padding: 3rem 0; }
-.empty-state p { margin-bottom: 1rem; color: var(--ink-dim); }
+/* Redeem State */
+.loyalty-certificate.is-complete .reward-icon {
+    font-size: 5rem;
+    margin: 1.5rem 0;
+    color: var(--highlight);
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; text-fill-color: transparent;
+    animation: shimmer 2s linear infinite;
+}
+.loyalty-certificate.is-complete .redeem-text { color: var(--ink-dim); max-width: 30ch; margin: 0 auto; }
+.btn-redeem {
+    width: 100%; padding: 1.25rem; border: none; border-radius: var(--radius-small);
+    color: var(--bg-1); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em;
+    cursor: pointer; transition: filter .2s; text-transform: uppercase;
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%; animation: shimmer 2.5s linear infinite;
+}
+.btn-redeem:hover { filter: brightness(1.15); }
+
+/* 5. Buttons */
+.btn-primary {
+    width: 100%; padding: 1rem; border: none; border-radius: var(--radius-small);
+    color: var(--bg-1); font-size: 1rem; font-weight: 700;
+    cursor: pointer; margin-top: 1rem; transition: filter .2s;
+    background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
+    background-size: 200% 100%; animation: shimmer 3s linear infinite;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+
+.btn-secondary {
+    width: 100%; padding: 1rem; border: 1px solid #ffffff30; border-radius: var(--radius-small);
+    background: none; color: var(--ink-dim);
+    cursor: pointer; transition: background .2s, color .2s; margin-top: 0.5rem;
+}
+.btn-secondary:hover { background-color: #ffffff10; color: var(--ink); }
+
+/* 6. Redemption Modal */
+.app-modal {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.app-modal.is-active { opacity: 1; pointer-events: auto; }
+.modal-content {
+    background: var(--bg-2);
+    padding: 2rem; border-radius: var(--radius-large);
+    width: calc(100% - 2rem); max-width: 380px;
+    border: 1px solid #ffffff15; position: relative;
+    transform: scale(0.95); transition: transform 0.3s ease;
+}
+.app-modal.is-active .modal-content { transform: scale(1); }
+.modal-close-btn {
+    position: absolute; top: 0.5rem; right: 1rem;
+    background: none; border: none; color: var(--ink-dim);
+    font-size: 2rem; cursor: pointer;
+}
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; color: var(--ink-dim); }
+.form-group input[type="text"] {
+    width: 100%; padding: 0.75rem 1rem; background: #00000030;
+    border: 1px solid #ffffff15; border-radius: var(--radius-small);
+    color: var(--ink); font-family: inherit; font-size: 1rem;
+}
+
+.radio-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.radio-group input[type="radio"] { display: none; }
+.radio-group span {
+    display: block; padding: 0.5rem 1rem;
+    border: 1px solid #ffffff30; border-radius: 2rem;
+    color: var(--ink-dim); cursor: pointer; transition: all 0.2s ease;
+}
+.radio-group input[type="radio"]:checked + span {
+    border-color: var(--highlight);
+    background: #00000020;
+    color: var(--highlight);
+    font-weight: 700;
+}
