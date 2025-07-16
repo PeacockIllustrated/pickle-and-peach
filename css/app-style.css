@@ -1,0 +1,230 @@
+/*
+==========================================================================
+    Pickle & Peach Cafe - App Stylesheet
+==========================================================================
+*/
+
+/* 0. Design Tokens & Global Setup */
+:root {
+    --bg-main: #F4F1EC;
+    --bg-accent: #EFE8DD;
+    --text-dark: #4F4846;
+    --text-light: #A59F9B;
+    --brand-primary: #9A6442;
+    --brand-secondary: #D4B29A;
+    --radius-small: 8px;
+    --radius-large: 16px;
+    --font-body: 'Cera Pro', sans-serif;
+    --font-display: 'Vidaloka', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    max-height: 900px;
+    background: var(--bg-main);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 1. Login Page */
+.login-view {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+.logo-container { text-align: center; margin-bottom: 3rem; }
+.brand-name { font-family: var(--font-display); font-size: 2.5rem; color: var(--text-dark); }
+.slogan { color: var(--text-light); }
+.form-title { font-family: var(--font-display); text-align: center; margin-bottom: 2rem; color: var(--text-dark); }
+.input-group { margin-bottom: 1rem; }
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--bg-accent);
+    border-radius: var(--radius-small);
+    background: white;
+    font-size: 1rem;
+}
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--radius-small);
+    background: var(--brand-primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.form-footer { text-align: center; margin-top: 2rem; color: var(--text-light); }
+.form-footer a { color: var(--brand-primary); text-decoration: none; }
+
+
+/* 2. Main App Structure */
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Space for bottom nav */
+}
+.app-view {
+    display: none;
+    padding: 1.5rem;
+}
+.app-view.is-active {
+    display: block;
+}
+
+/* 3. Bottom Navigation */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: white;
+    border-top: 1px solid var(--bg-accent);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1rem;
+}
+.nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-light);
+    transition: color 0.2s;
+}
+.nav-button img {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-light);
+    transition: stroke 0.2s;
+}
+.nav-button span { font-size: 0.7rem; }
+.nav-button.is-active { color: var(--brand-primary); }
+.nav-button.is-active img { stroke: var(--brand-primary); }
+
+
+/* 4. Shared App Components */
+.view-header { margin-bottom: 1.5rem; }
+.view-title { font-family: var(--font-display); font-size: 2rem; color: var(--text-dark); }
+.view-subtitle { color: var(--text-light); }
+.section-heading { font-family: var(--font-display); font-size: 1.25rem; color: var(--text-dark); margin: 1.5rem 0 1rem; }
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg-main);
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    z-index: 10;
+}
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--brand-secondary);
+    border-radius: var(--radius-small);
+    background: none;
+    color: var(--brand-primary);
+    cursor: pointer;
+}
+
+/* 5. Home View Specifics */
+.promo-banner { position: relative; border-radius: var(--radius-large); overflow: hidden; }
+.promo-banner img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.promo-banner .promo-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); color: white; }
+.promo-text h3 { font-family: var(--font-display); font-size: 1.5rem; }
+
+.category-scroller { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 1rem; }
+.category-chip { white-space: nowrap; padding: 0.5rem 1rem; background: var(--bg-accent); border-radius: 2rem; color: var(--text-dark); }
+
+.item-list { display: grid; gap: 1rem; }
+.item-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: white;
+    padding: 1rem;
+    border-radius: var(--radius-large);
+}
+.item-card img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius-small); }
+.item-info h4 { font-family: var(--font-body); font-weight: 700; color: var(--text-dark); }
+.item-info p { color: var(--text-light); font-size: 0.9rem; }
+.item-info .price { font-weight: 700; color: var(--brand-primary); margin-top: 0.5rem; }
+
+/* 6. Menu View Specifics */
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid var(--bg-accent);
+    background: var(--bg-accent);
+}
+.full-menu .item-card img { width: 100px; height: 100px; }
+
+
+/* 7. Profile & Loyalty View Specifics */
+.loyalty-card {
+    background: var(--brand-primary);
+    border-radius: var(--radius-large);
+    padding: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+.loyalty-header { text-align: center; margin-bottom: 1.5rem; }
+.loyalty-header h3 { font-family: var(--font-display); font-size: 1.5rem; }
+.loyalty-header p { opacity: 0.8; }
+.loyalty-stamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.stamp {
+    height: 50px;
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+.stamp.filled {
+    background: rgba(255,255,255,0.2);
+    border-style: solid;
+    border-color: white;
+}
+.stamp.filled img {
+    width: 60%;
+    height: 60%;
+    opacity: 1;
+}
+.loyalty-progress { text-align: center; }
+.loyalty-progress progress { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; overflow: hidden; }
+progress::-webkit-progress-bar { background-color: rgba(255,255,255,0.2); }
+progress::-webkit-progress-value { background-color: white; }
+
+.empty-state { text-align: center; padding: 3rem 0; }
+.empty-state p { margin-bottom: 1rem; color: var(--text-light); }
