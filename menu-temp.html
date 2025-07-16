@@ -62,7 +62,7 @@
 
         .page-content {
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Ensure content is on top of watermark */
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -109,7 +109,7 @@
             text-transform: uppercase; 
             letter-spacing: 0.1em; 
         }
-        /* NEW: Header Logo Styles */
+        /* Header Logo Styles */
         .header-logo {
             position: absolute;
             top: 50%;
@@ -158,7 +158,6 @@
             display: grid; 
             grid-template-columns: 2fr 1fr; 
             gap: 2rem; 
-            /* THE FIX: Align items to the start and stretch them */
             align-items: stretch;
         }
 
@@ -217,7 +216,8 @@
     </div>
 
     <div class="a4-menu">
-        <img class="watermark-logo" src="https://github.com/PeacockIllustrated/pickle-peach/blob/main/assets/pickle-peach-logo-alt-black.png?raw=true" alt="Pickle & Peach Logo Watermark">
+        <!-- THE FIX: Image path changed to a local asset -->
+        <img class="watermark-logo" src="assets/logo.png" alt="Pickle & Peach Logo Watermark">
         <div class="page-border"><div class="bottom-left"></div><div class="bottom-right"></div></div>
 
         <div class="page-content">
@@ -225,11 +225,11 @@
                 <h1>Pickle & Peach</h1>
                 <p class="slogan">Where everyone has a seat at the table</p>
                 <div class="address-bar">
-                    <!-- NEW: Header logos added -->
-                    <img src="https://github.com/PeacockIllustrated/pickle-peach/blob/main/assets/pickle-peach-logo-alt-black.png?raw=true" class="header-logo left" alt="">
+                    <!-- THE FIX: Image paths changed to local assets -->
+                    <img src="assets/logo.png" class="header-logo left" alt="">
                     <span>South Shields, UK</span>
                     <span>Summer Menu</span>
-                     <img src="https://github.com/PeacockIllustrated/pickle-peach/blob/main/assets/pickle-peach-logo-alt-black.png?raw=true" class="header-logo right" alt="">
+                     <img src="assets/logo.png" class="header-logo right" alt="">
                 </div>
             </header>
 
