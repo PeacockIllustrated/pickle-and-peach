@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="card-content">
                             <h3>${item.name}</h3>
                             <p>${item.description}</p>
-                            <span class="tag">${item.tag}</span>
+                            <span class="tag">${item.category}</span> 
                         </div>
                     </div>
                 `;
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 4. TOUCH INTERACTION FOR MENU CARDS (NEW) ---
+    // --- 4. TOUCH INTERACTION FOR MENU CARDS ---
     function initMenuCardTouch() {
         // This function adds a click-to-hover behavior on touch devices.
         const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -135,12 +135,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- 5. GLIMPSE INSIDE EFFECT (NEW) ---
+    function initGlimpseEffect() {
+        const glimpseContainers = document.querySelectorAll('.glimpse-container');
+        const overlay = document.querySelector('.glimpse-overlay');
+        const mainContent = document.querySelector('.landing-main'); // The main scrollable element
+
+        if (!glimpseContainers.length || !overlay || !mainContent) return;
+        
+        const toggleScrollLock = () => {
+            const isLocked = document.body.style.overflow === 'hidden';
+            document.body.style.overflow = isLocked ? '' : 'hidden';
+            // Also toggle scroll snap to prevent interference
+            document.documentElement.style.scrollSnapType = isLocked ? '' : 'none';
+        };
+
+        glimpseContainers.forEach(container => {
+            container.addEventListener('click', () => {
+                container.classList.add('is-zoomed');
+                overlay.classList.add('is-active');
+                toggleScrollLock();
+            });
+        });
+
+        overlay.addEventListener('click', () => {
+            const zoomedContainer = document.querySelector('.glimpse-container.is-zoomed');
+            if (zoomedContainer) {
+                zoomedContainer.classList.remove('is-zoomed');
+                overlay.classList.remove('is-active');
+                toggleScrollLock();
+            }
+        });
+    }
 
     // --- INITIALIZE ALL FUNCTIONS ---
     initCountdown();
     initStorySlider();
-    // Populate menu and *then* add touch listeners
+    // Populate menu and *then* add interaction listeners
     populateMenu().then(() => {
         initMenuCardTouch();
     });
+    initGlimpseEffect(); // Initialize the new glimpse effect
 });
