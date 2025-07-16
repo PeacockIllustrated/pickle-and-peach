@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pickle & Peach - Firestore Menu Importer</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; background-color: #2c3539; color: #F0EAD6; }
+        button { font-size: 1.5rem; padding: 1rem 2rem; cursor: pointer; background-color: #CC843D; color: #2c3539; border: none; border-radius: 8px; }
+        #log { margin-top: 2rem; padding: 1rem; background-color: #465358; border-radius: 8px; width: 80%; max-width: 800px; height: 300px; overflow-y: auto; font-family: monospace; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h1>Pickle & Peach Menu Importer</h1>
+    <p>Open the developer console, then click the button below to upload the menu to Firestore.</p>
+    <button id="import-btn">IMPORT MENU ITEMS</button>
+    <div id="log">Logs will appear here...</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getFirestore, collection, doc, writeBatch } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyDyH4oRxSpnCoeopZqWdcxNyOKpZIarWE8",
+          authDomain: "pickle-peach.firebaseapp.com",
+          projectId: "pickle-peach",
+          storageBucket: "pickle-peach.appspot.com",
+          messagingSenderId: "1080004639045",
+          appId: "1:1080004639045:web:c55eaf1ae907a196f3a62c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- THE FULL MENU DATA ---
+        const menuItems = [
+            // === Coffee ===
+            { id: 'espresso', name: 'Espresso', description: 'A concentrated, full-bodied coffee shot.', price: 2.50, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Espresso' },
+            { id: 'americano', name: 'Americano', description: 'Espresso shots topped with hot water.', price: 3.00, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Americano' },
+            { id: 'flat_white', name: 'Artisan Flat White', description: 'Expertly pulled espresso with velvety steamed milk.', price: 3.50, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Flat+White' },
+            { id: 'cappuccino', name: 'Classic Cappuccino', description: 'Espresso, steamed milk, and a deep layer of foam.', price: 3.50, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Cappuccino' },
+            { id: 'latte', name: 'Café Latte', description: 'Rich espresso in steamed milk, lightly topped with foam.', price: 3.50, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Latte' },
+            { id: 'mocha', name: 'Mocha', description: 'A rich blend of espresso, chocolate, and steamed milk.', price: 3.80, category: 'Coffee', image: 'https://placehold.co/400x400/603813/F0EAD6?text=Mocha' },
+
+            // === Tea ===
+            { id: 'english_breakfast', name: 'English Breakfast Tea', description: 'A full-bodied, robust black tea blend.', price: 2.80, category: 'Tea', image: 'https://placehold.co/400x400/3D5A54/F0EAD6?text=Tea' },
+            { id: 'earl_grey', name: 'Earl Grey', description: 'Black tea blend with a distinctive citrus flavour.', price: 2.80, category: 'Tea', image: 'https://placehold.co/400x400/3D5A54/F0EAD6?text=Tea' },
+            { id: 'green_tea', name: 'Jasmine Green Tea', description: 'Delicate green tea infused with jasmine flowers.', price: 3.00, category: 'Tea', image: 'https://placehold.co/400x400/3D5A54/F0EAD6?text=Tea' },
+            { id: 'fresh_mint', name: 'Fresh Mint Tea', description: 'Aromatic and refreshing infusion of fresh mint leaves.', price: 3.00, category: 'Tea', image: 'https://placehold.co/400x400/3D5A54/F0EAD6?text=Tea' },
+
+            // === Breakfast ===
+            { id: 'sourdough_toast', name: 'P&P Sourdough', description: 'Toasted sourdough, smashed avocado, pickled onions.', price: 7.20, category: 'Breakfast', image: 'https://placehold.co/400x400/B87333/FFFFFF?text=Avocado+Toast' },
+            { id: 'full_english', name: 'The Full Peach', description: 'Sausage, bacon, eggs, beans, mushroom, tomato, toast.', price: 12.50, category: 'Breakfast', image: 'https://placehold.co/400x400/B87333/FFFFFF?text=Full+English' },
+            { id: 'pancakes', name: 'Buttermilk Pancakes', description: 'Fluffy pancakes with berry compote and maple syrup.', price: 9.00, category: 'Breakfast', image: 'https://placehold.co/400x400/B87333/FFFFFF?text=Pancakes' },
+            { id: 'granola_bowl', name: 'Granola & Yoghurt', description: 'House-made granola with Greek yoghurt and fresh fruit.', price: 6.50, category: 'Breakfast', image: 'https://placehold.co/400x400/B87333/FFFFFF?text=Granola' },
+            
+            // === Lunch ===
+            { id: 'shields_special', name: 'The Shields Special', description: 'Local ham, pease pudding, and sweet pickle relish on a stottie.', price: 6.50, category: 'Lunch', image: 'https://placehold.co/400x400/465358/F0EAD6?text=Sandwich' },
+            { id: 'soup_of_day', name: 'Soup of the Day', description: 'Served with a chunk of warm, crusty sourdough.', price: 5.50, category: 'Lunch', image: 'https://placehold.co/400x400/465358/F0EAD6?text=Soup' },
+            { id: 'halloumi_wrap', name: 'Grilled Halloumi Wrap', description: 'Grilled halloumi, hummus, and salad in a toasted wrap.', price: 7.00, category: 'Lunch', image: 'https://placehold.co/400x400/465358/F0EAD6?text=Wrap' },
+            
+            // === Cakes ===
+            { id: 'peach_cake', name: 'Peach Crumble Cake', description: 'Soft sponge with juicy peach pieces and a crumble topping.', price: 4.00, category: 'Cakes', image: 'https://placehold.co/400x400/A5673E/FFFFFF?text=Cake' },
+            { id: 'chocolate_brownie', name: 'Fudge Brownie', description: 'Rich, gooey, and intensely chocolatey. (GF option available)', price: 3.50, category: 'Cakes', image: 'https://placehold.co/400x400/A5673E/FFFFFF?text=Brownie' },
+            { id: 'lemon_drizzle', name: 'Lemon Drizzle Loaf', description: 'A zesty and moist lemon loaf with a crunchy sugar glaze.', price: 3.80, category: 'Cakes', image: 'https://placehold.co/400x400/A5673E/FFFFFF?text=Loaf' },
+            { id: 'carrot_cake', name: 'Classic Carrot Cake', description: 'Spiced carrot cake with a cream cheese frosting.', price: 4.20, category: 'Cakes', image: 'https://placehold.co/400x400/A5673E/FFFFFF?text=Carrot+Cake' },
+        ];
+
+
+        const importButton = document.getElementById('import-btn');
+        const logDiv = document.getElementById('log');
+
+        function log(message) {
+            console.log(message);
+            logDiv.textContent += message + '\n';
+        }
+
+        importButton.addEventListener('click', async () => {
+            log('Starting import process...');
+            
+            // Get a new write batch
+            const batch = writeBatch(db);
+            const menuCollection = collection(db, 'menu_items');
+
+            menuItems.forEach(item => {
+                const docRef = doc(menuCollection, item.id); // Use the specified ID
+                batch.set(docRef, item);
+                log(`  - Staging ${item.name} (${item.id}) for import...`);
+            });
+
+            try {
+                await batch.commit();
+                log('\nSUCCESS! All menu items have been imported to the "menu_items" collection.');
+                importButton.disabled = true;
+                importButton.textContent = 'IMPORT COMPLETE';
+            } catch (error) {
+                log('\nERROR! An error occurred during the import process.');
+                console.error("Error writing batch: ", error);
+                log(error.message);
+            }
+        });
+    </script>
+</body>
+</html>
