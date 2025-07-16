@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickle & Peach - Printable Menu</title>
+    <title>Pickle & Peach - Ornate Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Updated Google Fonts import to include Sen -->
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Sen Font Update)
+            Printable Menu Styles for Pickle & Peach (SVG Frame Rework)
         ==========================================================================
         */
 
@@ -20,261 +19,215 @@
             --ink-main: #2c3539;
             --ink-heading: #9A6442;
             --ink-subtle: #5c524e;
-            /* Updated font variables */
-            --font-body: 'Sen', sans-serif; 
+            --font-body: 'Sen', sans-serif;
             --font-display: 'Vidaloka', serif;
         }
 
         /* Basic Page Setup */
         body {
             background-color: #555;
-            font-family: var(--font-body); /* Applying Sen as the default */
+            font-family: var(--font-body);
             color: var(--ink-main);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            min-height: 100vh;
             padding: 4rem 2rem;
         }
 
-        /* The A4 Paper Container */
-        .a4-menu {
+        /* SVG Frame Container */
+        .menu-frame-container {
             width: 100%;
-            max-width: 800px;
-            background-color: var(--bg-paper);
-            aspect-ratio: 1 / 1.414;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            padding: 5%;
+            max-width: 600px; /* A slightly narrower, more elegant width */
+            aspect-ratio: 300 / 650; /* Aspect ratio derived from the reference image */
             position: relative;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        /* The visible SVG border and its background */
+        .menu-svg-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* The main content div, clipped by the SVG shape */
+        .menu-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-paper);
+            clip-path: url(#ornate-frame-clip);
+            z-index: 2; /* Content sits on top of the SVG border fill */
+
+            /* Flexbox layout for the content */
             display: flex;
             flex-direction: column;
+            padding: 12% 10% 8%; /* Generous padding inside the shape */
         }
         
-        /* Ornate corner SVG styles */
-        .corner-border {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            fill: var(--ink-main);
-        }
-        .corner-top-left { top: 20px; left: 20px; }
-        .corner-top-right { top: 20px; right: 20px; transform: rotate(90deg); }
-        .corner-bottom-left { bottom: 20px; left: 20px; transform: rotate(-90deg); }
-        .corner-bottom-right { bottom: 20px; right: 20px; transform: rotate(180deg); }
-
-
         /* Menu Header */
         .menu-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
 
         .menu-header h1 {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 2.5rem; /* Adjusted for new layout */
             letter-spacing: 0.1em;
             text-transform: uppercase;
             margin: 0;
-            padding: 0 1rem;
+            color: var(--ink-heading);
         }
         
         .menu-header .slogan {
-            font-size: 0.9rem;
-            color: var(--ink-heading);
+            font-size: 0.8rem;
+            color: var(--ink-subtle);
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-top: 0.5rem;
-        }
-        
-        .header-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 0.5rem 0 1.5rem;
-        }
-        
-        .header-divider .line {
-            flex-grow: 1;
-            height: 1px;
-            background-color: var(--ink-main);
-            opacity: 0.5;
-        }
-        
-        .header-divider .icon {
-            width: 30px;
-            height: 30px;
-            fill: var(--ink-main);
-        }
-
-
-        /* Menu Body Content */
-        .menu-body {
-            flex-grow: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Menu Section (e.g., Brunch, Coffee) */
-        .menu-section {
-            border: 2px solid var(--ink-main);
-            padding: 1.5rem;
-        }
-
-        .menu-section h2 {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            text-align: center;
-            color: var(--ink-heading);
-            margin-top: 0;
+            margin-top: 0.25rem;
             margin-bottom: 1.5rem;
         }
 
-        /* Two-Column Layout for Menu Items */
-        .menu-item-grid {
+        /* Menu Body Content - now a grid container */
+        .menu-body {
+            flex-grow: 1;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem 2rem;
+            grid-template-columns: 1fr 1fr; /* Two main columns */
+            gap: 2.5rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #0000001a;
+            border-bottom: 1px solid #0000001a;
+        }
+
+        /* A single column for menu items */
+        .menu-column h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--ink-heading);
+            margin-top: 0;
+            margin-bottom: 1rem;
         }
 
         .menu-item {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: baseline;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            break-inside: avoid; 
+            margin-bottom: 1rem;
         }
         
-        .menu-item .name {
+        .menu-item .name-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             font-weight: 700;
-            font-size: 1rem;
-            grid-column: 1 / 2;
-        }
-
-        .menu-item .price {
-            font-weight: 700;
-            font-size: 1rem;
-            grid-column: 2 / 3;
-            text-align: right;
+            font-size: 0.95rem;
         }
 
         .menu-item .description {
-            grid-column: 1 / -1;
             font-size: 0.85rem;
             color: var(--ink-subtle);
-            line-height: 1.5;
+            line-height: 1.4;
+            margin-top: 0.25rem;
         }
-        
+
         /* Menu Footer */
         .menu-footer {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--ink-subtle);
-            margin-top: auto;
-            padding-top: 1rem;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+            padding-top: 1.5rem;
         }
 
         /* Print-Specific Styles */
         @media print {
             body { background-color: white; padding: 0; }
-            .a4-menu { max-width: 100%; box-shadow: none; height: 100vh; }
+            .menu-frame-container { max-width: 100%; filter: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Embedded SVG definitions for reuse -->
-    <svg style="display:none;">
-        <symbol id="ornate-corner" viewBox="0 0 100 100">
-             <path d="M100 0 H0 V100 H10 V10 H100z M95 5 L5 5 V95 H95z M90 10 L10 10 V90 H90z"/>
-             <path d="M85 15 L15 15 V85 H85z M80 20 L20 20 V80 H80z"/>
-             <circle cx="50" cy="50" r="2"/>
-        </symbol>
-        <symbol id="divider-icon" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h-2zm0 6h2v2h-2z"/>
-        </symbol>
-    </svg>
+    <div class="menu-frame-container">
+        <!-- SVG Definition for the clip-path and border -->
+        <svg width="0" height="0" style="position:absolute;">
+            <defs>
+                <!-- This is the path used for both the visible border and the invisible clip-path -->
+                <path id="ornate-frame-path" d="M251.4,649.3c-20.9-3.3-33.1-13.7-41-26.6c-5-8.1-7.2-18-7.3-27.5V59.8c0.1-9.5,2.3-19.4,7.3-27.5 C218.3,19,230.5,8.6,251.4,5.3C268.2,2.5,280.9,2,291.5,2h17c10.6,0,23.3,0.5,40.1,3.3c20.9,3.3,33.1,13.7,41,26.6 c5,8.1,7.2,18,7.3,27.5v535.4c-0.1,9.5-2.3,19.4-7.3,27.5c-7.9,12.9-20.1,23.3-41,26.6c-16.8,2.8-29.5,3.3-40.1,3.3h-17 C280.9,652,268.2,651.5,251.4,649.3z"/>
+                <clipPath id="ornate-frame-clip">
+                    <use xlink:href="#ornate-frame-path" />
+                </clipPath>
+            </defs>
+        </svg>
 
+        <!-- The visible SVG border, sitting behind the content -->
+        <svg class="menu-svg-border" viewBox="0 0 600 654" preserveAspectRatio="none">
+            <use xlink:href="#ornate-frame-path" fill="var(--bg-paper)" stroke="var(--ink-main)" stroke-width="6" />
+            <use xlink:href="#ornate-frame-path" fill="none" stroke="var(--ink-main)" stroke-width="1.5" />
+        </svg>
 
-    <div class="a4-menu">
-        <!-- Ornate Corner Borders -->
-        <svg class="corner-border corner-top-left"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-top-right"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-bottom-left"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-bottom-right"><use xlink:href="#ornate-corner"/></svg>
-        
-        <header class="menu-header">
-            <h1>Pickle & Peach</h1>
-            <p class="slogan">Cafe & Kitchen // South Shields</p>
-            <div class="header-divider">
-                <div class="line"></div>
-                <svg class="icon"><use xlink:href="#divider-icon"/></svg>
-                <div class="line"></div>
-            </div>
-        </header>
+        <!-- The main content area, which will be clipped into the ornate shape -->
+        <div class="menu-content">
+            <header class="menu-header">
+                <h1>Pickle & Peach</h1>
+                <p class="slogan">Cafe & Kitchen // South Shields</p>
+            </header>
 
-        <main class="menu-body">
-
-            <div class="menu-section">
-                <h2>Brunch & Lunch</h2>
-                <div class="menu-item-grid">
+            <main class="menu-body">
+                <div class="menu-column">
+                    <h2>Brunch & Lunch</h2>
                     <div class="menu-item">
-                        <span class="name">The P&P Sourdough</span>
-                        <span class="price">£7.20</span>
+                        <div class="name-price"><span>The P&P Sourdough</span><span>£7.20</span></div>
                         <p class="description">Smashed avocado, pickled onions, chilli flakes.</p>
                     </div>
-                     <div class="menu-item">
-                        <span class="name">Soup of the Day</span>
-                        <span class="price">£5.50</span>
-                        <p class="description">Served with fresh sourdough. Ask for today's special.</p>
-                    </div>
                     <div class="menu-item">
-                        <span class="name">Smoked Salmon & Eggs</span>
-                        <span class="price">£8.50</span>
+                        <div class="name-price"><span>Smoked Salmon & Eggs</span><span>£8.50</span></div>
                         <p class="description">Scrambled eggs with smoked salmon on toasted rye.</p>
                     </div>
-                     <div class="menu-item">
-                        <span class="name">The Shields Special</span>
-                        <span class="price">£6.50</span>
-                         <p class="description">Local ham, pease pudding, and sweet pickle relish.</p>
-                    </div>
-                     <div class="menu-item">
-                        <span class="name">Full English Breakfast</span>
-                        <span class="price">£9.50</span>
+                    <div class="menu-item">
+                        <div class="name-price"><span>Full English Breakfast</span><span>£9.50</span></div>
                         <p class="description">Sausage, bacon, eggs, beans, mushroom, tomato, toast.</p>
                     </div>
                      <div class="menu-item">
-                        <span class="name">Granola Bowl</span>
-                        <span class="price">£6.00</span>
+                        <div class="name-price"><span>Granola Bowl</span><span>£6.00</span></div>
                         <p class="description">Homemade granola, Greek yoghurt, and fresh berries.</p>
                     </div>
+                    <div class="menu-item">
+                        <div class="name-price"><span>The Shields Special</span><span>£6.50</span></div>
+                         <p class="description">Local ham, pease pudding, and sweet pickle relish.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="name-price"><span>Soup of the Day</span><span>£5.50</span></div>
+                        <p class="description">Served with fresh sourdough. Ask for today's special.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="menu-section">
-                <h2>Coffee, Tea & Bakery</h2>
-                 <div class="menu-item-grid">
-                    <div class="menu-item"><span class="name">Artisan Flat White</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Peach Crumble Cake</span><span class="price">£4.00</span></div>
-                    <div class="menu-item"><span class="name">Latte / Cappuccino</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Croissant</span><span class="price">£2.50</span></div>
-                    <div class="menu-item"><span class="name">Americano</span><span class="price">£3.00</span></div>
-                    <div class="menu-item"><span class="name">Brownie Slab</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Espresso</span><span class="price">£2.50</span></div>
-                    <div class="menu-item"><span class="name">Vegan Sausage Roll</span><span class="price">£3.80</span></div>
-                    <div class="menu-item"><span class="name">English Breakfast Tea</span><span class="price">£2.80</span></div>
-                    <div class="menu-item"><span class="name">Specialty Teas</span><span class="price">£3.00</span></div>
+                <div class="menu-column">
+                    <h2>Coffee & Tea</h2>
+                    <div class="menu-item"><div class="name-price"><span>Artisan Flat White</span><span>£3.50</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Latte / Cappuccino</span><span>£3.50</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Americano</span><span>£3.00</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Espresso</span><span>£2.50</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>English Breakfast Tea</span><span>£2.80</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Specialty Teas</span><span>£3.00</span></div></div>
+                    
+                    <h2 style="margin-top: 2rem;">Bakery</h2>
+                    <div class="menu-item"><div class="name-price"><span>Peach Crumble Cake</span><span>£4.00</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Croissant</span><span>£2.50</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Brownie Slab</span><span>£3.50</span></div></div>
+                    <div class="menu-item"><div class="name-price"><span>Vegan Sausage Roll</span><span>£3.80</span></div></div>
                 </div>
-            </div>
+            </main>
             
-        </main>
-        
-        <footer class="menu-footer">
-            Please inform your server of any allergies or dietary requirements.
-        </footer>
+            <footer class="menu-footer">
+                Please inform your server of any allergies or dietary requirements.
+            </footer>
+        </div>
     </div>
 
 </body>
