@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickle & Peach - Cafe Menu</title>
+    <title>Pickle & Peach - Ornate Cafe Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Font link will be injected by JavaScript -->
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Magnolia Inspired)
+            Printable Menu Styles for Pickle & Peach (Enhanced Ornate Rework)
         ==========================================================================
         */
 
@@ -18,7 +18,6 @@
             --bg-paper: #F8F5F0;
             --ink-main: #2c3539;
             --ink-accent: #B87333;
-            /* Default font is set here, but will be overridden by JS */
             --font-body: 'Sen', sans-serif; 
             --font-display: 'Vidaloka', serif;
         }
@@ -26,7 +25,6 @@
         /* Basic Page Setup */
         body {
             background-color: #555;
-            /* The font-family is now controlled by the --font-body variable */
             font-family: var(--font-body);
             color: var(--ink-main);
             margin: 0;
@@ -40,49 +38,48 @@
             width: 100%;
             max-width: 800px;
             background-color: var(--bg-paper);
+            /* Subtle texture background */
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
             aspect-ratio: 1 / 1.414;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            padding: 3rem;
+            padding: 2.5rem; /* Reduced padding to make room for inner border */
             display: flex;
             flex-direction: column;
+            position: relative;
         }
+
+        /* NEW: Full Page Inner Border */
+        .page-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--ink-main);
+            pointer-events: none; /* Make it unclickable */
+        }
+        .page-border::before, .page-border::after {
+            content: '';
+            position: absolute;
+            background-color: var(--ink-accent);
+            width: 5px;
+            height: 5px;
+        }
+        .page-border::before { top: -2px; left: -2px; }
+        .page-border::after { top: -2px; right: -2px; }
+        .page-border .bottom-left::before, .page-border .bottom-right::before { bottom: -2px; top: auto; }
+        .page-border .bottom-left::before { left: -2px; }
+        .page-border .bottom-right::before { right: -2px; }
+
 
         /* Header */
-        .menu-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .menu-header h1 {
-            font-family: var(--font-display);
-            font-size: 2.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin: 0;
-        }
-        .menu-header .slogan {
-            font-size: 1rem;
-            margin-top: 0.25rem;
-        }
-        .menu-header .address-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--ink-main);
-            border-bottom: 1px solid var(--ink-main);
-            padding: 0.25rem 0;
-            margin-top: 1rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
+        .menu-header { text-align: center; margin-bottom: 1rem; }
+        .menu-header h1 { font-family: var(--font-display); font-size: 2.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
+        .menu-header .slogan { font-size: 1rem; margin-top: 0.25rem; }
+        .menu-header .address-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--ink-main); border-bottom: 1px solid var(--ink-main); padding: 0.25rem 0; margin-top: 1rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
 
         /* Main Content Grid */
-        .menu-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            flex-grow: 1;
-        }
+        .menu-content { display: flex; flex-direction: column; gap: 1rem; flex-grow: 1; }
         
         /* Section styles */
         .menu-section-title {
@@ -92,8 +89,12 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             position: relative;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
+        .menu-section-title .title-icon { width: 24px; height: 24px; fill: var(--ink-main); opacity: 0.8; }
         
         .menu-section-title.cursive {
             font-family: var(--font-display);
@@ -105,35 +106,33 @@
         }
         
         .menu-section-title.cursive::before, .menu-section-title.cursive::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 35%;
-            height: 1px;
-            background-color: var(--ink-main);
-            opacity: 0.5;
+            content: ''; flex-grow: 1; height: 1px; background-color: var(--ink-main); opacity: 0.3;
         }
-        .menu-section-title.cursive::before { left: 0; }
-        .menu-section-title.cursive::after { right: 0; }
 
         /* Two Column Layout for Drinks & Info */
-        .top-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
+        .top-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 
         .info-box {
             border: 1px solid var(--ink-main);
             padding: 1.5rem;
             text-align: center;
+            position: relative;
         }
-        .info-box .title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        /* NEW: Corner flourishes for info box */
+        .info-box .flourish {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            stroke: var(--ink-accent);
+            stroke-width: 1.5px;
+            fill: none;
         }
+        .info-box .flourish.top-left { top: 8px; left: 8px; }
+        .info-box .flourish.top-right { top: 8px; right: 8px; transform: scaleX(-1); }
+        .info-box .flourish.bottom-left { bottom: 8px; left: 8px; transform: scaleY(-1); }
+        .info-box .flourish.bottom-right { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+        
+        .info-box .title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; }
         .info-box .title span { color: var(--ink-accent); }
         .info-box p { font-size: 0.85rem; line-height: 1.5; color: #5c524e;}
 
@@ -143,85 +142,38 @@
         .menu-item .name { font-weight: 700; white-space: nowrap; }
         .menu-item .dots { flex-grow: 1; border-bottom: 1px dotted var(--ink-main); margin: 0 0.5rem; transform: translateY(-3px); }
         .menu-item .price { font-weight: 700; }
-        .menu-item .description {
-            font-size: 0.85rem;
-            color: #5c524e;
-            line-height: 1.4;
-            flex-basis: 100%;
-            margin-top: 0.1rem;
-        }
+        .menu-item .description { font-size: 0.85rem; color: #5c524e; line-height: 1.4; flex-basis: 100%; margin-top: 0.1rem; }
         
         /* Centered List (e.g., Pastries) */
-        .centered-list {
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-        .centered-list .price-tag {
-            display: inline-block;
-            color: var(--ink-accent);
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-right: 0.5rem;
-        }
+        .centered-list { text-align: center; font-weight: 700; letter-spacing: 0.05em; }
+        .centered-list .price-tag { display: inline-block; color: var(--ink-accent); font-size: 1.5rem; font-weight: 400; margin-right: 0.5rem; }
         
         /* Main two-column layout for Breakfast sections */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            flex-grow: 1;
-        }
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; flex-grow: 1; }
         .main-grid .menu-item { flex-wrap: wrap; }
         .main-grid .menu-item .name { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
-
-        /* Special Boxed Item */
-        .boxed-item {
-            border: 1px solid var(--ink-main);
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-        .boxed-item .title { text-align: center; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
         
-
         /* FONT CUSTOMIZER PANEL */
-        .font-customizer {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #fff;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border: 1px solid #ddd;
-        }
-        .font-customizer label {
-            display: block;
-            font-family: sans-serif;
-            font-weight: bold;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        .font-customizer select {
-            font-family: sans-serif;
-            padding: 0.5rem;
-            width: 200px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
+        .font-customizer { position: fixed; top: 20px; right: 20px; background: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; border: 1px solid #ddd; }
+        .font-customizer label { display: block; font-family: sans-serif; font-weight: bold; font-size: 0.8rem; margin-bottom: 0.5rem; color: #333; }
+        .font-customizer select { font-family: sans-serif; padding: 0.5rem; width: 200px; border-radius: 4px; border: 1px solid #ccc; }
 
         /* Print-Specific Styles */
         @media print {
             body { background-color: white; padding: 0; }
             .a4-menu { max-width: 100%; box-shadow: none; height: 100vh; }
-            .font-customizer { display: none; } /* Hide customizer when printing */
+            .font-customizer { display: none; }
         }
 
     </style>
 </head>
 <body>
+    
+    <!-- Embedded SVG Definitions -->
+    <svg style="display:none;">
+        <symbol id="icon-leaf" viewBox="0 0 24 24"><path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1.95-4.22C9.28,15.5,13.5,12.33,17,12V8M17,7a1,1,0,0,0-1,1v2a1,1,0,0,0,1,1h1V7H17M18,6h3a1,1,0,0,1,1,1V11h-4V6M12,2A10,10,0,0,0,2,12a10,10,0,0,0,10,10,10,10,0,0,0,10-10C22,6.48,17.52,2,12,2Z" /></symbol>
+        <symbol id="icon-flourish" viewBox="0 0 100 100"><path d="M85,100 C50,100 50,70 50,70 C50,70 50,100 15,100 M85,0 C50,0 50,30 50,30 C50,30 50,0 15,0 M100,15 C100,50 70,50 70,50 C70,50 100,50 100,85 M0,15 C0,50 30,50 30,50 C30,50 0,50 0,85"></path></symbol>
+    </svg>
 
     <div class="font-customizer">
         <label for="font-select">Choose a Body Font:</label>
@@ -235,6 +187,8 @@
     </div>
 
     <div class="a4-menu">
+        <div class="page-border"><div class="bottom-left"></div><div class="bottom-right"></div></div>
+
         <header class="menu-header">
             <h1>Pickle & Peach</h1>
             <p class="slogan">Where everyone has a seat at the table</p>
@@ -250,14 +204,11 @@
                 <div>
                     <h2 class="menu-section-title">Coffee & Drinks</h2>
                     <div class="menu-item-list">
-                        <div class="menu-item">
-                            <span class="name">COFFEE</span><span class="dots"></span><span class="price"></span>
-                        </div>
+                        <div class="menu-item"><span class="name">COFFEE</span><span class="dots"></span><span class="price"></span></div>
                         <p class="description" style="margin-top:-0.5rem;">Add-ins: Lavender, Vanilla, Caramel</p>
                         <div class="menu-item"><span class="name">ESPRESSO</span><span class="dots"></span><span class="price">2.50</span></div>
                         <div class="menu-item"><span class="name">CAPPUCCINO / LATTE</span><span class="dots"></span><span class="price">3.50</span></div>
                         <div class="menu-item"><span class="name">DRIP COFFEE</span><span class="dots"></span><span class="price">3.00</span></div>
-                        
                         <div class="menu-item" style="margin-top: 1rem;"><span class="name">ORANGE JUICE</span><span class="dots"></span><span class="price">3.50</span></div>
                         <div class="menu-item"><span class="name">SPARKLING WATER</span><span class="dots"></span><span class="price">3.00</span></div>
                         <div class="menu-item"><span class="name">HOT TEA</span><span class="dots"></span><span class="price">3.50</span></div>
@@ -265,13 +216,17 @@
                     </div>
                 </div>
                 <div class="info-box">
+                    <svg class="flourish top-left"><use href="#icon-flourish" /></svg>
+                    <svg class="flourish top-right"><use href="#icon-flourish" /></svg>
+                    <svg class="flourish bottom-left"><use href="#icon-flourish" /></svg>
+                    <svg class="flourish bottom-right"><use href="#icon-flourish" /></svg>
                     <h3 class="title">You're in <span>Good</span> Company!</h3>
                     <p>Consider storing your phone away for a moment. Take time to enjoy the food, the atmosphere, and the best of each other!</p>
                 </div>
             </div>
 
             <div>
-                <h2 class="menu-section-title cursive">Pastries</h2>
+                <h2 class="menu-section-title cursive">Pastries from our Kitchen</h2>
                 <div class="centered-list">
                     <span class="price-tag">4.00</span>
                     <span>BUTTER CROISSANT • CHOCOLATE CROISSANT • PEACH CRUMBLE CAKE • CINNAMON ROLL • BROWNIE SLAB</span>
@@ -280,37 +235,19 @@
 
             <div class="main-grid">
                 <div class="menu-column">
-                    <h2 class="menu-section-title">For the Table</h2>
+                    <h2 class="menu-section-title"><svg class="title-icon"><use href="#icon-leaf"/></svg>For the Table</h2>
                     <div class="menu-item-list">
-                        <div class="menu-item">
-                            <span class="name">BACON & EGGS</span><span class="price">11</span>
-                            <p class="description">Classic deviled eggs + brown sugar peppered bacon strips, served with jalapeño drip jam.</p>
-                        </div>
-                         <div class="menu-item">
-                            <span class="name">P&P BREAD BASKET</span><span class="price">10</span>
-                            <p class="description">An assortment of our favorite breads and pastries, including a butter croissant, blueberry muffin, and chocolate croissant.</p>
-                        </div>
-                         <div class="menu-item">
-                            <span class="name">HOUSEMADE TATER TOTS</span><span class="price">10</span>
-                            <p class="description">Crispy fried tater tots topped with parmesan cheese and fresh chives.</p>
-                        </div>
+                        <div class="menu-item"><span class="name">BACON & EGGS</span><span class="price">11</span><p class="description">Classic deviled eggs + brown sugar peppered bacon strips, served with jalapeño drip jam.</p></div>
+                         <div class="menu-item"><span class="name">P&P BREAD BASKET</span><span class="price">10</span><p class="description">An assortment of our favorite breads and pastries, including a butter croissant and blueberry muffin.</p></div>
+                         <div class="menu-item"><span class="name">HOUSEMADE TATER TOTS</span><span class="price">10</span><p class="description">Crispy fried tater tots topped with parmesan cheese and fresh chives.</p></div>
                     </div>
                 </div>
                  <div class="menu-column">
-                    <h2 class="menu-section-title">Breakfast</h2>
+                    <h2 class="menu-section-title"><svg class="title-icon"><use href="#icon-leaf"/></svg>Breakfast</h2>
                     <div class="menu-item-list">
-                         <div class="menu-item">
-                            <span class="name">FARM BREAKFAST</span><span class="price">11</span>
-                            <p class="description">Two eggs cooked-to-order + our housemade tater tots, a buttermilk biscuit + your choice of house sausage or thick-cut peppered bacon.</p>
-                        </div>
-                         <div class="menu-item">
-                            <span class="name">KIND BREAKFAST</span><span class="price">12</span>
-                            <p class="description">Two scrambled eggs + wheat berry toast + fresh avocado and thick slices of Heirloom tomato served on a bed of simply dressed greens.</p>
-                        </div>
-                         <div class="menu-item">
-                            <span class="name">PANCAKE BREAKFAST</span><span class="price">12</span>
-                            <p class="description">Homemade buttermilk pancakes + two eggs cooked-to-order + thick-cut peppered bacon + housemade tater tots.</p>
-                        </div>
+                         <div class="menu-item"><span class="name">FARM BREAKFAST</span><span class="price">11</span><p class="description">Two eggs cooked-to-order + tater tots, a buttermilk biscuit + your choice of house sausage or thick-cut bacon.</p></div>
+                         <div class="menu-item"><span class="name">KIND BREAKFAST</span><span class="price">12</span><p class="description">Two scrambled eggs + wheat berry toast + fresh avocado on a bed of simply dressed greens.</p></div>
+                         <div class="menu-item"><span class="name">PANCAKE BREAKFAST</span><span class="price">12</span><p class="description">Homemade buttermilk pancakes + two eggs cooked-to-order + thick-cut peppered bacon.</p></div>
                     </div>
                 </div>
             </div>
@@ -333,30 +270,24 @@
             };
 
             function updateFont(fontName) {
-                // 1. Remove any existing Google Font link
                 const existingLink = document.getElementById('google-font-link');
                 if (existingLink) {
                     documentHead.removeChild(existingLink);
                 }
 
-                // 2. Create and inject the new link
                 const fontQuery = fonts[fontName];
                 const link = document.createElement('link');
                 link.id = 'google-font-link';
                 link.rel = 'stylesheet';
                 link.href = `https://fonts.googleapis.com/css2?family=Vidaloka&family=${fontQuery}&display=swap`;
                 documentHead.appendChild(link);
-
-                // 3. Update the CSS variable
                 bodyElement.style.setProperty('--font-body', `'${fontName}', sans-serif`);
             }
 
-            // Event listener for the dropdown
             fontSelect.addEventListener('change', (event) => {
                 updateFont(event.target.value);
             });
 
-            // Load the initial (default) font
             updateFont('Sen');
         });
     </script>
