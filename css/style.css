@@ -52,7 +52,7 @@ body {
     overflow-x: hidden;
 }
 
-main {
+main.landing-main {
     width: 100%;
 }
 
@@ -330,10 +330,9 @@ main {
     transition: transform .4s ease-out;
 }
 
-/* THE FIX: Adjusted the Y-translation to lift the image higher on hover */
 .menu-item-card:hover .card-image,
 .menu-item-card.is-hovered .card-image {
-    transform: translate(-50%, -90%) scale(2); /* Lifts image up by 75% of its height */
+    transform: translate(-50%, -90%) scale(2);
     box-shadow: 0 25px 40px #00000050;
 }
 
@@ -377,13 +376,60 @@ main {
     gap: var(--gap);
     filter: brightness(.9);
 }
-.vibe-gallery img {
+
+.glimpse-container {
     width: 100%;
     max-width: 220px;
     aspect-ratio: 3 / 5;
-    object-fit: cover;
     border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+.glimpse-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glimpse-container:hover img {
+    transform: scale(1.05);
+}
+
+/* -- Glimpse Effect -- */
+.glimpse-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.glimpse-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.glimpse-container.is-zoomed {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    z-index: 101;
+}
+
+.glimpse-container.is-zoomed img {
+    transform: scale(1.1);
+}
+
 
 /* 7. Location / Map Section */
 .map-container {
