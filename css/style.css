@@ -25,13 +25,15 @@
 :root {
     --bg-1: #2c3539;
     --bg-2: #465358;
-    --highlight: #CC843D; /* Brighter base copper */
-    --highlight-glint: #FDE4C9; /* Lighter glint for shimmer */
+    --highlight: #CC843D;
+    --highlight-glint: #FDE4C9;
     --ink: #F0EAD6;
     --ink-dim: #A8B8BB;
     --accent: #B873331A;
     --radius: .75rem;
     --gap: 2rem;
+    --font-body: 'EB Garamond', serif; /* UPDATED FONT */
+    --font-display: 'Vidaloka', serif;
 }
 
 /* --- Shimmer Effect --- */
@@ -54,7 +56,8 @@ html {
 }
 
 body {
-    font-family: 'Cera Pro', 'Poppins', sans-serif;
+    font-family: var(--font-body);
+    font-size: 1.1rem; /* Increase base font size slightly for serif readability */
     color: var(--ink);
     background: radial-gradient(circle at 50% 0, var(--bg-2) 0, var(--bg-1) 100%);
     overflow-x: hidden;
@@ -93,7 +96,7 @@ main.landing-main {
 }
 
 .section-title {
-    font-family: 'Vidaloka', serif;
+    font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2.5rem, 6vw, 3.5rem);
     letter-spacing: .05em;
@@ -105,8 +108,10 @@ main.landing-main {
     max-width: 60ch;
     margin: 0 auto 2rem;
     color: var(--ink-dim);
-    line-height: 1.6;
+    line-height: 1.7;
 }
+
+p { line-height: 1.7; }
 
 /* 2. Navigation */
 .top-nav {
@@ -118,6 +123,7 @@ main.landing-main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Cera Pro', sans-serif;
     font-size: .875rem;
     text-transform: uppercase;
     letter-spacing: .15em;
@@ -155,7 +161,7 @@ main.landing-main {
 
 /* 3. Hero & Countdown */
 #hero .display {
-    font-family: 'Vidaloka', serif;
+    font-family: var(--font-display);
     font-size: clamp(3.5rem, 10vw, 6.5rem);
     font-weight: 400;
     line-height: 1.1;
@@ -165,18 +171,21 @@ main.landing-main {
     font-size: .75rem;
     color: var(--ink-dim);
     margin-bottom: 1rem;
+    font-family: 'Cera Pro', sans-serif;
 }
 #hero .caption {
     margin-top: 1.5rem;
     letter-spacing: .3em;
     font-size: .75rem;
     color: var(--ink-dim);
+    font-family: 'Cera Pro', sans-serif;
 }
 
 .countdown-container {
     display: flex;
     gap: 2rem;
     margin-top: 2rem;
+    font-family: 'Cera Pro', sans-serif;
 }
 .countdown-item {
     display: flex;
@@ -362,7 +371,7 @@ main.landing-main {
 }
 
 .card-content h3 {
-    font-family: 'Vidaloka', serif;
+    font-family: var(--font-display);
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     /* Shimmer Effect on Text */
@@ -377,7 +386,7 @@ main.landing-main {
 }
 
 .card-content p {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--ink-dim);
     line-height: 1.7;
     margin-bottom: 1.5rem;
@@ -385,6 +394,7 @@ main.landing-main {
 
 .card-content .tag {
     display: inline-block;
+    font-family: 'Cera Pro', sans-serif;
     font-size: .75rem;
     padding: .3em .8em;
     color: var(--bg-1);
@@ -491,15 +501,15 @@ main.landing-main {
 }
 .social-links-contact a {
     display: block;
+    color: var(--ink-dim);
+    transition: color .3s;
 }
-.social-links-contact img {
-    width: 24px;
-    height: 24px;
-    filter: invert(0.8);
-    transition: filter .3s;
+.social-links-contact a:hover {
+    color: var(--ink);
 }
-.social-links-contact a:hover img {
-    filter: invert(0.6);
+.social-links-contact svg { /* NEW SVG STYLING */
+    width: 28px;
+    height: 28px;
 }
 
 .contact-form {
@@ -511,6 +521,7 @@ main.landing-main {
 .contact-form h3 {
     margin-bottom: 1rem;
     letter-spacing: .15em;
+    font-family: 'Cera Pro', sans-serif;
 }
 .contact-form input, .contact-form textarea {
     width: 100%;
@@ -521,6 +532,7 @@ main.landing-main {
     border-radius: 4px;
     color: var(--ink);
     font-family: inherit;
+    font-size: 1rem;
 }
 .contact-form button {
     width: 100%;
@@ -528,6 +540,7 @@ main.landing-main {
     border: none;
     border-radius: 4px;
     color: var(--bg-1);
+    font-family: 'Cera Pro', sans-serif;
     font-weight: 700;
     letter-spacing: .15em;
     cursor: pointer;
@@ -541,6 +554,7 @@ main.landing-main {
 .thanks {
     padding: 3rem 1rem;
     text-align: center;
+    font-family: 'Cera Pro', sans-serif;
     font-size: .75rem;
     letter-spacing: .2em;
     color: var(--ink-dim);
@@ -549,6 +563,8 @@ main.landing-main {
 
 /* 10. Responsive Adjustments */
 @media (max-width: 768px) {
+    body { font-size: 1rem; }
+    
     .two-col {
         grid-template-columns: 1fr;
         text-align: center;
