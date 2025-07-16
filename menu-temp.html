@@ -6,7 +6,7 @@
     <title>Pickle & Peach - Cafe Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
+    <!-- Font link will be injected by JavaScript -->
     <style>
         /* 
         ==========================================================================
@@ -15,16 +15,18 @@
         */
 
         :root {
-            --bg-paper: #F8F5F0; /* A soft, textured cream paper color */
-            --ink-main: #2c3539; /* Tempest Teapot for all text */
-            --ink-accent: #B87333; /* Copper for special prices/accents */
-            --font-body: 'Sen', sans-serif;
+            --bg-paper: #F8F5F0;
+            --ink-main: #2c3539;
+            --ink-accent: #B87333;
+            /* Default font is set here, but will be overridden by JS */
+            --font-body: 'Sen', sans-serif; 
             --font-display: 'Vidaloka', serif;
         }
 
         /* Basic Page Setup */
         body {
             background-color: #555;
+            /* The font-family is now controlled by the --font-body variable */
             font-family: var(--font-body);
             color: var(--ink-main);
             margin: 0;
@@ -94,7 +96,7 @@
         }
         
         .menu-section-title.cursive {
-            font-family: var(--font-display); /* Using Vidaloka as a stand-in for script */
+            font-family: var(--font-display);
             font-size: 2rem;
             font-weight: 400;
             text-transform: none;
@@ -145,7 +147,7 @@
             font-size: 0.85rem;
             color: #5c524e;
             line-height: 1.4;
-            flex-basis: 100%; /* Make description take a new line */
+            flex-basis: 100%;
             margin-top: 0.1rem;
         }
         
@@ -170,7 +172,7 @@
             gap: 2rem;
             flex-grow: 1;
         }
-        .main-grid .menu-item { flex-wrap: wrap; } /* Allow description to wrap */
+        .main-grid .menu-item { flex-wrap: wrap; }
         .main-grid .menu-item .name { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
 
         /* Special Boxed Item */
@@ -181,15 +183,56 @@
         }
         .boxed-item .title { text-align: center; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
         
+
+        /* FONT CUSTOMIZER PANEL */
+        .font-customizer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border: 1px solid #ddd;
+        }
+        .font-customizer label {
+            display: block;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .font-customizer select {
+            font-family: sans-serif;
+            padding: 0.5rem;
+            width: 200px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
         /* Print-Specific Styles */
         @media print {
             body { background-color: white; padding: 0; }
             .a4-menu { max-width: 100%; box-shadow: none; height: 100vh; }
+            .font-customizer { display: none; } /* Hide customizer when printing */
         }
 
     </style>
 </head>
 <body>
+
+    <div class="font-customizer">
+        <label for="font-select">Choose a Body Font:</label>
+        <select id="font-select">
+            <option value="Sen">Sen (Default)</option>
+            <option value="Lato">Lato</option>
+            <option value="Source Sans Pro">Source Sans Pro</option>
+            <option value="Roboto">Roboto</option>
+            <option value="EB Garamond">EB Garamond (Serif)</option>
+        </select>
+    </div>
 
     <div class="a4-menu">
         <header class="menu-header">
@@ -274,6 +317,49 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fontSelect = document.getElementById('font-select');
+            const documentHead = document.head;
+            const bodyElement = document.body;
+
+            const fonts = {
+                'Sen': 'Sen:wght@400;700',
+                'Lato': 'Lato:wght@400;700',
+                'Source Sans Pro': 'Source+Sans+Pro:wght@400;700',
+                'Roboto': 'Roboto:wght@400;700',
+                'EB Garamond': 'EB+Garamond:wght@400;700'
+            };
+
+            function updateFont(fontName) {
+                // 1. Remove any existing Google Font link
+                const existingLink = document.getElementById('google-font-link');
+                if (existingLink) {
+                    documentHead.removeChild(existingLink);
+                }
+
+                // 2. Create and inject the new link
+                const fontQuery = fonts[fontName];
+                const link = document.createElement('link');
+                link.id = 'google-font-link';
+                link.rel = 'stylesheet';
+                link.href = `https://fonts.googleapis.com/css2?family=Vidaloka&family=${fontQuery}&display=swap`;
+                documentHead.appendChild(link);
+
+                // 3. Update the CSS variable
+                bodyElement.style.setProperty('--font-body', `'${fontName}', sans-serif`);
+            }
+
+            // Event listener for the dropdown
+            fontSelect.addEventListener('change', (event) => {
+                updateFont(event.target.value);
+            });
+
+            // Load the initial (default) font
+            updateFont('Sen');
+        });
+    </script>
 
 </body>
 </html>
