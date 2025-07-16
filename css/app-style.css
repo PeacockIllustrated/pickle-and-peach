@@ -8,13 +8,15 @@
 :root {
     --bg-1: #2c3539;
     --bg-2: #465358;
+    --bg-paper: #F8F5F0; /* New light paper background for high contrast */
     --highlight: #CC843D;
     --highlight-glint: #FDE4C9;
-    --ink: #F0EAD6;
+    --ink: #2c3539; /* Dark ink for light backgrounds */
+    --ink-light: #F0EAD6; /* Light ink for dark backgrounds */
     --ink-dim: #A8B8BB;
     --radius-small: 8px;
     --radius-large: 16px;
-    --font-body: 'Cera Pro', sans-serif;
+    --font-body: 'EB Garamond', serif; /* UPDATED FONT */
     --font-display: 'Vidaloka', serif;
 }
 
@@ -46,7 +48,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    color: var(--ink);
+    color: var(--ink-light); /* Default text is light */
 }
 
 /* 1. Main App Structure & Typography */
@@ -62,17 +64,19 @@ body {
 .view-title { 
     font-family: var(--font-display); 
     font-size: 2.5rem; 
-    color: var(--ink); 
+    color: var(--ink-light); 
     line-height: 1.2;
     margin-bottom: 0.25rem;
 }
-.view-subtitle { color: var(--ink-dim); line-height: 1.6; max-width: 35ch; }
+.view-subtitle { color: var(--ink-dim); line-height: 1.6; max-width: 35ch; font-size: 1.1rem; }
 .section-heading { 
     font-family: var(--font-display); 
     font-size: 1.5rem; 
-    color: var(--ink); 
+    color: var(--ink-light); 
     margin: 2rem 0 1.5rem; 
 }
+#profile-view .section-heading { color: var(--ink); } /* On light background */
+
 
 .sticky-header {
     position: sticky;
@@ -104,8 +108,13 @@ body {
     display: flex; flex-direction: column; align-items: center;
     gap: 4px; color: var(--ink-dim); transition: color 0.2s;
 }
-.nav-button img { width: 24px; height: 24px; stroke: var(--ink-dim); transition: stroke 0.2s; }
-.nav-button span { font-size: 0.7rem; }
+.nav-button svg { /* NEW SVG STYLING */
+    width: 28px; 
+    height: 28px;
+    stroke: var(--ink-dim); 
+    transition: stroke 0.2s;
+}
+.nav-button span { font-size: 0.7rem; font-family: 'Cera Pro', sans-serif; /* Keep nav labels sans-serif for clarity */ }
 .nav-button.is-active span {
     color: var(--highlight);
     background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
@@ -114,7 +123,7 @@ body {
     -webkit-text-fill-color: transparent; text-fill-color: transparent;
     animation: shimmer 5s linear infinite;
 }
-.nav-button.is-active img { stroke: var(--highlight); }
+.nav-button.is-active svg { stroke: var(--highlight); }
 
 /* 3. Home & Menu Views */
 .promo-banner { position: relative; border-radius: var(--radius-large); overflow: hidden; margin-bottom: 1rem; }
@@ -122,19 +131,23 @@ body {
 .promo-banner .promo-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; }
 .promo-text h3 { font-family: var(--font-display); font-size: 1.5rem; }
 
+.menu-item-list { display: flex; flex-direction: column; gap: 1rem; }
 .menu-item-list-entry {
     display: grid;
     grid-template-columns: 100px 1fr;
     gap: 1.5rem;
     align-items: center;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid #ffffff15;
+    padding: 1rem;
+    background-color: var(--bg-paper); /* CONTRAST: Light background */
+    color: var(--ink); /* CONTRAST: Dark text */
+    border-radius: var(--radius-large);
+    border: 1px solid #00000010;
 }
-.menu-item-list-entry:last-child { border-bottom: none; }
 .menu-item-list-entry img { width: 100px; height: 100px; object-fit: cover; border-radius: var(--radius-small); }
-.menu-item-info h4 { font-family: var(--font-body); font-weight: 700; color: var(--ink); margin-bottom: 0.25rem; font-size: 1.1rem; }
-.menu-item-info p { color: var(--ink-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; }
+.menu-item-info h4 { font-family: 'Vidaloka', serif; font-weight: 400; color: var(--ink); margin-bottom: 0.25rem; font-size: 1.25rem; }
+.menu-item-info p { color: #5c524e; font-size: 1rem; line-height: 1.5; margin-bottom: 0.75rem; }
 .menu-item-info .price {
+    font-family: 'Cera Pro', sans-serif;
     font-weight: 700; font-size: 1.1rem;
     color: var(--highlight);
     background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
@@ -149,16 +162,17 @@ body {
 #profile-view:not(.is-redeemable) #loyalty-redeem-state { display: none; }
 
 .loyalty-certificate {
-    background: linear-gradient(145deg, #ffffff0A, #ffffff03);
+    background: var(--bg-paper); /* CONTRAST: Light background */
+    color: var(--ink); /* CONTRAST: Dark text */
     border-radius: var(--radius-large);
     padding: 2rem;
-    border: 1px solid #ffffff15;
+    border: 1px solid #00000010;
     box-shadow: 0 10px 30px #00000030;
     margin-bottom: 2rem;
     text-align: center;
 }
 .loyalty-header .brand-name { font-family: var(--font-display); font-size: 1.75rem; color: var(--ink); }
-.loyalty-header p { color: var(--ink-dim); }
+.loyalty-header p { color: #5c524e; }
 .loyalty-stamps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
 .stamp {
     aspect-ratio: 1 / 1;
@@ -171,10 +185,10 @@ body {
     border-style: solid; border-color: transparent; opacity: 1;
     background: var(--highlight);
 }
-.stamp-icon { width: 50%; height: 50%; fill: var(--bg-1); }
-.loyalty-progress { text-align: center; color: var(--ink-dim); }
+.stamp-icon { width: 50%; height: 50%; fill: var(--bg-paper); }
+.loyalty-progress { text-align: center; color: #5c524e; }
 .loyalty-progress progress { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;}
-progress::-webkit-progress-bar { background-color: #00000030; }
+progress::-webkit-progress-bar { background-color: #00000015; }
 progress::-webkit-progress-value {
     background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
     background-size: 200% 100%; animation: shimmer 3s linear infinite;
@@ -192,10 +206,10 @@ progress::-webkit-progress-value {
     -webkit-text-fill-color: transparent; text-fill-color: transparent;
     animation: shimmer 2s linear infinite;
 }
-.loyalty-certificate.is-complete .redeem-text { color: var(--ink-dim); max-width: 30ch; margin: 0 auto; }
+.loyalty-certificate.is-complete .redeem-text { color: #5c524e; max-width: 30ch; margin: 0 auto; }
 .btn-redeem {
     width: 100%; padding: 1.25rem; border: none; border-radius: var(--radius-small);
-    color: var(--bg-1); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--bg-paper); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em;
     cursor: pointer; transition: filter .2s; text-transform: uppercase;
     background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
     background-size: 200% 100%; animation: shimmer 2.5s linear infinite;
@@ -205,7 +219,7 @@ progress::-webkit-progress-value {
 /* 5. Buttons */
 .btn-primary {
     width: 100%; padding: 1rem; border: none; border-radius: var(--radius-small);
-    color: var(--bg-1); font-size: 1rem; font-weight: 700;
+    color: var(--bg-paper); font-size: 1rem; font-weight: 700;
     cursor: pointer; margin-top: 1rem; transition: filter .2s;
     background: linear-gradient(110deg, var(--highlight) 40%, var(--highlight-glint) 50%, var(--highlight) 60%);
     background-size: 200% 100%; animation: shimmer 3s linear infinite;
@@ -213,11 +227,11 @@ progress::-webkit-progress-value {
 .btn-primary:hover { filter: brightness(1.1); }
 
 .btn-secondary {
-    width: 100%; padding: 1rem; border: 1px solid #ffffff30; border-radius: var(--radius-small);
-    background: none; color: var(--ink-dim);
+    width: 100%; padding: 1rem; border: 1px solid #00000030; border-radius: var(--radius-small);
+    background: none; color: #5c524e;
     cursor: pointer; transition: background .2s, color .2s; margin-top: 0.5rem;
 }
-.btn-secondary:hover { background-color: #ffffff10; color: var(--ink); }
+.btn-secondary:hover { background-color: #00000010; color: var(--ink); }
 
 /* 6. Redemption Modal */
 .app-modal {
@@ -230,23 +244,26 @@ progress::-webkit-progress-value {
 }
 .app-modal.is-active { opacity: 1; pointer-events: auto; }
 .modal-content {
-    background: var(--bg-2);
+    background: var(--bg-paper); /* CONTRAST: Light background */
+    color: var(--ink); /* CONTRAST: Dark text */
     padding: 2rem; border-radius: var(--radius-large);
     width: calc(100% - 2rem); max-width: 380px;
-    border: 1px solid #ffffff15; position: relative;
+    border: 1px solid #00000015; position: relative;
     transform: scale(0.95); transition: transform 0.3s ease;
 }
 .app-modal.is-active .modal-content { transform: scale(1); }
 .modal-close-btn {
     position: absolute; top: 0.5rem; right: 1rem;
-    background: none; border: none; color: var(--ink-dim);
+    background: none; border: none; color: #00000050;
     font-size: 2rem; cursor: pointer;
 }
+.modal-content .section-heading { color: var(--ink); }
+.modal-content .view-subtitle { color: #5c524e; }
 .form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: var(--ink-dim); }
+.form-group label { display: block; margin-bottom: 0.5rem; color: #5c524e; font-family: 'Cera Pro', sans-serif;}
 .form-group input[type="text"] {
-    width: 100%; padding: 0.75rem 1rem; background: #00000030;
-    border: 1px solid #ffffff15; border-radius: var(--radius-small);
+    width: 100%; padding: 0.75rem 1rem; background: #ffffff;
+    border: 1px solid #00000015; border-radius: var(--radius-small);
     color: var(--ink); font-family: inherit; font-size: 1rem;
 }
 
@@ -254,12 +271,13 @@ progress::-webkit-progress-value {
 .radio-group input[type="radio"] { display: none; }
 .radio-group span {
     display: block; padding: 0.5rem 1rem;
-    border: 1px solid #ffffff30; border-radius: 2rem;
-    color: var(--ink-dim); cursor: pointer; transition: all 0.2s ease;
+    border: 1px solid #00000030; border-radius: 2rem;
+    color: #5c524e; cursor: pointer; transition: all 0.2s ease;
+    font-family: 'Cera Pro', sans-serif;
 }
 .radio-group input[type="radio"]:checked + span {
     border-color: var(--highlight);
-    background: #00000020;
+    background: #00000010;
     color: var(--highlight);
     font-weight: 700;
 }
