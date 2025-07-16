@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. COUNTDOWN TIMER ---
     function initCountdown() {
-        const targetDate = new Date('August 24, 2024 09:00:00').getTime();
+        const targetDate = new Date('August 24, 2025 09:00:00').getTime();
         const countdownElement = document.getElementById('countdown');
         if (!countdownElement) return;
 
