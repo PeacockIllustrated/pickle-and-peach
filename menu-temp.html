@@ -10,7 +10,7 @@
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Final Alignment & Logo Fix)
+            Printable Menu Styles for Pickle & Peach (Final Header Fix)
         ==========================================================================
         */
 
@@ -62,7 +62,7 @@
 
         .page-content {
             position: relative;
-            z-index: 2; /* Ensure content is on top of watermark */
+            z-index: 2;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -96,30 +96,34 @@
         .menu-header { text-align: center; margin-bottom: 1rem; flex-shrink: 0; }
         .menu-header h1 { font-family: var(--font-display); font-size: 2.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
         .menu-header .slogan { font-size: 1rem; margin-top: 0.25rem; }
+        
+        /* THE FIX: Re-architected with CSS Grid for robust alignment */
         .menu-header .address-bar { 
-            position: relative; /* Make it a positioning context for logos */
-            display: flex; 
-            justify-content: space-between; 
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center; 
             border-top: 1px solid var(--ink-main); 
             border-bottom: 1px solid var(--ink-main); 
             padding: 0.25rem 0; 
             margin-top: 1rem; 
+        }
+        .address-bar-text {
+            display: flex;
+            justify-content: space-between;
+            grid-column: 2 / 3;
+            width: 250px; /* Adjust as needed */
+            text-align: center;
             font-size: 0.7rem; 
             text-transform: uppercase; 
             letter-spacing: 0.1em; 
         }
-        /* Header Logo Styles */
         .header-logo {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             height: 30px;
             width: auto;
             opacity: 0.15;
         }
-        .header-logo.left { left: 0; }
-        .header-logo.right { right: 0; }
+        .header-logo.left { grid-column: 1 / 2; justify-self: start; }
+        .header-logo.right { grid-column: 3 / -1; justify-self: end; }
 
 
         /* Main Content Grid */
@@ -216,7 +220,6 @@
     </div>
 
     <div class="a4-menu">
-        <!-- THE FIX: Image path changed to a local asset -->
         <img class="watermark-logo" src="assets/logo.png" alt="Pickle & Peach Logo Watermark">
         <div class="page-border"><div class="bottom-left"></div><div class="bottom-right"></div></div>
 
@@ -224,12 +227,14 @@
             <header class="menu-header">
                 <h1>Pickle & Peach</h1>
                 <p class="slogan">Where everyone has a seat at the table</p>
+                <!-- THE FIX: Reworked HTML structure for the address bar -->
                 <div class="address-bar">
-                    <!-- THE FIX: Image paths changed to local assets -->
                     <img src="assets/logo.png" class="header-logo left" alt="">
-                    <span>South Shields, UK</span>
-                    <span>Summer Menu</span>
-                     <img src="assets/logo.png" class="header-logo right" alt="">
+                    <div class="address-bar-text">
+                        <span>South Shields, UK</span>
+                        <span>Summer Menu</span>
+                    </div>
+                    <img src="assets/logo.png" class="header-logo right" alt="">
                 </div>
             </header>
 
