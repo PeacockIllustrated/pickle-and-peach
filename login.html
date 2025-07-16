@@ -19,25 +19,102 @@
             
             <form id="login-form">
                 <h2 class="form-title">Sign In</h2>
+                <div id="login-error" class="error-message"></div>
                 <div class="input-group">
-                    <input type="email" placeholder="Email Address" required>
+                    <input type="email" id="login-email" placeholder="Email Address" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
                 </div>
                 <button type="submit" class="btn-primary">Log In</button>
             </form>
-            <p class="form-footer">Don't have an account? <a href="#">Sign Up</a></p>
+
+            <div class="divider">or</div>
+
+            <button id="google-signin-btn" class="btn-secondary-social">
+                <svg viewBox="0 0 48 48" width="24px" height="24px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.222,0-9.617-3.356-11.283-7.943l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C39.99,36.586,44,31.016,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
+                <span>Sign in with Google</span>
+            </button>
+            <p class="form-footer">Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
         </main>
     </div>
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Simulate a successful login
-            console.log('Simulating login...');
-            localStorage.setItem('isLoggedIn', 'true');
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+        
+        // This is your web app's Firebase configuration from firebase-config.js
+        const firebaseConfig = {
+          apiKey: "AIzaSyDyH4oRxSpnCoeopZqWdcxNyOKpZIarWE8",
+          authDomain: "pickle-peach.firebaseapp.com",
+          projectId: "pickle-peach",
+          storageBucket: "pickle-peach.appspot.com",
+          messagingSenderId: "1080004639045",
+          appId: "1:1080004639045:web:c55eaf1ae907a196f3a62c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        const loginForm = document.getElementById('login-form');
+        const googleBtn = document.getElementById('google-signin-btn');
+        const emailInput = document.getElementById('login-email');
+        const passwordInput = document.getElementById('login-password');
+        const errorDiv = document.getElementById('login-error');
+        const signupLink = document.getElementById('signup-link');
+
+        // Handle successful login
+        const handleLoginSuccess = (user) => {
+            console.log('Login successful for:', user.email);
+            // We no longer need localStorage for login status
             window.location.href = 'index.html';
+        };
+        
+        // Handle login/signup errors
+        const handleAuthError = (error) => {
+            console.error('Auth Error:', error.message);
+            errorDiv.textContent = error.message;
+            errorDiv.style.display = 'block';
+        };
+
+        // Email/Password Login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errorDiv.style.display = 'none';
+            signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+                .then(userCredential => handleLoginSuccess(userCredential.user))
+                .catch(handleAuthError);
         });
+
+        // Google Sign-In
+        googleBtn.addEventListener('click', () => {
+            errorDiv.style.display = 'none';
+            signInWithPopup(auth, googleProvider)
+                .then(result => handleLoginSuccess(result.user))
+                .catch(handleAuthError);
+        });
+        
+        // Simple "Sign Up" toggle
+        signupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // This is a simple example. A real app would have a separate signup form.
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            if (!email || !password) {
+                errorDiv.textContent = "Please enter email and password to sign up.";
+                errorDiv.style.display = 'block';
+                return;
+            }
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(userCredential => {
+                    alert("Account created! Please log in.");
+                    // In a real app, you might auto-log them in:
+                    // handleLoginSuccess(userCredential.user);
+                })
+                .catch(handleAuthError);
+        });
+
     </script>
 </body>
 </html>
