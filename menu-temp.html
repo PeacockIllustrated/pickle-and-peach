@@ -10,7 +10,7 @@
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Final Polished Version)
+            Printable Menu Styles for Pickle & Peach (Final Alignment & Logo Fix)
         ==========================================================================
         */
 
@@ -47,7 +47,7 @@
             position: relative;
         }
         
-        /* NEW: Watermark Logo */
+        /* Watermark Logo */
         .watermark-logo {
             position: absolute;
             top: 50%;
@@ -62,7 +62,7 @@
 
         .page-content {
             position: relative;
-            z-index: 2; /* Ensure content is on top of watermark */
+            z-index: 2;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -96,7 +96,31 @@
         .menu-header { text-align: center; margin-bottom: 1rem; flex-shrink: 0; }
         .menu-header h1 { font-family: var(--font-display); font-size: 2.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
         .menu-header .slogan { font-size: 1rem; margin-top: 0.25rem; }
-        .menu-header .address-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--ink-main); border-bottom: 1px solid var(--ink-main); padding: 0.25rem 0; margin-top: 1rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .menu-header .address-bar { 
+            position: relative; /* Make it a positioning context for logos */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top: 1px solid var(--ink-main); 
+            border-bottom: 1px solid var(--ink-main); 
+            padding: 0.25rem 0; 
+            margin-top: 1rem; 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+        }
+        /* NEW: Header Logo Styles */
+        .header-logo {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 30px;
+            width: auto;
+            opacity: 0.15;
+        }
+        .header-logo.left { left: 0; }
+        .header-logo.right { right: 0; }
+
 
         /* Main Content Grid */
         .menu-content { display: flex; flex-direction: column; gap: 1rem; flex-grow: 1; }
@@ -130,7 +154,13 @@
         }
 
         /* Two Column Layout for Drinks & Info */
-        .top-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
+        .top-grid { 
+            display: grid; 
+            grid-template-columns: 2fr 1fr; 
+            gap: 2rem; 
+            /* THE FIX: Align items to the start and stretch them */
+            align-items: stretch;
+        }
 
         .feature-box {
             border: 1px solid var(--ink-main);
@@ -195,8 +225,11 @@
                 <h1>Pickle & Peach</h1>
                 <p class="slogan">Where everyone has a seat at the table</p>
                 <div class="address-bar">
+                    <!-- NEW: Header logos added -->
+                    <img src="https://github.com/PeacockIllustrated/pickle-peach/blob/main/assets/pickle-peach-logo-alt-black.png?raw=true" class="header-logo left" alt="">
                     <span>South Shields, UK</span>
                     <span>Summer Menu</span>
+                     <img src="https://github.com/PeacockIllustrated/pickle-peach/blob/main/assets/pickle-peach-logo-alt-black.png?raw=true" class="header-logo right" alt="">
                 </div>
             </header>
 
@@ -238,7 +271,7 @@
 
                 <div class="main-grid">
                     <div class="menu-column">
-                        <h2 class="menu-section-title"><svg class="title-icon" viewBox="0 0 24 24"><use href="#icon-leaf"/></svg>For the Table</h2>
+                        <h2 class="menu-section-title"><svg class="title-icon" viewBox="0 0 24 24"><path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1.95-4.22C9.28,15.5,13.5,12.33,17,12V8M17,7a1,1,0,0,0-1,1v2a1,1,0,0,0,1,1h1V7H17M18,6h3a1,1,0,0,1,1,1V11h-4V6M12,2A10,10,0,0,0,2,12a10,10,0,0,0,10,10,10,10,0,0,0,10-10C22,6.48,17.52,2,12,2Z" /></svg>For the Table</h2>
                         <div class="menu-item-list">
                             <div class="menu-item"><span class="name">BACON & EGGS</span><span class="price">11</span><p class="description">Classic deviled eggs + brown sugar peppered bacon strips, served with jalapeño drip jam.</p></div>
                              <div class="menu-item"><span class="name">P&P BREAD BASKET</span><span class="price">10</span><p class="description">An assortment of our favorite breads and pastries, including a butter croissant and blueberry muffin.</p></div>
@@ -246,7 +279,7 @@
                         </div>
                     </div>
                      <div class="menu-column">
-                        <h2 class="menu-section-title"><svg class="title-icon" viewBox="0 0 24 24"><use href="#icon-leaf"/></svg>Breakfast</h2>
+                        <h2 class="menu-section-title"><svg class="title-icon" viewBox="0 0 24 24"><path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1.95-4.22C9.28,15.5,13.5,12.33,17,12V8M17,7a1,1,0,0,0-1,1v2a1,1,0,0,0,1,1h1V7H17M18,6h3a1,1,0,0,1,1,1V11h-4V6M12,2A10,10,0,0,0,2,12a10,10,0,0,0,10,10,10,10,0,0,0,10-10C22,6.48,17.52,2,12,2Z" /></svg>Breakfast</h2>
                         <div class="menu-item-list">
                              <div class="menu-item"><span class="name">FARM BREAKFAST</span><span class="price">11</span><p class="description">Two eggs cooked-to-order + tater tots, a buttermilk biscuit + your choice of house sausage or thick-cut bacon.</p></div>
                              <div class="menu-item"><span class="name">KIND BREAKFAST</span><span class="price">12</span><p class="description">Two scrambled eggs + wheat berry toast + fresh avocado on a bed of simply dressed greens.</p></div>
