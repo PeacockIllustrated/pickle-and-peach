@@ -3,37 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickle & Peach - Printable Menu</title>
+    <title>Pickle & Peach - Cafe Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Updated Google Fonts import to include Sen -->
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Sen Font Update)
+            Printable Menu Styles for Pickle & Peach (Magnolia Inspired)
         ==========================================================================
         */
 
         :root {
-            --bg-paper: #ffffff;
-            --ink-main: #2c3539;
-            --ink-heading: #9A6442;
-            --ink-subtle: #5c524e;
-            /* Updated font variables */
-            --font-body: 'Sen', sans-serif; 
+            --bg-paper: #F8F5F0; /* A soft, textured cream paper color */
+            --ink-main: #2c3539; /* Tempest Teapot for all text */
+            --ink-accent: #B87333; /* Copper for special prices/accents */
+            --font-body: 'Sen', sans-serif;
             --font-display: 'Vidaloka', serif;
         }
 
         /* Basic Page Setup */
         body {
             background-color: #555;
-            font-family: var(--font-body); /* Applying Sen as the default */
+            font-family: var(--font-body);
             color: var(--ink-main);
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
             padding: 4rem 2rem;
         }
 
@@ -44,237 +40,239 @@
             background-color: var(--bg-paper);
             aspect-ratio: 1 / 1.414;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            padding: 5%;
-            position: relative;
+            padding: 3rem;
             display: flex;
             flex-direction: column;
         }
-        
-        /* Ornate corner SVG styles */
-        .corner-border {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            fill: var(--ink-main);
-        }
-        .corner-top-left { top: 20px; left: 20px; }
-        .corner-top-right { top: 20px; right: 20px; transform: rotate(90deg); }
-        .corner-bottom-left { bottom: 20px; left: 20px; transform: rotate(-90deg); }
-        .corner-bottom-right { bottom: 20px; right: 20px; transform: rotate(180deg); }
 
-
-        /* Menu Header */
+        /* Header */
         .menu-header {
             text-align: center;
             margin-bottom: 1.5rem;
         }
-
         .menu-header h1 {
             font-family: var(--font-display);
-            font-size: 3rem;
-            letter-spacing: 0.1em;
+            font-size: 2.75rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             margin: 0;
-            padding: 0 1rem;
         }
-        
         .menu-header .slogan {
-            font-size: 0.9rem;
-            color: var(--ink-heading);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-top: 0.5rem;
+            font-size: 1rem;
+            margin-top: 0.25rem;
         }
-        
-        .header-divider {
+        .menu-header .address-bar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            border-top: 1px solid var(--ink-main);
+            border-bottom: 1px solid var(--ink-main);
+            padding: 0.25rem 0;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Main Content Grid */
+        .menu-content {
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
-            margin: 0.5rem 0 1.5rem;
+            flex-grow: 1;
         }
         
-        .header-divider .line {
-            flex-grow: 1;
+        /* Section styles */
+        .menu-section-title {
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            margin: 1rem 0;
+        }
+        
+        .menu-section-title.cursive {
+            font-family: var(--font-display); /* Using Vidaloka as a stand-in for script */
+            font-size: 2rem;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--ink-accent);
+        }
+        
+        .menu-section-title.cursive::before, .menu-section-title.cursive::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
             height: 1px;
             background-color: var(--ink-main);
             opacity: 0.5;
         }
-        
-        .header-divider .icon {
-            width: 30px;
-            height: 30px;
-            fill: var(--ink-main);
+        .menu-section-title.cursive::before { left: 0; }
+        .menu-section-title.cursive::after { right: 0; }
+
+        /* Two Column Layout for Drinks & Info */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
-
-        /* Menu Body Content */
-        .menu-body {
-            flex-grow: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Menu Section (e.g., Brunch, Coffee) */
-        .menu-section {
-            border: 2px solid var(--ink-main);
+        .info-box {
+            border: 1px solid var(--ink-main);
             padding: 1.5rem;
-        }
-
-        .menu-section h2 {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
             text-align: center;
-            color: var(--ink-heading);
-            margin-top: 0;
-            margin-bottom: 1.5rem;
         }
+        .info-box .title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-box .title span { color: var(--ink-accent); }
+        .info-box p { font-size: 0.85rem; line-height: 1.5; color: #5c524e;}
 
-        /* Two-Column Layout for Menu Items */
-        .menu-item-grid {
+        /* Menu Item with Dot Leaders */
+        .menu-item-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .menu-item { display: flex; justify-content: space-between; align-items: baseline; }
+        .menu-item .name { font-weight: 700; white-space: nowrap; }
+        .menu-item .dots { flex-grow: 1; border-bottom: 1px dotted var(--ink-main); margin: 0 0.5rem; transform: translateY(-3px); }
+        .menu-item .price { font-weight: 700; }
+        .menu-item .description {
+            font-size: 0.85rem;
+            color: #5c524e;
+            line-height: 1.4;
+            flex-basis: 100%; /* Make description take a new line */
+            margin-top: 0.1rem;
+        }
+        
+        /* Centered List (e.g., Pastries) */
+        .centered-list {
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .centered-list .price-tag {
+            display: inline-block;
+            color: var(--ink-accent);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-right: 0.5rem;
+        }
+        
+        /* Main two-column layout for Breakfast sections */
+        .main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem 2rem;
+            gap: 2rem;
+            flex-grow: 1;
         }
+        .main-grid .menu-item { flex-wrap: wrap; } /* Allow description to wrap */
+        .main-grid .menu-item .name { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
 
-        .menu-item {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: baseline;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            break-inside: avoid; 
+        /* Special Boxed Item */
+        .boxed-item {
+            border: 1px solid var(--ink-main);
+            padding: 1rem;
+            margin-top: 1rem;
         }
+        .boxed-item .title { text-align: center; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
         
-        .menu-item .name {
-            font-weight: 700;
-            font-size: 1rem;
-            grid-column: 1 / 2;
-        }
-
-        .menu-item .price {
-            font-weight: 700;
-            font-size: 1rem;
-            grid-column: 2 / 3;
-            text-align: right;
-        }
-
-        .menu-item .description {
-            grid-column: 1 / -1;
-            font-size: 0.85rem;
-            color: var(--ink-subtle);
-            line-height: 1.5;
-        }
-        
-        /* Menu Footer */
-        .menu-footer {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--ink-subtle);
-            margin-top: auto;
-            padding-top: 1rem;
-        }
-
         /* Print-Specific Styles */
         @media print {
             body { background-color: white; padding: 0; }
             .a4-menu { max-width: 100%; box-shadow: none; height: 100vh; }
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Embedded SVG definitions for reuse -->
-    <svg style="display:none;">
-        <symbol id="ornate-corner" viewBox="0 0 100 100">
-             <path d="M100 0 H0 V100 H10 V10 H100z M95 5 L5 5 V95 H95z M90 10 L10 10 V90 H90z"/>
-             <path d="M85 15 L15 15 V85 H85z M80 20 L20 20 V80 H80z"/>
-             <circle cx="50" cy="50" r="2"/>
-        </symbol>
-        <symbol id="divider-icon" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h-2zm0 6h2v2h-2z"/>
-        </symbol>
-    </svg>
-
-
     <div class="a4-menu">
-        <!-- Ornate Corner Borders -->
-        <svg class="corner-border corner-top-left"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-top-right"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-bottom-left"><use xlink:href="#ornate-corner"/></svg>
-        <svg class="corner-border corner-bottom-right"><use xlink:href="#ornate-corner"/></svg>
-        
         <header class="menu-header">
             <h1>Pickle & Peach</h1>
-            <p class="slogan">Cafe & Kitchen</p>
-            <div class="header-divider">
-                <div class="line"></div>
-                <svg class="icon"><use xlink:href="#divider-icon"/></svg>
-                <div class="line"></div>
+            <p class="slogan">Where everyone has a seat at the table</p>
+            <div class="address-bar">
+                <span>South Shields, UK</span>
+                <span>Summer Menu</span>
             </div>
         </header>
 
-        <main class="menu-body">
-
-            <div class="menu-section">
-                <h2>Brunch & Lunch</h2>
-                <div class="menu-item-grid">
-                    <div class="menu-item">
-                        <span class="name">The P&P Sourdough</span>
-                        <span class="price">£7.20</span>
-                        <p class="description">Smashed avocado, pickled onions, chilli flakes.</p>
-                    </div>
-                     <div class="menu-item">
-                        <span class="name">Soup of the Day</span>
-                        <span class="price">£5.50</span>
-                        <p class="description">Served with fresh sourdough. Ask for today's special.</p>
-                    </div>
-                    <div class="menu-item">
-                        <span class="name">Smoked Salmon & Eggs</span>
-                        <span class="price">£8.50</span>
-                        <p class="description">Scrambled eggs with smoked salmon on toasted rye.</p>
-                    </div>
-                     <div class="menu-item">
-                        <span class="name">The Shields Special</span>
-                        <span class="price">£6.50</span>
-                         <p class="description">Local ham, pease pudding, and sweet pickle relish.</p>
-                    </div>
-                     <div class="menu-item">
-                        <span class="name">Full English Breakfast</span>
-                        <span class="price">£9.50</span>
-                        <p class="description">Sausage, bacon, eggs, beans, mushroom, tomato, toast.</p>
-                    </div>
-                     <div class="menu-item">
-                        <span class="name">Granola Bowl</span>
-                        <span class="price">£6.00</span>
-                        <p class="description">Homemade granola, Greek yoghurt, and fresh berries.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <h2>Coffee, Tea & Bakery</h2>
-                 <div class="menu-item-grid">
-                    <div class="menu-item"><span class="name">Artisan Flat White</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Peach Crumble Cake</span><span class="price">£4.00</span></div>
-                    <div class="menu-item"><span class="name">Latte / Cappuccino</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Croissant</span><span class="price">£2.50</span></div>
-                    <div class="menu-item"><span class="name">Americano</span><span class="price">£3.00</span></div>
-                    <div class="menu-item"><span class="name">Brownie Slab</span><span class="price">£3.50</span></div>
-                    <div class="menu-item"><span class="name">Espresso</span><span class="price">£2.50</span></div>
-                    <div class="menu-item"><span class="name">Vegan Sausage Roll</span><span class="price">£3.80</span></div>
-                    <div class="menu-item"><span class="name">English Breakfast Tea</span><span class="price">£2.80</span></div>
-                    <div class="menu-item"><span class="name">Specialty Teas</span><span class="price">£3.00</span></div>
-                </div>
-            </div>
+        <div class="menu-content">
             
-        </main>
-        
-        <footer class="menu-footer">
-            Please inform your server of any allergies or dietary requirements.
-        </footer>
+            <div class="top-grid">
+                <div>
+                    <h2 class="menu-section-title">Coffee & Drinks</h2>
+                    <div class="menu-item-list">
+                        <div class="menu-item">
+                            <span class="name">COFFEE</span><span class="dots"></span><span class="price"></span>
+                        </div>
+                        <p class="description" style="margin-top:-0.5rem;">Add-ins: Lavender, Vanilla, Caramel</p>
+                        <div class="menu-item"><span class="name">ESPRESSO</span><span class="dots"></span><span class="price">2.50</span></div>
+                        <div class="menu-item"><span class="name">CAPPUCCINO / LATTE</span><span class="dots"></span><span class="price">3.50</span></div>
+                        <div class="menu-item"><span class="name">DRIP COFFEE</span><span class="dots"></span><span class="price">3.00</span></div>
+                        
+                        <div class="menu-item" style="margin-top: 1rem;"><span class="name">ORANGE JUICE</span><span class="dots"></span><span class="price">3.50</span></div>
+                        <div class="menu-item"><span class="name">SPARKLING WATER</span><span class="dots"></span><span class="price">3.00</span></div>
+                        <div class="menu-item"><span class="name">HOT TEA</span><span class="dots"></span><span class="price">3.50</span></div>
+                        <p class="description" style="margin-top:-0.5rem;">Earl Grey, Decaffeinated, Green Passion</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <h3 class="title">You're in <span>Good</span> Company!</h3>
+                    <p>Consider storing your phone away for a moment. Take time to enjoy the food, the atmosphere, and the best of each other!</p>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="menu-section-title cursive">Pastries</h2>
+                <div class="centered-list">
+                    <span class="price-tag">4.00</span>
+                    <span>BUTTER CROISSANT • CHOCOLATE CROISSANT • PEACH CRUMBLE CAKE • CINNAMON ROLL • BROWNIE SLAB</span>
+                </div>
+            </div>
+
+            <div class="main-grid">
+                <div class="menu-column">
+                    <h2 class="menu-section-title">For the Table</h2>
+                    <div class="menu-item-list">
+                        <div class="menu-item">
+                            <span class="name">BACON & EGGS</span><span class="price">11</span>
+                            <p class="description">Classic deviled eggs + brown sugar peppered bacon strips, served with jalapeño drip jam.</p>
+                        </div>
+                         <div class="menu-item">
+                            <span class="name">P&P BREAD BASKET</span><span class="price">10</span>
+                            <p class="description">An assortment of our favorite breads and pastries, including a butter croissant, blueberry muffin, and chocolate croissant.</p>
+                        </div>
+                         <div class="menu-item">
+                            <span class="name">HOUSEMADE TATER TOTS</span><span class="price">10</span>
+                            <p class="description">Crispy fried tater tots topped with parmesan cheese and fresh chives.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="menu-column">
+                    <h2 class="menu-section-title">Breakfast</h2>
+                    <div class="menu-item-list">
+                         <div class="menu-item">
+                            <span class="name">FARM BREAKFAST</span><span class="price">11</span>
+                            <p class="description">Two eggs cooked-to-order + our housemade tater tots, a buttermilk biscuit + your choice of house sausage or thick-cut peppered bacon.</p>
+                        </div>
+                         <div class="menu-item">
+                            <span class="name">KIND BREAKFAST</span><span class="price">12</span>
+                            <p class="description">Two scrambled eggs + wheat berry toast + fresh avocado and thick slices of Heirloom tomato served on a bed of simply dressed greens.</p>
+                        </div>
+                         <div class="menu-item">
+                            <span class="name">PANCAKE BREAKFAST</span><span class="price">12</span>
+                            <p class="description">Homemade buttermilk pancakes + two eggs cooked-to-order + thick-cut peppered bacon + housemade tater tots.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </body>
