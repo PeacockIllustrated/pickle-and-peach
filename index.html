@@ -19,8 +19,8 @@
             <!-- Home View -->
             <section id="home-view" class="app-view is-active">
                 <header class="view-header">
-                    <h1 class="view-title">Welcome Back!</h1>
-                    <p class="view-subtitle">What are you in the mood for?</p>
+                    <h1 class="view-title">Welcome Back</h1>
+                    <p class="view-subtitle">Your daily corner of calm.</p>
                 </header>
                 <div class="promo-banner">
                     <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cosy cafe interior">
@@ -29,16 +29,8 @@
                         <p>Fresh flavours, available now!</p>
                     </div>
                 </div>
-                <h2 class="section-heading">Categories</h2>
-                <div class="category-scroller">
-                    <div class="category-chip">Coffee</div>
-                    <div class="category-chip">Brunch</div>
-                    <div class="category-chip">Bakery</div>
-                    <div class="category-chip">Lunch</div>
-                    <div class="category-chip">Drinks</div>
-                </div>
                 <h2 class="section-heading">Popular Items</h2>
-                <div id="popular-items-list" class="item-list">
+                <div id="popular-items-list" class="menu-item-list">
                     <!-- Popular items will be injected by JS -->
                 </div>
             </section>
@@ -47,47 +39,53 @@
             <section id="menu-view" class="app-view">
                 <header class="view-header sticky-header">
                      <h1 class="view-title">Our Menu</h1>
-                     <div class="search-bar">
-                         <input type="text" placeholder="Search for coffee, cake, etc.">
-                     </div>
+                     <p class="view-subtitle">A selection of our finest coffee, brunch, and bakery items.</p>
                 </header>
-                <div id="full-menu-list" class="item-list full-menu">
+                <div id="full-menu-list" class="menu-item-list">
                      <!-- Full menu will be injected by JS -->
-                </div>
-            </section>
-
-            <!-- Order View (Placeholder) -->
-            <section id="order-view" class="app-view">
-                 <header class="view-header">
-                    <h1 class="view-title">Your Order</h1>
-                </header>
-                <div class="empty-state">
-                    <p>Your cart is empty.</p>
-                    <button class="btn-secondary" data-target="menu-view">Browse Menu</button>
                 </div>
             </section>
 
             <!-- Profile & Loyalty View -->
             <section id="profile-view" class="app-view">
                 <header class="view-header">
-                    <h1 class="view-title">Loyalty Card</h1>
-                    <p class="view-subtitle">Every 8th coffee is on us!</p>
+                    <h1 class="view-title">Your Loyalty</h1>
+                    <p class="view-subtitle">Every 8th coffee is on us as a thank you.</p>
                 </header>
-                <div class="loyalty-card">
-                    <div class="loyalty-header">
-                        <h3 class="brand-name">Pickle & Peach</h3>
-                        <p>Loyalty Reward</p>
+
+                <!-- State 1: Collecting Stamps -->
+                <div id="loyalty-collecting-state">
+                    <div class="loyalty-certificate">
+                        <div class="loyalty-header">
+                            <h3 class="brand-name">Pickle & Peach</h3>
+                            <p>Loyalty Reward Card</p>
+                        </div>
+                        <div id="loyalty-stamps" class="loyalty-stamps">
+                            <!-- Stamps injected by JS -->
+                        </div>
+                        <div class="loyalty-progress">
+                            <progress id="loyalty-progress-bar" value="0" max="8"></progress>
+                            <p><span id="loyalty-count">0</span> of 8 until your free coffee!</p>
+                        </div>
                     </div>
-                    <div id="loyalty-stamps" class="loyalty-stamps">
-                        <!-- Stamps injected by JS -->
-                    </div>
-                    <div class="loyalty-progress">
-                        <progress id="loyalty-progress-bar" value="0" max="8"></progress>
-                        <p><span id="loyalty-count">0</span> of 8 until your free coffee!</p>
-                    </div>
+                    <button id="add-stamp-btn" class="btn-primary">Simulate Coffee Purchase</button>
+                    <button id="reset-stamps-btn" class="btn-secondary">Reset Card</button>
                 </div>
-                <button id="add-stamp-btn" class="btn-primary">Simulate Coffee Purchase</button>
-                <button id="reset-stamps-btn" class="btn-secondary">Reset Card</button>
+
+                <!-- State 2: Ready to Redeem -->
+                <div id="loyalty-redeem-state">
+                    <div class="loyalty-certificate is-complete">
+                         <div class="loyalty-header">
+                            <h3 class="brand-name">Reward Unlocked!</h3>
+                            <p>You've earned a free coffee.</p>
+                        </div>
+                        <div class="reward-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,17.27L18.18,21L17,14.64L22,9.24L15.82,8.62L12,3L8.18,8.62L2,9.24L7,14.64L5.82,21L12,17.27Z"/></svg>
+                        </div>
+                        <p class="redeem-text">Claim your complimentary drink at the takeaway window.</p>
+                    </div>
+                    <button id="redeem-btn" class="btn-redeem">Redeem Your Free Coffee</button>
+                </div>
             </section>
 
         </main>
@@ -102,16 +100,46 @@
                 <img src="assets/menu.svg" alt="Menu">
                 <span>Menu</span>
             </button>
-            <button class="nav-button" data-target="order-view">
-                <img src="assets/order.svg" alt="Order">
-                <span>Order</span>
-            </button>
             <button class="nav-button" data-target="profile-view">
                 <img src="assets/profile.svg" alt="Profile">
                 <span>Profile</span>
             </button>
         </nav>
     </div>
+
+    <!-- Redemption Modal -->
+    <div id="redemption-modal" class="app-modal">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="modal-close-btn">×</button>
+            <h2 class="section-heading">Claim Your Reward</h2>
+            <p class="view-subtitle">Choose your coffee and we'll have it ready.</p>
+            <form id="redemption-form">
+                <div class="form-group">
+                    <label>Your Name for the Order</label>
+                    <input type="text" id="customer-name-input" placeholder="e.g., Jane D." required>
+                </div>
+                <div class="form-group">
+                     <label>Select Your Coffee</label>
+                     <div class="radio-group">
+                         <label><input type="radio" name="coffee" value="Latte" checked><span>Latte</span></label>
+                         <label><input type="radio" name="coffee" value="Cappuccino"><span>Cappuccino</span></label>
+                         <label><input type="radio" name="coffee" value="Americano"><span>Americano</span></label>
+                         <label><input type="radio" name="coffee" value="Flat White"><span>Flat White</span></label>
+                     </div>
+                </div>
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Embedded SVG for stamps -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <symbol id="icon-stamp" viewBox="0 0 100 100">
+            <path d="M89.7,29.9c-2.8-5.3-7.5-9.3-13-11.5C70,15.8,62.6,15,55.1,15c-1.2,0-2.4,0-3.6,0.1C44,14.7,36.4,14.1,28.9,14.1c-9,0-17.5,2.1-22.3,6.3c-2.5,2.2-4.2,5.2-4.5,8.5c-0.3,3.6,0.6,7.2,2.6,10.3c3.6,5.5,10.2,9,17.4,9c1.2,0,2.3-0.1,3.5-0.2c7.5-0.9,15.3-1.4,22.9-1.4c9.9,0,19.3,0.8,27.5,2.5c2.5,0.5,5,0.8,7.3,0.8c3.5,0,6-1.5,7.5-4.2C92.2,42.1,93,35.9,89.7,29.9z M58.2,70.9c-3.1,3.2-6.8,5.9-10.9,7.8c-2.3,1.1-4.7,1.9-7.2,2.4c-1.3,0.3-2.6,0.4-3.9,0.4c-5.5,0-10.7-1.8-14.8-5.2c-4-3.3-6.5-8-6.9-13.3c-0.5-5.9,1.1-11.7,4.8-16.5c4.8-6.3,12.4-9.8,20.8-9.8c1.2,0,2.4,0.1,3.6,0.2c7.5,0.9,15.3,1.4,22.9,1.4c6.9,0,13.4-0.5,19.4-1.5c3.2-0.5,5.8-2.6,6.9-5.5c0.4-1.1,0.6-2.2,0.6-3.4c0-4.9-3.3-8.8-7.8-10.2c-0.1,0-0.2-0.1-0.2-0.1c-3-1-6.4-1.4-9.8-1.4c-7.6,0-15.4,0.5-22.9,1.4c-1.2,0.1-2.4,0.2-3.6,0.2c-12,0-22.5,5.6-22.5,15.9c0,5.7,3.1,10.8,8.1,14.1c4.4,2.9,9.8,4.4,15.5,4.4c1.2,0,2.4-0.1,3.6-0.2c7.5-0.9,15.3-1.4,22.9-1.4c7.6,0,15.4,0.5,22.9,1.4c1.2,0.1,2.4,0.2,3.6,0.2c2.1,0,4.1-0.3,6-0.8C65.5,60.8,61.8,66.1,58.2,70.9z"/>
+        </symbol>
+      </defs>
+    </svg>
 
     <script src="js/app.js" type="module"></script>
 </body>
