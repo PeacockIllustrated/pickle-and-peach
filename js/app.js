@@ -1,8 +1,8 @@
 // Firebase SDK imports
 import { db } from './firestore-config.js';
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { doc, getDoc, setDoc, updateDoc, increment, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-import { fetchMenuItems } from './firestore-mock.js';
+import { doc, getDoc, setDoc, updateDoc, increment, collection, addDoc, serverTimestamp, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+// NO LONGER NEEDED: import { fetchMenuItems } from './firestore-mock.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- APP STATE ---
     const auth = getAuth();
-    let currentUser = null; // To hold the auth user object
-    let userProfile = null; // To hold the Firestore profile data
-    let unsubscribeUserProfile; // To listen for real-time profile updates
+    let currentUser = null; 
+    let userProfile = null;
+    let menuCache = []; // Cache for menu items
 
     // --- AUTHENTICATION GATEKEEPER ---
     onAuthStateChanged(auth, (user) => {
@@ -51,18 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const docSnap = await getDoc(userRef);
 
         if (docSnap.exists()) {
-            console.log("User profile found:", docSnap.data());
             userProfile = docSnap.data();
         } else {
-            console.log("No such user profile! Creating one...");
             const newProfile = {
                 email: user.email,
                 name: user.displayName || 'New User',
                 joinedAt: serverTimestamp(),
-                loyalty: {
-                    currentStamps: 0,
-                    cardsCompleted: 0
-                }
+                loyalty: { currentStamps: 0, cardsCompleted: 0 }
             };
             await setDoc(userRef, newProfile);
             userProfile = newProfile;
@@ -71,21 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // --- UI INITIALIZATION (RUNS AFTER PROFILE IS LOADED) ---
-    const initializeAppUI = () => {
+    const initializeAppUI = async () => {
         document.getElementById('user-greeting').textContent = `Welcome, ${userProfile.name || 'friend'}.`;
         renderLoyaltyCard();
         updateUIVisibility();
-        populateAllMenus();
+        await fetchAndPopulateMenus(); // Fetch real menu data
     };
     
     // --- UI VISIBILITY (SHOW/HIDE ORDER TAB) ---
     const updateUIVisibility = () => {
         if (userProfile.loyalty.cardsCompleted >= 2) {
-            console.log("Loyal customer detected! Showing order tab.");
             navOrderBtn.style.display = 'flex';
             bottomNav.style.gridTemplateColumns = 'repeat(4, 1fr)';
         } else {
-            console.log("Customer not yet eligible for ordering.");
             navOrderBtn.style.display = 'none';
             bottomNav.style.gridTemplateColumns = 'repeat(3, 1fr)';
         }
@@ -126,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userProfile.loyalty.currentStamps < 8) {
             const userRef = doc(db, "users", currentUser.uid);
             await updateDoc(userRef, { "loyalty.currentStamps": increment(1) });
-            userProfile.loyalty.currentStamps++; // Update local state
+            userProfile.loyalty.currentStamps++;
             renderLoyaltyCard();
         }
     });
@@ -140,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modal-title').textContent = config.title;
         document.getElementById('modal-subtitle').textContent = config.subtitle;
         document.getElementById('modal-submit-btn').textContent = config.submitText;
-        modalForm.innerHTML = config.formHTML + modalForm.lastElementChild.outerHTML; // Keep submit button
+        modalForm.innerHTML = config.formHTML + modalForm.lastElementChild.outerHTML;
         modalContainer.classList.add('is-active');
         modalForm.onsubmit = config.onSubmit;
     };
@@ -154,11 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Redemption Modal
     redeemBtn.addEventListener('click', () => {
         openModal({
-            title: "Claim Your Reward",
-            subtitle: "Choose your coffee and we'll have it ready.",
-            submitText: "Place Order",
-            formHTML: `
-                <div class="form-group">
+            title: "Claim Your Reward", subtitle: "Choose your coffee and we'll have it ready.", submitText: "Place Order",
+            formHTML: `<div class="form-group">
                     <label>Your Name for the Order</label>
                     <input type="text" id="customer-name-input" value="${userProfile.name || ''}" required>
                 </div>
@@ -178,19 +168,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pickup Order Modal
     const handlePickupOrderClick = (item) => {
         openModal({
-            title: `Order: ${item.name}`,
-            subtitle: `Schedule your pickup for today. Price: £${item.price.toFixed(2)}`,
-            submitText: "Place Pickup Order",
-            formHTML: `
-                <div class="form-group">
+            title: `Order: ${item.name}`, subtitle: `Schedule your pickup for today. Price: £${item.price.toFixed(2)}`, submitText: "Place Pickup Order",
+            formHTML: `<div class="form-group">
                     <label>Your Name for the Order</label>
                     <input type="text" id="customer-name-input" value="${userProfile.name || ''}" required>
                 </div>
                 <div class="form-group">
                      <label>Requested Pickup Time</label>
-                     <select id="pickup-time" class="pickup-time-select">
-                        <!-- Options will be generated by JS -->
-                     </select>
+                     <select id="pickup-time" class="pickup-time-select"></select>
                 </div>`,
             onSubmit: (e) => handlePickupSubmit(e, item)
         });
@@ -201,23 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleRedemptionSubmit = async (e) => {
         e.preventDefault();
         const orderData = {
-            customerName: e.target.querySelector('#customer-name-input').value,
-            item: e.target.querySelector('input[name="coffee"]:checked').value,
-            isRedemption: true,
-            status: "pending",
-            createdAt: serverTimestamp(),
-            userId: currentUser.uid
+            customerName: e.target.querySelector('#customer-name-input').value, item: e.target.querySelector('input[name="coffee"]:checked').value,
+            isRedemption: true, status: "pending", createdAt: serverTimestamp(), userId: currentUser.uid
         };
         await addDoc(collection(db, "orders"), orderData);
-
         const userRef = doc(db, "users", currentUser.uid);
-        await updateDoc(userRef, {
-            "loyalty.currentStamps": 0,
-            "loyalty.cardsCompleted": increment(1)
-        });
+        await updateDoc(userRef, { "loyalty.currentStamps": 0, "loyalty.cardsCompleted": increment(1) });
         userProfile.loyalty.currentStamps = 0;
         userProfile.loyalty.cardsCompleted++;
-        
         renderLoyaltyCard();
         updateUIVisibility();
         closeModal();
@@ -226,26 +202,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const handlePickupSubmit = async (e, item) => {
         e.preventDefault();
         const orderData = {
-            customerName: e.target.querySelector('#customer-name-input').value,
-            item: item.name,
-            price: item.price,
-            pickupTime: e.target.querySelector('#pickup-time').value,
-            isRedemption: false,
-            status: "pending",
-            createdAt: serverTimestamp(),
-            userId: currentUser.uid
+            customerName: e.target.querySelector('#customer-name-input').value, item: item.name, price: item.price,
+            pickupTime: e.target.querySelector('#pickup-time').value, isRedemption: false, status: "pending",
+            createdAt: serverTimestamp(), userId: currentUser.uid
         };
         await addDoc(collection(db, "orders"), orderData);
         alert("Order placed! See you at your selected time.");
         closeModal();
     };
     
-    // --- MENU & CONTENT POPULATION ---
+    // --- MENU & CONTENT POPULATION (NOW FROM FIRESTORE) ---
     const createMenuItemHTML = (item, isOrderable = false) => {
         const entry = document.createElement('div');
         entry.className = 'menu-item-list-entry';
-        entry.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
+        entry.innerHTML = `<img src="${item.image}" alt="${item.name}">
             <div class="menu-item-info">
                 <h4>${item.name}</h4>
                 <p>${item.description}</p>
@@ -258,29 +228,60 @@ document.addEventListener('DOMContentLoaded', () => {
         return entry;
     };
 
-    const populateAllMenus = async () => {
+    const fetchAndPopulateMenus = async () => {
+        if (menuCache.length > 0) {
+            populateFromCache();
+            return;
+        }
         try {
-            const menuItems = await fetchMenuItems();
-            popularItemsList.innerHTML = '';
-            fullMenuList.innerHTML = '';
-            orderMenuList.innerHTML = '';
-            menuItems.forEach(item => {
-                popularItemsList.appendChild(createMenuItemHTML(item));
-                fullMenuList.appendChild(createMenuItemHTML(item));
-                orderMenuList.appendChild(createMenuItemHTML(item, true)); // Make these orderable
+            console.log("Fetching menu from Firestore...");
+            const menuCollection = collection(db, "menu_items");
+            const q = query(menuCollection, orderBy("category")); // Optional: order by category
+            const querySnapshot = await getDocs(q);
+            
+            menuCache = [];
+            querySnapshot.forEach((doc) => {
+                menuCache.push({ id: doc.id, ...doc.data() });
             });
+            console.log("Menu fetched and cached.", menuCache.length, "items.");
+            populateFromCache();
         } catch (error) {
             console.error("Error fetching menu items:", error);
+            fullMenuList.innerHTML = "<p>Could not load the menu at this time.</p>";
         }
+    };
+    
+    const populateFromCache = () => {
+        popularItemsList.innerHTML = '';
+        fullMenuList.innerHTML = '';
+        orderMenuList.innerHTML = '';
+        
+        // Example: make first 4 items popular
+        const popular = menuCache.slice(0, 4);
+        popular.forEach(item => popularItemsList.appendChild(createMenuItemHTML(item)));
+
+        // Create categorized full menu
+        let currentCategory = "";
+        menuCache.forEach(item => {
+            if (item.category !== currentCategory) {
+                currentCategory = item.category;
+                const heading = document.createElement('h2');
+                heading.className = 'section-heading';
+                heading.textContent = currentCategory;
+                fullMenuList.appendChild(heading);
+                orderMenuList.appendChild(heading.cloneNode(true));
+            }
+            fullMenuList.appendChild(createMenuItemHTML(item));
+            orderMenuList.appendChild(createMenuItemHTML(item, true)); // Make these orderable
+        });
     };
     
     const generateTimeSlots = () => {
         const select = document.getElementById('pickup-time');
         select.innerHTML = '';
         const now = new Date();
-        // Set opening hours
-        let startHour = Math.max(9, now.getHours() + 1); // Start from next hour, but not before 9am
-        const endHour = 17; // Closes at 5pm
+        let startHour = Math.max(9, now.getHours() + 1);
+        const endHour = 17;
 
         for (let h = startHour; h < endHour; h++) {
             for (let m = 0; m < 60; m += 15) {
