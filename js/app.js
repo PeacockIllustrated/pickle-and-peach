@@ -1,4 +1,4 @@
-import { db } from '../firebase-config.js'; // THE CORRECTED, DEFINITIVE PATH
+import { db } from '../firestore-config.js'; // THE CORRECTED, DEFINITIVE PATH
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 // Mock data import
 import { fetchMenuItems } from './firestore-mock.js';
