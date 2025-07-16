@@ -1,8 +1,8 @@
 // Firebase SDK imports
-import { db } from 'js/firebase-config.js'; // CORRECTED PATH
+import { db } from './firebase-config.js'; // CORRECTED PATH
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 // Mock data import
-import { fetchMenuItems } from 'js/firestore-mock.js';
+import { fetchMenuItems } from './firestore-mock.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
