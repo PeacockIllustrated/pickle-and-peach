@@ -20,7 +20,7 @@
             <section id="home-view" class="app-view is-active">
                 <header class="view-header">
                     <h1 class="view-title">Welcome Back</h1>
-                    <p class="view-subtitle">Your daily corner of calm.</p>
+                    <p class="view-subtitle" id="user-greeting">Your daily corner of calm.</p>
                 </header>
                 <div class="promo-banner">
                     <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cosy cafe interior">
@@ -46,6 +46,17 @@
                 </div>
             </section>
 
+            <!-- Order View (Initially Hidden) -->
+            <section id="order-view" class="app-view">
+                 <header class="view-header sticky-header">
+                    <h1 class="view-title">Order Ahead</h1>
+                    <p class="view-subtitle">A perk for our most loyal customers. Pay on collection.</p>
+                </header>
+                <div id="order-menu-list" class="menu-item-list">
+                     <!-- Full menu for ordering will be injected here -->
+                </div>
+            </section>
+
             <!-- Profile & Loyalty View -->
             <section id="profile-view" class="app-view">
                 <header class="view-header">
@@ -58,7 +69,7 @@
                     <div class="loyalty-certificate">
                         <div class="loyalty-header">
                             <h3 class="brand-name">Pickle & Peach</h3>
-                            <p>Loyalty Reward Card</p>
+                            <p>Cards Completed: <span id="cards-completed-count">0</span></p>
                         </div>
                         <div id="loyalty-stamps" class="loyalty-stamps">
                             <!-- Stamps injected by JS -->
@@ -69,7 +80,6 @@
                         </div>
                     </div>
                     <button id="add-stamp-btn" class="btn-primary">Simulate Coffee Purchase</button>
-                    <button id="reset-stamps-btn" class="btn-secondary">Reset Card</button>
                 </div>
 
                 <!-- State 2: Ready to Redeem -->
@@ -86,6 +96,8 @@
                     </div>
                     <button id="redeem-btn" class="btn-redeem">Redeem Your Free Coffee</button>
                 </div>
+
+                <button id="logout-btn" class="btn-secondary">Log Out</button>
             </section>
 
         </main>
@@ -100,6 +112,11 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
                 <span>Menu</span>
             </button>
+             <!-- Order Button (Initially Hidden) -->
+            <button id="nav-order-btn" class="nav-button" data-target="order-view" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75C6.75 5.64543 7.64543 4.75 8.75 4.75H15.25C16.3546 4.75 17.25 5.64543 17.25 6.75V19.5L12 16.5L6.75 19.5V6.75Z" /></svg>
+                <span>Order</span>
+            </button>
             <button class="nav-button" data-target="profile-view">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
                 <span>Profile</span>
@@ -107,27 +124,15 @@
         </nav>
     </div>
 
-    <!-- Redemption Modal -->
-    <div id="redemption-modal" class="app-modal">
+    <!-- Modals (Re-using one for simplicity, could be split) -->
+    <div id="modal-container" class="app-modal">
         <div class="modal-content">
             <button id="close-modal-btn" class="modal-close-btn">×</button>
-            <h2 class="section-heading">Claim Your Reward</h2>
-            <p class="view-subtitle">Choose your coffee and we'll have it ready.</p>
-            <form id="redemption-form">
-                <div class="form-group">
-                    <label>Your Name for the Order</label>
-                    <input type="text" id="customer-name-input" placeholder="e.g., Jane D." required>
-                </div>
-                <div class="form-group">
-                     <label>Select Your Coffee</label>
-                     <div class="radio-group">
-                         <label><input type="radio" name="coffee" value="Latte" checked><span>Latte</span></label>
-                         <label><input type="radio" name="coffee" value="Cappuccino"><span>Cappuccino</span></label>
-                         <label><input type="radio" name="coffee" value="Americano"><span>Americano</span></label>
-                         <label><input type="radio" name="coffee" value="Flat White"><span>Flat White</span></label>
-                     </div>
-                </div>
-                <button type="submit" class="btn-primary">Place Order</button>
+            <h2 id="modal-title" class="section-heading">Modal Title</h2>
+            <p id="modal-subtitle" class="view-subtitle">Subtitle</p>
+            <form id="modal-form">
+                <!-- Dynamic content will be injected here -->
+                <button type="submit" id="modal-submit-btn" class="btn-primary">Submit</button>
             </form>
         </div>
     </div>
