@@ -10,7 +10,7 @@
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Enhanced Ornate Rework)
+            Printable Menu Styles for Pickle & Peach (Enhanced Bleed & Seasonal)
         ==========================================================================
         */
 
@@ -38,25 +38,24 @@
             width: 100%;
             max-width: 800px;
             background-color: var(--bg-paper);
-            /* Subtle texture background */
             background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
             aspect-ratio: 1 / 1.414;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            padding: 2.5rem; /* Reduced padding to make room for inner border */
+            padding: 3.5rem; /* Increased padding for more bleed */
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
-        /* NEW: Full Page Inner Border */
+        /* Full Page Inner Border */
         .page-border {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
             border: 1px solid var(--ink-main);
-            pointer-events: none; /* Make it unclickable */
+            pointer-events: none;
         }
         .page-border::before, .page-border::after {
             content: '';
@@ -112,14 +111,13 @@
         /* Two Column Layout for Drinks & Info */
         .top-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 
-        .info-box {
+        .feature-box {
             border: 1px solid var(--ink-main);
-            padding: 1.5rem;
+            padding: 1rem 1.5rem;
             text-align: center;
             position: relative;
         }
-        /* NEW: Corner flourishes for info box */
-        .info-box .flourish {
+        .feature-box .flourish {
             position: absolute;
             width: 20px;
             height: 20px;
@@ -127,14 +125,13 @@
             stroke-width: 1.5px;
             fill: none;
         }
-        .info-box .flourish.top-left { top: 8px; left: 8px; }
-        .info-box .flourish.top-right { top: 8px; right: 8px; transform: scaleX(-1); }
-        .info-box .flourish.bottom-left { bottom: 8px; left: 8px; transform: scaleY(-1); }
-        .info-box .flourish.bottom-right { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+        .feature-box .flourish.top-left { top: 8px; left: 8px; }
+        .feature-box .flourish.top-right { top: 8px; right: 8px; transform: scaleX(-1); }
+        .feature-box .flourish.bottom-left { bottom: 8px; left: 8px; transform: scaleY(-1); }
+        .feature-box .flourish.bottom-right { bottom: 8px; right: 8px; transform: scale(-1, -1); }
         
-        .info-box .title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .info-box .title span { color: var(--ink-accent); }
-        .info-box p { font-size: 0.85rem; line-height: 1.5; color: #5c524e;}
+        .feature-box .title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--ink-accent); }
+        .feature-box p { font-size: 0.85rem; line-height: 1.5; color: #5c524e;}
 
         /* Menu Item with Dot Leaders */
         .menu-item-list { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -215,13 +212,18 @@
                         <p class="description" style="margin-top:-0.5rem;">Earl Grey, Decaffeinated, Green Passion</p>
                     </div>
                 </div>
-                <div class="info-box">
+                <!-- REWORKED: Seasonal Drinks Section -->
+                <div class="feature-box">
                     <svg class="flourish top-left"><use href="#icon-flourish" /></svg>
                     <svg class="flourish top-right"><use href="#icon-flourish" /></svg>
                     <svg class="flourish bottom-left"><use href="#icon-flourish" /></svg>
                     <svg class="flourish bottom-right"><use href="#icon-flourish" /></svg>
-                    <h3 class="title">You're in <span>Good</span> Company!</h3>
-                    <p>Consider storing your phone away for a moment. Take time to enjoy the food, the atmosphere, and the best of each other!</p>
+                    <h3 class="title">Seasonal Drinks</h3>
+                    <div class="menu-item-list">
+                         <div class="menu-item"><span class="name">Iced Peach Tea</span><span class="dots"></span><span class="price">4.00</span></div>
+                         <div class="menu-item"><span class="name">Lavender Latte</span><span class="dots"></span><span class="price">4.50</span></div>
+                         <div class="menu-item"><span class="name">Espresso Tonic</span><span class="dots"></span><span class="price">4.50</span></div>
+                    </div>
                 </div>
             </div>
 
