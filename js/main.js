@@ -135,38 +135,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 5. GLIMPSE INSIDE EFFECT (NEW) ---
+    // --- 5. GLIMPSE INSIDE EFFECT (REWORKED) ---
     function initGlimpseEffect() {
         const glimpseContainers = document.querySelectorAll('.glimpse-container');
         const overlay = document.querySelector('.glimpse-overlay');
-        const mainContent = document.querySelector('.landing-main'); // The main scrollable element
-
-        if (!glimpseContainers.length || !overlay || !mainContent) return;
         
-        const toggleScrollLock = () => {
-            const isLocked = document.body.style.overflow === 'hidden';
-            document.body.style.overflow = isLocked ? '' : 'hidden';
-            // Also toggle scroll snap to prevent interference
-            document.documentElement.style.scrollSnapType = isLocked ? '' : 'none';
+        if (!glimpseContainers.length || !overlay) return;
+        
+        const toggleScrollLock = (isLocked) => {
+            document.body.style.overflow = isLocked ? 'hidden' : '';
+            document.documentElement.style.scrollSnapType = isLocked ? 'none' : '';
         };
 
+        const zoomIn = (container) => {
+            toggleScrollLock(true);
+            overlay.classList.add('is-active');
+
+            const rect = container.getBoundingClientRect();
+            
+            // 1. Pin the element in place with fixed positioning
+            container.style.position = 'fixed';
+            container.style.top = `${rect.top}px`;
+            container.style.left = `${rect.left}px`;
+            container.style.width = `${rect.width}px`;
+            container.style.height = `${rect.height}px`;
+
+            // 2. Calculate the transform to scale it to full screen
+            const scaleX = window.innerWidth / rect.width;
+            const scaleY = window.innerHeight / rect.height;
+            const translateX = (window.innerWidth / 2) - (rect.left + rect.width / 2);
+            const translateY = (window.innerHeight / 2) - (rect.top + rect.height / 2);
+
+            // 3. Add classes and apply the transform to trigger the animation
+            requestAnimationFrame(() => {
+                container.classList.add('is-zoomed', 'is-animating');
+                container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+            });
+        };
+
+        const zoomOut = (container) => {
+            toggleScrollLock(false);
+            overlay.classList.remove('is-active');
+            
+            // Remove the transform to animate back to the pinned position
+            container.style.transform = '';
+
+            // Listen for the animation to end, then clean up all styles
+            container.addEventListener('transitionend', () => {
+                container.classList.remove('is-zoomed', 'is-animating');
+                container.removeAttribute('style');
+            }, { once: true });
+        };
+        
         glimpseContainers.forEach(container => {
             container.addEventListener('click', () => {
-                container.classList.add('is-zoomed');
-                overlay.classList.add('is-active');
-                toggleScrollLock();
+                if (!container.classList.contains('is-zoomed')) {
+                    zoomIn(container);
+                }
             });
         });
 
         overlay.addEventListener('click', () => {
             const zoomedContainer = document.querySelector('.glimpse-container.is-zoomed');
             if (zoomedContainer) {
-                zoomedContainer.classList.remove('is-zoomed');
-                overlay.classList.remove('is-active');
-                toggleScrollLock();
+                zoomOut(zoomedContainer);
             }
         });
     }
+
 
     // --- INITIALIZE ALL FUNCTIONS ---
     initCountdown();
