@@ -10,7 +10,7 @@
     <style>
         /* 
         ==========================================================================
-            Printable Menu Styles for Pickle & Peach (Enhanced Bleed & Seasonal)
+            Printable Menu Styles for Pickle & Peach (Final Bleed Adjustment)
         ==========================================================================
         */
 
@@ -41,7 +41,8 @@
             background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
             aspect-ratio: 1 / 1.414;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            padding: 3.5rem; /* Increased padding for more bleed */
+            /* THE FIX: Padding increased to 5rem for more bleed */
+            padding: 5rem;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -50,10 +51,11 @@
         /* Full Page Inner Border */
         .page-border {
             position: absolute;
-            top: 25px;
-            left: 25px;
-            right: 25px;
-            bottom: 25px;
+            /* THE FIX: Border brought in further from the edge */
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
             border: 1px solid var(--ink-main);
             pointer-events: none;
         }
