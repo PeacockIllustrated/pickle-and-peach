@@ -1,5 +1,4 @@
-// Firebase SDK imports
-import { db } from '/firebase-config.js'; // CORRECTED to use a root-relative path
+import { db } from '../firebase-config.js'; // THE CORRECTED, DEFINITIVE PATH
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 // Mock data import
 import { fetchMenuItems } from './firestore-mock.js';
