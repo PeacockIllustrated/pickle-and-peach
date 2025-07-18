@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickle & Peach | Cafe Management Made Simple</title>
+    <meta charset="UTF-8" />
+    <title>Pickle & Peach Cafe - Opening Soon in South Shields</title>
+    <meta name="description" content="Pickle & Peach, a new cosy cafe and kitchen, is opening soon in South Shields. Follow our story and get ready for great coffee and delicious bites.">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- NOTE: Cera Pro is not on Google Fonts, using a similar font 'Lato' as a fallback for this example -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
+    
     <style>
         :root {
             --primary-accent: #B87333;
             --secondary-accent: #2E4034;
             --bg-main: #F9F7F3;
             --bg-surface: #FFFFFF;
-            --bg-dark: #3a4a51;
+            --bg-dark: #3a4a51; /* Color from your original CSS */
             --text-primary: #2c3e50;
-            --text-secondary: #6c757d;
-            --text-light: #F9F7F3;
-            --border-color: #e9ecef;
-            --font-heading: 'Vidaloka', serif;
-            --font-body: 'Lato', sans-serif;
+            --text-light: #f8f8f8; /* Color from your original CSS */
             --bento-gap: 1.5rem;
+            --font-heading: 'Vidaloka', serif;
+            --font-body: 'Lato', 'Cera Pro', sans-serif; /* Fallback for Cera Pro */
         }
 
         body {
@@ -32,264 +32,317 @@
             font-family: var(--font-body);
             background-color: var(--bg-main);
             color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Hero Section (Unchanged) --- */
-        .hero-section {
-            background-color: var(--bg-dark);
+        /* --- Nav & Hero (Copied from your original styles for accuracy) --- */
+        .top-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+        .logo-vertical {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            line-height: 1;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+        }
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        .menu a {
+            text-decoration: none;
             color: var(--text-light);
-            text-align: center;
-            padding: 80px 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #hero {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
         }
-        .hero-logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        .hero-title {
-            font-family: var(--font-heading);
-            font-size: 3.5rem;
-            margin: 0 0 15px 0;
-            font-weight: normal;
-        }
-        .hero-subtitle {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            opacity: 0.9;
-        }
-        .hero-cta {
-            background-color: var(--primary-accent);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 8px;
-            text-decoration: none;
+        .eyebrow {
             font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
         }
-        .hero-cta:hover {
-            background-color: #a0642b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .display {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 12vw, 8rem);
+            line-height: 0.9;
+            margin: 0;
         }
-        
-        /* --- NEW: Bento Box Section --- */
+        .countdown-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+        }
+        .countdown-item {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .countdown-item span {
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+        }
+        .caption {
+            letter-spacing: 3px;
+        }
+
+        /* --- New Bento Box Section --- */
         .bento-section-wrapper {
             padding: 5rem var(--bento-gap);
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .bento-grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(200px, auto);
             gap: var(--bento-gap);
         }
-        
+
         .bento-item {
             background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 24px;
             padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .bento-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
         }
 
-        /* Sizing Classes */
-        .bento-item.span-col-2 {
-            grid-column: span 2;
-        }
+        /* Sizing and Positioning Classes */
+        .col-span-2 { grid-column: span 2; }
+        .row-span-2 { grid-row: span 2; }
 
         /* Content inside Bento Items */
-        .bento-item .bento-icon {
+        .bento-icon {
             font-size: 2.5rem;
             color: var(--primary-accent);
             margin-bottom: 1rem;
         }
-
-        .bento-item .bento-title {
+        .bento-title {
             font-family: var(--font-heading);
-            font-size: 1.75rem;
-            margin: 0;
+            font-size: 2rem;
+            margin: 0 0 0.5rem 0;
             font-weight: normal;
         }
-
-        /* The "Dynamic Spread" Interaction */
-        .bento-item .bento-description {
-            color: var(--text-secondary);
-            margin-top: 0.75rem;
+        .bento-description {
             opacity: 0;
             max-height: 0;
             overflow: hidden;
             transition: opacity 0.4s ease, max-height 0.4s ease, margin-top 0.4s ease;
+            color: var(--text-primary);
+            line-height: 1.7;
         }
-
         .bento-item:hover .bento-description {
             opacity: 1;
-            max-height: 100px; /* Adjust as needed */
-            margin-top: 0.75rem;
+            max-height: 200px;
+            margin-top: 1rem;
+        }
+        .bento-subtitle {
+            font-size: 1rem;
+            color: var(--text-primary);
         }
 
-        /* Special Styling for the CTA Bento Box */
-        .bento-item.cta-box {
+        /* Specific Box Styles */
+        .bento-item.story-box {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/600x800/465358/A8B8BB?text=Our+Story');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            justify-content: flex-end;
+        }
+        .bento-item.vibe-box {
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+        }
+        .vibe-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .bento-item.map-box {
+            padding: 0;
+        }
+        .map-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 24px;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: auto;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            background: var(--bg-main);
+        }
+        .contact-form button {
             background-color: var(--secondary-accent);
             color: var(--text-light);
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .bento-item.cta-box .bento-title {
-            margin-bottom: 1rem;
-        }
-        .bento-item.cta-box .bento-cta-button {
-            background-color: var(--primary-accent);
-            color: white;
-            padding: 12px 30px;
+            border: none;
+            padding: 12px;
             border-radius: 8px;
-            text-decoration: none;
             font-weight: 700;
-            transition: all 0.3s ease;
-        }
-         .bento-item.cta-box .bento-cta-button:hover {
-            background-color: var(--bg-main);
-            color: var(--secondary-accent);
+            cursor: pointer;
         }
 
-
-        /* --- Responsive Adjustments for Bento Grid --- */
-        @media screen and (max-width: 900px) {
-            .hero-title { font-size: 2.8rem; }
+        /* Responsive */
+        @media (max-width: 900px) {
             .bento-grid-container {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .bento-item.span-col-2 {
-                grid-column: span 2; /* Still takes full width */
-            }
-            /* Adjust a few items to avoid being lonely */
-            .bento-item:nth-child(1), .bento-item:nth-child(4) {
-                 grid-column: span 2;
+            .bento-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+            .bento-grid-container > .bento-item:first-child,
+            .bento-grid-container > .bento-item:last-child {
+                grid-column: span 2 !important;
             }
         }
 
-        @media screen and (max-width: 600px) {
-            .hero-title { font-size: 2.2rem; }
+        @media (max-width: 600px) {
+            .top-nav { display: none; }
             .bento-section-wrapper { padding: 3rem 1rem; }
             .bento-grid-container {
-                grid-template-columns: 1fr; /* Stack everything in a single column */
+                grid-template-columns: 1fr;
             }
-            .bento-item.span-col-2 {
-                grid-column: span 1; /* Reset column span for single column layout */
-            }
-             .bento-item:nth-child(1), .bento-item:nth-child(4) {
-                 grid-column: span 1;
+            .bento-item, .bento-grid-container > .bento-item:first-child, .bento-grid-container > .bento-item:last-child {
+                grid-column: span 1 !important;
             }
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Hero Section (Retained as is) -->
-    <section class="hero-section">
-        <img src="assets/pickle-peach-logo-alt.png" alt="Pickle & Peach Logo" class="hero-logo">
-        <h1 class="hero-title">Cafe Management, Simplified.</h1>
-        <p class="hero-subtitle">Streamline your inventory, empower your staff, and take control of your daily operations with an all-in-one dashboard designed for the modern cafe.</p>
-        <a href="index.html" class="hero-cta">Go to Admin Dashboard</a>
-    </section>
-    
-    <!-- NEW: Bento Box Section -->
-    <section class="bento-section-wrapper">
-        <div class="bento-grid-container">
+    <nav class="top-nav">
+        <span class="logo-vertical">P&<br>P</span>
+        <ul class="menu">
+            <!-- These links would need JS or be full-page links -->
+            <li><a href="#">Story</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Find Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
 
-            <!-- Bento Item 1: Inventory Management -->
-            <div class="bento-item">
-                <div>
-                    <i class="fas fa-boxes-stacked bento-icon"></i>
-                    <h3 class="bento-title">Live Inventory</h3>
+    <main>
+        <section id="hero" class="panel">
+            <h6 class="eyebrow">CAFE & KITCHEN // SOUTH SHIELDS</h6>
+            <h1 class="display">PICKLE<br>& PEACH</h1>
+            <div class="countdown-container" id="countdown">
+                <div class="countdown-item"><span id="days">00</span>Days</div>
+                <div class="countdown-item"><span id="hours">00</span>Hours</div>
+                <div class="countdown-item"><span id="minutes">00</span>Minutes</div>
+                <div class="countdown-item"><span id="seconds">00</span>Seconds</div>
+            </div>
+            <small class="caption">UNTIL WE OPEN OUR DOORS</small>
+        </section>
+
+        <section class="bento-section-wrapper">
+            <div class="bento-grid-container">
+
+                <div class="bento-item row-span-2 col-span-2 story-box">
+                    <h2 class="bento-title">Our Story</h2>
+                    <p class="bento-subtitle">From a dream to your new favourite corner in South Shields.</p>
                     <p class="bento-description">
-                        Never run out of espresso beans again. Track stock levels in real-time with visual indicators for low and critical items.
+                        It started with a simple idea: to create a space where good coffee and great company feel like a second home. After finding the perfect spot on Ocean Road, we poured our hearts into crafting a cosy, modern vibe. We're now putting the final touches on our dream and can't wait to welcome you in.
                     </p>
                 </div>
-            </div>
 
-            <!-- Bento Item 2: Staff Training (Spans 2 columns) -->
-            <div class="bento-item span-col-2">
-                <div>
-                    <i class="fas fa-person-chalkboard bento-icon"></i>
-                    <h3 class="bento-title">Seamless Staff Training</h3>
+                <div class="bento-item">
+                    <i class="fas fa-mug-hot bento-icon"></i>
+                    <h3 class="bento-title">Menu Sneak Peek</h3>
                     <p class="bento-description">
-                        Onboard new hires with a digital handbook and automated quizzes. Track progress from your admin dashboard to ensure your team is always up to speed.
+                        We're crafting a menu filled with locally-sourced ingredients, specialty coffee, and delicious homemade bakes. Quality and comfort in every bite.
                     </p>
                 </div>
-            </div>
-            
-            <!-- Bento Item 3: Onboard Your Team -->
-            <div class="bento-item">
-                 <div>
-                    <i class="fas fa-user-plus bento-icon"></i>
-                    <h3 class="bento-title">Onboard Your Team</h3>
-                    <p class="bento-description">
-                        New hires can self-register through a secure staff portal, automatically creating their profile and giving them instant access to training materials.
-                    </p>
+
+                <div class="bento-item vibe-box row-span-2">
+                    <img src="https://placehold.co/300x500/465358/A8B8BB?text=Fresh+Coffee" alt="A cup of freshly made coffee">
+                    <img src="https://placehold.co/300x500/5A696E/BCCCDC?text=Cosy+Corners" alt="A cosy corner of the cafe">
+                    <img src="https://placehold.co/300x500/404B4F/A0B0B3?text=Tasty+Food" alt="A plate of delicious food">
                 </div>
-            </div>
 
-            <!-- Bento Item 4: Rota Planning -->
-            <div class="bento-item">
-                 <div>
-                    <i class="fas fa-calendar-days bento-icon"></i>
-                    <h3 class="bento-title">Intuitive Rota Planning</h3>
-                    <p class="bento-description">
-                        Build and manage your weekly rota with a simple drag-and-drop interface. Keep your team informed and your shifts covered effortlessly.
-                    </p>
+                <div class="bento-item map-box col-span-2">
+                    <iframe id="location-map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.793267597017!2d-1.428587684241682!3d54.9961789803588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e6e584506f351%3A0x6e969a531f6e1b65!2sOcean+Rd%2C+South+Shields!5e0!3m2!1sen!2suk!4v1562586828564!5m2!1sen!2suk" 
+                        loading="lazy">
+                    </iframe>
                 </div>
-            </div>
-            
-             <!-- Bento Item 5: Manage Your Stock -->
-            <div class="bento-item">
-                 <div>
-                    <i class="fas fa-clipboard-check bento-icon"></i>
-                    <h3 class="bento-title">Manage Your Stock</h3>
-                    <p class="bento-description">
-                        Create purchase orders, log wastage, and receive deliveries. The system automatically updates your inventory, keeping your counts accurate.
-                    </p>
+
+                <div class="bento-item col-span-2">
+                    <h3 class="bento-title">See You Soon?</h3>
+                    <p class="bento-subtitle">Follow our journey on social media or drop us a line!</p>
+                    <form class="contact-form">
+                        <input placeholder="Your name" required>
+                        <input type="email" placeholder="Your e-mail" required>
+                        <button type="submit">STAY UPDATED ►</button>
+                    </form>
                 </div>
+
             </div>
+        </section>
 
-            <!-- Bento Item 6: Plan Your Week -->
-            <div class="bento-item">
-                 <div>
-                    <i class="fas fa-tasks bento-icon"></i>
-                    <h3 class="bento-title">Plan Your Week</h3>
-                    <p class="bento-description">
-                        Use the responsive rota to assign shifts, view staff availability, and publish the week's schedule, accessible to you from anywhere.
-                    </p>
-                </div>
-            </div>
+    </main>
 
-            <!-- Bento Item 7: CTA (Spans 2 columns) -->
-            <div class="bento-item span-col-2 cta-box">
-                <h3 class="bento-title">Ready to take control?</h3>
-                <a href="index.html" class="bento-cta-button">Get Started</a>
-            </div>
+    <script>
+        // Note: The menu items would be injected by your original main.js
+        // The slider JS would no longer be needed for this layout.
 
-        </div>
-    </section>
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownDate = new Date("Aug 1, 2025 08:00:00").getTime();
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById('countdown').innerHTML = "WE'RE OPEN!";
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
