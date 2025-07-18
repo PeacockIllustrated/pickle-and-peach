@@ -1,0 +1,88 @@
+/* --- landing.css (NEW FILE) --- */
+
+:root {
+    --primary-accent: #B87333;
+    --secondary-accent: #2E4034;
+    --bg-main: #F9F7F3;
+    --text-primary: #2c3e50;
+    --font-heading: 'Vidaloka', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+/* --- Glimpse Section Styles --- */
+#glimpse-section {
+    background-color: var(--secondary-accent);
+    color: var(--bg-main);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden; /* Important for containing the marquee */
+}
+
+#glimpse-section h2 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    font-weight: normal;
+    margin-bottom: 40px;
+}
+
+/* --- Mobile-First Carousel Styles --- */
+.glimpse-carousel-container {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Enable snapping */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Hide scrollbar for a cleaner look */
+.glimpse-carousel-container::-webkit-scrollbar { display: none; }
+.glimpse-carousel-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+.glimpse-track {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.glimpse-track img {
+    flex: 0 0 85%; /* Each image takes up 85% of the container width */
+    width: 85%;
+    scroll-snap-align: center; /* Snap images to the center */
+    border-radius: 12px;
+    height: 300px;
+    object-fit: cover;
+}
+
+/* --- Desktop Marquee Styles --- */
+@media screen and (min-width: 769px) {
+    /* Define the scrolling animation */
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* Move by the width of the original set of images */
+    }
+
+    .glimpse-carousel-container {
+        overflow: hidden; /* Disable scrolling on desktop */
+        position: relative;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    
+    .glimpse-track {
+        /* Use the --animation-duration variable set by JS */
+        animation: scroll var(--animation-duration, 40s) linear infinite;
+        width: max-content; /* Let the track be as wide as its content */
+        gap: 40px;
+        padding: 0 40px;
+    }
+
+    .glimpse-track:hover {
+        animation-play-state: paused; /* Pause animation on hover */
+    }
+
+    .glimpse-track img {
+        flex: 0 0 auto; /* Let images take their natural width */
+        width: auto;
+        height: 350px; /* Taller images for desktop */
+        max-width: 500px;
+    }
+}
