@@ -1,175 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Pickle & Peach Cafe - Opening Soon in South Shields</title>
-    <meta name="description" content="Pickle & Peach, a new cosy cafe and kitchen, is opening soon in South Shields. Follow our story and get ready for great coffee and delicious bites.">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickle & Peach | Cafe Management Made Simple</title>
     
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="css/style.css">
-    
-    <script src="js/main.js" type="module" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-accent: #B87333;
+            --secondary-accent: #2E4034;
+            --bg-main: #F9F7F3;
+            --bg-surface: #FFFFFF;
+            --bg-dark: #3a4a51;
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --text-light: #F9F7F3;
+            --border-color: #e9ecef;
+            --font-heading: 'Vidaloka', serif;
+            --font-body: 'Lato', sans-serif;
+            --bento-gap: 1.5rem;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Hero Section (Unchanged) --- */
+        .hero-section {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
+        .hero-cta {
+            background-color: var(--primary-accent);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .hero-cta:hover {
+            background-color: #a0642b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* --- NEW: Bento Box Section --- */
+        .bento-section-wrapper {
+            padding: 5rem var(--bento-gap);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bento-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--bento-gap);
+        }
+        
+        .bento-item {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        /* Sizing Classes */
+        .bento-item.span-col-2 {
+            grid-column: span 2;
+        }
+
+        /* Content inside Bento Items */
+        .bento-item .bento-icon {
+            font-size: 2.5rem;
+            color: var(--primary-accent);
+            margin-bottom: 1rem;
+        }
+
+        .bento-item .bento-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        /* The "Dynamic Spread" Interaction */
+        .bento-item .bento-description {
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.4s ease, max-height 0.4s ease, margin-top 0.4s ease;
+        }
+
+        .bento-item:hover .bento-description {
+            opacity: 1;
+            max-height: 100px; /* Adjust as needed */
+            margin-top: 0.75rem;
+        }
+
+        /* Special Styling for the CTA Bento Box */
+        .bento-item.cta-box {
+            background-color: var(--secondary-accent);
+            color: var(--text-light);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .bento-item.cta-box .bento-title {
+            margin-bottom: 1rem;
+        }
+        .bento-item.cta-box .bento-cta-button {
+            background-color: var(--primary-accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+         .bento-item.cta-box .bento-cta-button:hover {
+            background-color: var(--bg-main);
+            color: var(--secondary-accent);
+        }
+
+
+        /* --- Responsive Adjustments for Bento Grid --- */
+        @media screen and (max-width: 900px) {
+            .hero-title { font-size: 2.8rem; }
+            .bento-grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bento-item.span-col-2 {
+                grid-column: span 2; /* Still takes full width */
+            }
+            /* Adjust a few items to avoid being lonely */
+            .bento-item:nth-child(1), .bento-item:nth-child(4) {
+                 grid-column: span 2;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .hero-title { font-size: 2.2rem; }
+            .bento-section-wrapper { padding: 3rem 1rem; }
+            .bento-grid-container {
+                grid-template-columns: 1fr; /* Stack everything in a single column */
+            }
+            .bento-item.span-col-2 {
+                grid-column: span 1; /* Reset column span for single column layout */
+            }
+             .bento-item:nth-child(1), .bento-item:nth-child(4) {
+                 grid-column: span 1;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="glimpse-overlay"></div>
-
-    <nav class="top-nav">
-        <span class="logo-vertical">P&<br>P</span>
-        <ul class="menu">
-            <li><a href="#story">Story</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#location">Find Us</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <main class="landing-main">
-        <section id="hero" class="panel">
-            <h6 class="eyebrow">CAFE & KITCHEN // SOUTH SHIELDS</h6>
-            <h1 class="display">PICKLE<br>& PEACH</h1>
-            <div class="countdown-container" id="countdown">
-                <div class="countdown-item"><span id="days">00</span>Days</div>
-                <div class="countdown-item"><span id="hours">00</span>Hours</div>
-                <div class="countdown-item"><span id="minutes">00</span>Minutes</div>
-                <div class="countdown-item"><span id="seconds">00</span>Seconds</div>
-            </div>
-            <small class="caption">UNTIL WE OPEN OUR DOORS</small>
-        </section>
-
-        <!-- REWORKED STORY SECTION STRUCTURE -->
-        <section id="story" class="panel">
-            <div class="story-slider-container">
-                
-                <!-- Slide 1: The Dream -->
-                <div class="story-slide">
-                    <div class="story-slide-image">
-                        <img src="https://placehold.co/600x800/465358/A8B8BB?text=The+Dream" alt="Illustration representing the initial dream of the cafe">
-                    </div>
-                    <div class="story-slide-text">
-                        <h2 class="section-title">Our Story: <br>The Dream</h2>
-                        <p>It started with a simple idea shared over a kitchen table: to create a space in South Shields where good coffee and great company could feel like a second home. We envisioned a warm, welcoming nook for our community.</p>
-                    </div>
-                </div>
-
-                <!-- Slide 2: The Perfect Spot -->
-                <div class="story-slide">
-                    <div class="story-slide-image">
-                        <img src="https://placehold.co/600x800/505D63/B2C2C5?text=The+Perfect+Spot" alt="Photo of the cafe location before renovations">
-                    </div>
-                    <div class="story-slide-text">
-                        <h2 class="section-title">Chapter 2: <br>The Perfect Spot</h2>
-                        <p>After months of searching, we found it. A little corner on Ocean Road with so much potential. It was rough around the edges, but we could see the light pouring through the windows and knew this was where Pickle & Peach belonged.</p>
-                    </div>
-                </div>
-
-                <!-- Slide 3: Crafting the Vibe -->
-                <div class="story-slide">
-                    <div class="story-slide-image">
-                        <img src="https://placehold.co/600x800/404B4F/A0B0B3?text=Crafting+the+Vibe" alt="Moodboard or image showing design elements and materials">
-                    </div>
-                    <div class="story-slide-text">
-                        <h2 class="section-title">Chapter 3: <br>Crafting the Vibe</h2>
-                        <p>This was the fun part! Countless hours were spent choosing colours, sourcing furniture, and designing a menu that reflects our love for local, quality ingredients. Every detail has been chosen with care to create a cosy, modern feel.</p>
-                    </div>
-                </div>
-
-                <!-- Slide 4: The Final Touches -->
-                <div class="story-slide">
-                    <div class="story-slide-image">
-                        <img src="https://placehold.co/600x800/5A696E/BCCCDC?text=Final+Touches" alt="Image of the nearly-finished cafe interior">
-                    </div>
-                    <div class="story-slide-text">
-                        <h2 class="section-title">Chapter 4: <br>Final Touches</h2>
-                        <p>The coffee machine is humming, the counters are polished, and the air is filled with anticipation. We're putting the final touches on our dream and are getting incredibly excited to finally open our doors and welcome you in.</p>
-                    </div>
-                </div>
-                
-                <!-- Slider Navigation -->
-                <button class="slider-arrow arrow-left" aria-label="Previous story slide">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="slider-arrow arrow-right" aria-label="Next story slide">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
-            </div>
-        </section>
-
-        <section id="menu" class="panel">
-            <div class="content-grid">
-                <h2 class="section-title">Menu Sneak Peek</h2>
-                <p class="subtitle">Here's a little taste of what we're brewing and baking.</p>
-                <div id="menu-grid" class="menu-grid">
-                    <!-- Menu items will be injected here by JS -->
-                </div>
-            </div>
-        </section>
-
-        <section id="vibe" class="panel">
-             <h2 class="section-title">A Glimpse Inside</h2>
-            <article class="vibe-gallery">
-                <div class="glimpse-container">
-                    <img src="https://placehold.co/400x600/465358/A8B8BB?text=Glimpse+1" alt="A cup of freshly made coffee">
-                </div>
-                <div class="glimpse-container">
-                    <img src="https://placehold.co/400x600/505D63/B2C2C5?text=Glimpse+2" alt="A cosy corner of the cafe">
-                </div>
-                <div class="glimpse-container">
-                     <img src="https://placehold.co/400x600/404B4F/A0B0B3?text=Glimpse+3" alt="A plate of delicious food">
-                </div>
-            </article>
-            <p class="subtitle" style="margin-top: 2rem;">Your new favourite spot is taking shape.</p>
-        </section>
-        
-        <section id="location" class="panel">
-            <div class="content-grid">
-                <h2 class="section-title">Find Us</h2>
-                <p class="subtitle">We're located on Ocean Road, a stone's throw from the sea.</p>
-                <div class="map-container">
-                    <iframe id="location-map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.793267597017!2d-1.428587684241682!3d54.9961789803588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e6e584506f351%3A0x6e969a531f6e1b65!2sOcean+Rd%2C+South+Shields!5e0!3m2!1sen!2suk!4v1562586828564!5m2!1sen!2suk" 
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="panel">
-            <div class="content-grid two-col">
-                <div class="contact-info">
-                    <h2 class="section-title">See You Soon?</h2>
-                    <p>Follow our journey on social media for updates, behind-the-scenes peeks, and our official opening date announcement. For anything else, drop us a line!</p>
-                    <address>
-                        <strong>Address:</strong> 123 Ocean Road, South Shields<br>
-                        <strong>Email:</strong> hello@pickleandpeach.com
-                    </address>
-                     <div class="social-links-contact">
-                        <a href="#" aria-label="Facebook">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22,12c0-5.52-4.48-10-10-10S2,6.48,2,12c0,4.84,3.44,8.87,8,9.8V15H8v-3h2V9.5C10,7.57,11.57,6,13.5,6H16v3h-1.5c-0.83,0-1,0.47-1,1v2h2.5l-0.5,3H13v6.95C18.05,21.45,22,17.19,22,12Z"/></svg>
-                        </a>
-                        <a href="#" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2C8.74,2,8.33,2.02,7.05,2.09c-1.28,0.07-2.16,0.34-2.91,0.63c-0.78,0.3-1.45,0.72-2.12,1.39C1.35,4.78,0.92,5.45,0.63,6.23C0.34,6.98,0.07,7.86,0,9.14C-0.07,10.42,0,10.83,0,14s0.07,3.58,0,4.86c-0.07,1.28-0.34,2.16-0.63,2.91c-0.3,0.78-0.72,1.45-1.39,2.12c-0.67,0.67-1.34,1.09-2.12,1.39c-0.75,0.29-1.63,0.56-2.91,0.63C10.42,21.93,10.83,22,12,22s3.58-0.07,4.86-0.14c1.28-0.07,2.16-0.34,2.91-0.63c0.78-0.3,1.45-0.72,2.12-1.39c0.67-0.67,1.09-1.34,1.39-2.12c0.29-0.75,0.56-1.63,0.63-2.91c0.07-1.28,0.14-1.69,0.14-4.86s-0.07-3.58-0.14-4.86c-0.07-1.28-0.34-2.16-0.63-2.91c-0.3-0.78-0.72-1.45-1.39-2.12c-0.67-0.67-1.34-1.09-2.12-1.39C16.98,2.34,16.1,2.07,14.82,2C13.54,2.02,13.13,2,12,2M12,4c3.1,0,3.45,0.01,4.66,0.07c1.08,0.06,1.72,0.3,2.12,0.48c0.48,0.21,0.82,0.47,1.18,0.83c0.36,0.36,0.62,0.7,0.83,1.18c0.18,0.4,0.42,1.04,0.48,2.12C21.99,9.83,22,10.18,22,12s-0.01,2.17-0.07,3.34c-0.06,1.08-0.3,1.72-0.48,2.12c-0.21,0.48-0.47,0.82-0.83,1.18c-0.36,0.36-0.7,0.62-1.18,0.83c-0.4,0.18-1.04,0.42-2.12,0.48C15.45,21.99,15.1,22,12,22s-3.45-0.01-4.66-0.07c-1.08-0.06-1.72-0.3-2.12-0.48c-0.48-0.21-0.82-0.47-1.18-0.83c-0.36-0.36-0.62-0.7-0.83-1.18c-0.18-0.4-0.42-1.04-0.48-2.12C2.01,14.17,2,13.82,2,12s0.01-2.17,0.07-3.34c0.06-1.08,0.3-1.72,0.48-2.12c0.21-0.48,0.47-0.82,0.83-1.18C3.74,4.95,4.08,4.69,4.56,4.48c0.4-0.18,1.04-0.42,2.12-0.48C7.83,2.01,8.18,2,12,2M12,7a5,5,0,1,0,5,5a5,5,0,0,0-5-5m0,8a3,3,0,1,1,3-3a3,3,0,0,1-3,3m6.4-8.88a1.2,1.2,0,1,0,1.2,1.2a1.2,1.2,0,0,0-1.2-1.2" /></svg>
-                        </a>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <h3>STAY UPDATED</h3>
-                    <input placeholder="Your name" required>
-                    <input type="email" placeholder="Your e-mail" required>
-                    <textarea placeholder="Your message..." rows="4"></textarea>
-                    <button type="submit">SEND MESSAGE ►</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer class="thanks">
-        WE CAN'T WAIT TO WELCOME YOU
-    </footer>
+    <!-- Hero Section (Retained as is) -->
+    <section class="hero-section">
+        <img src="assets/pickle-peach-logo-alt.png" alt="Pickle & Peach Logo" class="hero-logo">
+        <h1 class="hero-title">Cafe Management, Simplified.</h1>
+        <p class="hero-subtitle">Streamline your inventory, empower your staff, and take control of your daily operations with an all-in-one dashboard designed for the modern cafe.</p>
+        <a href="index.html" class="hero-cta">Go to Admin Dashboard</a>
+    </section>
     
+    <!-- NEW: Bento Box Section -->
+    <section class="bento-section-wrapper">
+        <div class="bento-grid-container">
+
+            <!-- Bento Item 1: Inventory Management -->
+            <div class="bento-item">
+                <div>
+                    <i class="fas fa-boxes-stacked bento-icon"></i>
+                    <h3 class="bento-title">Live Inventory</h3>
+                    <p class="bento-description">
+                        Never run out of espresso beans again. Track stock levels in real-time with visual indicators for low and critical items.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Item 2: Staff Training (Spans 2 columns) -->
+            <div class="bento-item span-col-2">
+                <div>
+                    <i class="fas fa-person-chalkboard bento-icon"></i>
+                    <h3 class="bento-title">Seamless Staff Training</h3>
+                    <p class="bento-description">
+                        Onboard new hires with a digital handbook and automated quizzes. Track progress from your admin dashboard to ensure your team is always up to speed.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Bento Item 3: Onboard Your Team -->
+            <div class="bento-item">
+                 <div>
+                    <i class="fas fa-user-plus bento-icon"></i>
+                    <h3 class="bento-title">Onboard Your Team</h3>
+                    <p class="bento-description">
+                        New hires can self-register through a secure staff portal, automatically creating their profile and giving them instant access to training materials.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Item 4: Rota Planning -->
+            <div class="bento-item">
+                 <div>
+                    <i class="fas fa-calendar-days bento-icon"></i>
+                    <h3 class="bento-title">Intuitive Rota Planning</h3>
+                    <p class="bento-description">
+                        Build and manage your weekly rota with a simple drag-and-drop interface. Keep your team informed and your shifts covered effortlessly.
+                    </p>
+                </div>
+            </div>
+            
+             <!-- Bento Item 5: Manage Your Stock -->
+            <div class="bento-item">
+                 <div>
+                    <i class="fas fa-clipboard-check bento-icon"></i>
+                    <h3 class="bento-title">Manage Your Stock</h3>
+                    <p class="bento-description">
+                        Create purchase orders, log wastage, and receive deliveries. The system automatically updates your inventory, keeping your counts accurate.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Item 6: Plan Your Week -->
+            <div class="bento-item">
+                 <div>
+                    <i class="fas fa-tasks bento-icon"></i>
+                    <h3 class="bento-title">Plan Your Week</h3>
+                    <p class="bento-description">
+                        Use the responsive rota to assign shifts, view staff availability, and publish the week's schedule, accessible to you from anywhere.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Item 7: CTA (Spans 2 columns) -->
+            <div class="bento-item span-col-2 cta-box">
+                <h3 class="bento-title">Ready to take control?</h3>
+                <a href="index.html" class="bento-cta-button">Get Started</a>
+            </div>
+
+        </div>
+    </section>
+
 </body>
 </html>
