@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- NOTE: Cera Pro is not on Google Fonts, using a similar font 'Lato' as a fallback for this example -->
+    <!-- Using Lato as a stand-in for Cera Pro -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -19,12 +19,12 @@
             --secondary-accent: #2E4034;
             --bg-main: #F9F7F3;
             --bg-surface: #FFFFFF;
-            --bg-dark: #3a4a51; /* Color from your original CSS */
+            --bg-dark: #3a4a51;
             --text-primary: #2c3e50;
-            --text-light: #f8f8f8; /* Color from your original CSS */
+            --text-light: #f8f8f8;
             --bento-gap: 1.5rem;
             --font-heading: 'Vidaloka', serif;
-            --font-body: 'Lato', 'Cera Pro', sans-serif; /* Fallback for Cera Pro */
+            --font-body: 'Lato', 'Cera Pro', sans-serif;
         }
 
         body {
@@ -34,20 +34,21 @@
             color: var(--text-primary);
         }
 
-        /* --- Nav & Hero (Copied from your original styles for accuracy) --- */
+        /* --- Nav & Hero --- */
         .top-nav {
             position: fixed;
             top: 2rem;
             right: 2rem;
             z-index: 100;
         }
-        .logo-vertical {
+        .logo-horizontal { /* UPDATED from .logo-vertical */
             font-family: var(--font-heading);
-            font-size: 1.5rem;
+            font-size: 2rem;
             line-height: 1;
             position: fixed;
             top: 2rem;
             left: 2rem;
+            color: var(--primary-accent); /* UPDATED Color */
         }
         .menu {
             list-style: none;
@@ -86,6 +87,9 @@
             line-height: 0.9;
             margin: 0;
         }
+        .display .highlight { /* NEW Class for "PICKLE" */
+            color: var(--primary-accent);
+        }
         .countdown-container {
             display: flex;
             gap: 2rem;
@@ -99,25 +103,24 @@
             font-size: 3rem;
             font-weight: 700;
             display: block;
+            color: var(--primary-accent); /* UPDATED Color */
         }
         .caption {
             letter-spacing: 3px;
         }
 
-        /* --- New Bento Box Section --- */
+        /* --- Bento Box Section --- */
         .bento-section-wrapper {
             padding: 5rem var(--bento-gap);
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .bento-grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-auto-rows: minmax(200px, auto);
             gap: var(--bento-gap);
         }
-
         .bento-item {
             background-color: var(--bg-surface);
             border-radius: 24px;
@@ -150,7 +153,7 @@
             margin: 0 0 0.5rem 0;
             font-weight: normal;
         }
-        .bento-description {
+        .bento-subtitle, .bento-description {
             opacity: 0;
             max-height: 0;
             overflow: hidden;
@@ -158,14 +161,17 @@
             color: var(--text-primary);
             line-height: 1.7;
         }
+        .bento-subtitle { /* Subtitle needs to be visible initially in some cases */
+             opacity: 1; max-height: 100px;
+        }
+        .bento-item:hover .bento-subtitle,
         .bento-item:hover .bento-description {
             opacity: 1;
             max-height: 200px;
             margin-top: 1rem;
         }
-        .bento-subtitle {
-            font-size: 1rem;
-            color: var(--text-primary);
+        .bento-item.story-box .bento-subtitle { /* FIX: Subtitle also fades in on hover for Story box */
+            opacity: 0; max-height: 0; margin-top: 0;
         }
 
         /* Specific Box Styles */
@@ -175,17 +181,6 @@
             background-position: center;
             color: var(--text-light);
             justify-content: flex-end;
-        }
-        .bento-item.vibe-box {
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0;
-        }
-        .vibe-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
         .bento-item.map-box {
             padding: 0;
@@ -219,6 +214,30 @@
             font-weight: 700;
             cursor: pointer;
         }
+        
+        /* NEW: Menu Box Styling */
+        .menu-list {
+            margin-top: 1.5rem;
+            padding: 0;
+            list-style: none;
+        }
+        .menu-category {
+            margin-bottom: 1.5rem;
+        }
+        .menu-category-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .menu-list li {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -248,9 +267,9 @@
 <body>
 
     <nav class="top-nav">
-        <span class="logo-vertical">P&<br>P</span>
+        <!-- UPDATED Logo -->
+        <span class="logo-horizontal">P & P</span>
         <ul class="menu">
-            <!-- These links would need JS or be full-page links -->
             <li><a href="#">Story</a></li>
             <li><a href="#">Menu</a></li>
             <li><a href="#">Find Us</a></li>
@@ -261,7 +280,8 @@
     <main>
         <section id="hero" class="panel">
             <h6 class="eyebrow">CAFE & KITCHEN // SOUTH SHIELDS</h6>
-            <h1 class="display">PICKLE<br>& PEACH</h1>
+            <!-- UPDATED Title with span for styling -->
+            <h1 class="display"><span class="highlight">PICKLE</span><br>& PEACH</h1>
             <div class="countdown-container" id="countdown">
                 <div class="countdown-item"><span id="days">00</span>Days</div>
                 <div class="countdown-item"><span id="hours">00</span>Hours</div>
@@ -281,21 +301,38 @@
                         It started with a simple idea: to create a space where good coffee and great company feel like a second home. After finding the perfect spot on Ocean Road, we poured our hearts into crafting a cosy, modern vibe. We're now putting the final touches on our dream and can't wait to welcome you in.
                     </p>
                 </div>
-
-                <div class="bento-item">
+                
+                <!-- NEW: Menu Box, replacing the old Vibe gallery -->
+                <div class="bento-item row-span-2 col-span-2">
                     <i class="fas fa-mug-hot bento-icon"></i>
                     <h3 class="bento-title">Menu Sneak Peek</h3>
-                    <p class="bento-description">
-                        We're crafting a menu filled with locally-sourced ingredients, specialty coffee, and delicious homemade bakes. Quality and comfort in every bite.
-                    </p>
+                    <p class="bento-subtitle">Quality and comfort in every bite.</p>
+                    <ul class="menu-list">
+                        <li class="menu-category">
+                            <h4 class="menu-category-title">Coffee & Bakes</h4>
+                            <ul>
+                                <li>Single Origin Espresso</li>
+                                <li>Velvet Flat White</li>
+                                <li>Cinnamon Swirl Buns</li>
+                                <li>Sea Salt & Chocolate Chunk Cookie</li>
+                            </ul>
+                        </li>
+                        <li class="menu-category">
+                            <h4 class="menu-category-title">Brunch & Lunch</h4>
+                            <ul>
+                                <li>Smashed Avocado on Sourdough</li>
+                                <li>Smoked Salmon & Cream Cheese Bagel</li>
+                                <li>Spiced Lentil Soup of the Day</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="bento-item vibe-box row-span-2">
-                    <img src="https://placehold.co/300x500/465358/A8B8BB?text=Fresh+Coffee" alt="A cup of freshly made coffee">
-                    <img src="https://placehold.co/300x500/5A696E/BCCCDC?text=Cosy+Corners" alt="A cosy corner of the cafe">
-                    <img src="https://placehold.co/300x500/404B4F/A0B0B3?text=Tasty+Food" alt="A plate of delicious food">
+                <div class="bento-item">
+                    <h3 class="bento-title">Find Us</h3>
+                    <p class="bento-subtitle">We're on Ocean Road, a stone's throw from the sea.</p>
                 </div>
-
+                
                 <div class="bento-item map-box col-span-2">
                     <iframe id="location-map"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.793267597017!2d-1.428587684241682!3d54.9961789803588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e6e584506f351%3A0x6e969a531f6e1b65!2sOcean+Rd%2C+South+Shields!5e0!3m2!1sen!2suk!4v1562586828564!5m2!1sen!2suk" 
@@ -319,9 +356,6 @@
     </main>
 
     <script>
-        // Note: The menu items would be injected by your original main.js
-        // The slider JS would no longer be needed for this layout.
-
         document.addEventListener('DOMContentLoaded', () => {
             const countdownDate = new Date("Aug 1, 2025 08:00:00").getTime();
             const interval = setInterval(() => {
