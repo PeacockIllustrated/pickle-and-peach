@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Vidaloka&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
+    <!-- Assuming your logo is in an 'assets' folder -->
+    <link rel="icon" type="image/png" href="assets/pickle-peach-logo-alt.png">
+
     <style>
         :root {
             --primary-accent: #B87333;
@@ -25,131 +28,29 @@
             --font-heading: 'Vidaloka', serif;
             --font-body: 'Lato', sans-serif;
         }
-
-        /* --- Global Styles --- */
-        html {
-            box-sizing: border-box;
-        }
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
-
-        body {
-            margin: 0;
-            font-family: var(--font-body);
-            background-color: var(--bg-main); /* UPDATED: Cream background */
-            color: var(--text-primary);
-            padding-bottom: 80px; /* Space for the bottom nav */
-        }
-
-        /* --- Layout & Structure --- */
-        .app-container {
-            padding: 2rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* --- Typography --- */
-        .welcome-header h1 {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            font-weight: normal;
-            margin: 0 0 0.25rem 0;
-        }
-        .welcome-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin: 0 0 2rem 0;
-        }
-        .section-title {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: normal;
-            margin: 2.5rem 0 1.5rem 0;
-        }
-
-        /* --- Components --- */
-        
-        /* Promo Card */
-        .promo-card {
-            position: relative;
-            border-radius: 16px; /* Softer corners */
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            height: 200px;
-            color: var(--text-light);
-        }
-        .promo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .promo-card::after { /* Gradient overlay for text readability */
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
-        }
-        .promo-text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            padding: 1.5rem;
-            z-index: 2;
-        }
-        .promo-text h2 {
-            font-family: var(--font-heading);
-            font-size: 1.75rem;
-            margin: 0 0 0.25rem 0;
-            font-weight: normal;
-        }
-        .promo-text p {
-            margin: 0;
-            opacity: 0.9;
-        }
-
-        /* Popular Items Placeholder */
-        .popular-items-grid {
-            /* This is where your menu items will go */
-            min-height: 100px;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-        
-        /* Bottom Navigation Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background-color: var(--bg-surface);
-            padding: 0.5rem 0;
-            border-top: 1px solid var(--border-color);
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
-            z-index: 1000;
-        }
-        .nav-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            transition: color 0.2s ease;
-        }
-        .nav-link i {
-            font-size: 1.25rem;
-        }
-        .nav-link.active,
-        .nav-link:hover {
-            color: var(--primary-accent); /* UPDATED: Active state uses copper color */
-        }
-
+        html { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: inherit; }
+        body { margin: 0; font-family: var(--font-body); background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 80px; }
+        .app-container { padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .welcome-header h1 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: normal; margin: 0 0 0.25rem 0; }
+        .welcome-header p { font-size: 1.1rem; color: var(--text-secondary); margin: 0 0 2rem 0; }
+        .section-title { font-family: var(--font-heading); font-size: 2rem; font-weight: normal; margin: 2.5rem 0 1.5rem 0; }
+        .promo-card { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); height: 200px; color: var(--text-light); }
+        .promo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .promo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%); }
+        .promo-text { position: absolute; bottom: 0; left: 0; padding: 1.5rem; z-index: 2; }
+        .promo-text h2 { font-family: var(--font-heading); font-size: 1.75rem; margin: 0 0 0.25rem 0; font-weight: normal; }
+        .promo-text p { margin: 0; opacity: 0.9; }
+        .popular-items-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; text-align: center; color: var(--text-secondary); }
+        .popular-item-card { background-color: var(--bg-surface); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .popular-item-card img { width: 100%; height: 120px; object-fit: cover; }
+        .popular-item-card .item-info { padding: 1rem; }
+        .popular-item-card h4 { margin: 0 0 0.25rem 0; font-size: 1rem; }
+        .popular-item-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-around; background-color: var(--bg-surface); padding: 0.5rem 0; border-top: 1px solid var(--border-color); box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 1000; }
+        .nav-link { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: var(--text-secondary); padding: 0.5rem 1rem; font-size: 0.75rem; transition: color 0.2s ease; }
+        .nav-link i { font-size: 1.25rem; }
+        .nav-link.active, .nav-link:hover { color: var(--primary-accent); }
     </style>
 </head>
 <body>
@@ -157,7 +58,8 @@
     <main class="app-container">
         <header class="welcome-header">
             <h1>Welcome Back</h1>
-            <p>Welcome, Tom Peacock.</p>
+            <!-- ADDED ID HERE -->
+            <p id="welcome-message">Loading your details...</p>
         </header>
 
         <div class="promo-card">
@@ -169,44 +71,26 @@
         </div>
 
         <h2 class="section-title">Popular Items</h2>
+        <!-- CONFIRMED ID IS HERE -->
         <div class="popular-items-grid" id="popular-items-container">
-            <!-- Menu items will be dynamically inserted here by app.js -->
             <p>Loading menu...</p>
         </div>
     </main>
 
     <nav class="bottom-nav">
-        <a href="#" class="nav-link active">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" class="nav-link">
-            <i class="fas fa-book-open"></i>
-            <span>Menu</span>
-        </a>
-        <a href="#" class="nav-link">
-            <i class="fas fa-bookmark"></i>
-            <span>Order</span>
-        </a>
-        <a href="#" class="nav-link">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </a>
+        <a href="#" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-book-open"></i><span>Menu</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-bookmark"></i><span>Order</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-user"></i><span>Profile</span></a>
     </nav>
     
-      <!-- SCRIPT SECTION -->
-    <!-- These scripts are required for Firebase to function -->
+    <!-- SCRIPT SECTION -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
-    <!-- This script contains your Firebase project configuration, assuming it's at the root -->
+    <!-- CONFIRMED SCRIPT PATHS -->
     <script src="config.js" type="module"></script>
-    
-    <!-- This is your main application logic script, now correctly linked from the /js/ folder -->
-    <script src="js/app.js" type="module"></script>
-
-</body>
-</html>
+    <script src="app.js" type="module"></script>
 </body>
 </html>
