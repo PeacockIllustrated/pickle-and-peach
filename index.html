@@ -169,7 +169,7 @@
         </div>
 
         <h2 class="section-title">Popular Items</h2>
-        <div class="popular-items-grid">
+        <div class="popular-items-grid" id="popular-items-container">
             <!-- Menu items will be dynamically inserted here by app.js -->
             <p>Loading menu...</p>
         </div>
@@ -194,5 +194,16 @@
         </a>
     </nav>
     
+    <!-- SCRIPT SECTION -->
+    <!-- These scripts are required for Firebase to function -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <!-- This script contains your Firebase project configuration -->
+    <script src="config.js" type="module"></script>
+    
+    <!-- This is your main application logic script -->
+    <script src="app.js" type="module"></script>
 </body>
 </html>
