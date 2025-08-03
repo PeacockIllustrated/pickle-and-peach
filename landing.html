@@ -53,11 +53,6 @@
         .btn:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled:hover { background-color: transparent; color: var(--color-gold); }
-        .section-divider { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 3rem 0; }
-        .section-divider::before, .section-divider::after { content: ''; height: 1px; flex-grow: 1; background-color: var(--color-gold); opacity: 0.3; }
-        .divider-icon { width: 30px; height: auto; opacity: 0.5; }
-        .section-title { font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0; font-weight: 700; }
-        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem auto; line-height: 1.8; color: rgba(245, 240, 230, 0.8); }
 
         /* --- Header & Navigation --- */
         .main-header { padding: 1.5rem 0; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; }
@@ -79,41 +74,114 @@
         .mobile-nav-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
 
         /* --- Hero Section --- */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 1.5rem; animation: fadeIn 1s ease-in-out; }
-        .hero-logo-main { width: 100%; max-width: 550px; height: auto; margin-bottom: 2rem; animation: slideInUp 1s ease-in-out; }
-        .hero-actions { display: flex; justify-content: center; gap: 1rem; animation: slideInUp 1s ease-in-out 0.2s; animation-fill-mode: both; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Page Grid Layout --- */
-        .page-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; padding: 4rem 0; }
-        .grid-item { padding: 3rem; text-align: center; border-radius: 16px; }
-        .grid-item-pairings { grid-column: 1 / -1; }
-        .grid-item-menu { grid-column: 1 / 8; }
-        .grid-item-story { grid-column: 7 / -1; background-color: var(--color-gold); color: var(--color-dark-blue); margin-top: -8rem; }
-        .grid-item-visit { grid-column: 1 / -1; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 1.5rem; }
+        .hero-logo-main { width: 100%; max-width: 550px; height: auto; margin-bottom: 2rem; }
+        .hero-actions { display: flex; justify-content: center; gap: 1rem; }
         
-        /* --- Specific Section Styles --- */
+        /* --- General Section Styling --- */
+        .section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 1rem 0;
+            font-weight: 700;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.8;
+            color: rgba(245, 240, 230, 0.8);
+        }
+
+        /* --- NEW: Decorative Divider Styling --- */
+        .section-divider-decorative {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .section-divider-decorative img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+        }
+
+        /* --- Signature Pairings Section --- */
         .signature-pairing { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
         .pairing-icon { width: 80px; }
         
-        .menu-highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .highlight-card { background-color: var(--color-cream); color: var(--color-dark-blue); padding: 2rem; border-radius: 8px; font-weight: 600; transition: transform var(--transition-speed) ease; }
-        .highlight-card:hover { transform: scale(1.05); }
-        .highlight-card h3 { margin: 0 0 1rem 0; font-family: var(--font-serif); }
-        .highlight-card a { color: var(--color-gold); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 1rem; display: block; }
-        
-        .visit-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-        .visit-content p { font-size: 1.5rem; font-family: var(--font-serif); margin: 0; }
-
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 900px) {
-            .page-grid { display: flex; flex-direction: column; }
-            .grid-item-story { margin-top: 0; }
+        /* --- Menu Highlights Section --- */
+        #menu { background-color: var(--color-dark-blue); }
+        .menu-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
+        .highlight-card {
+            background-color: var(--color-gold);
+            color: var(--color-dark-blue);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            transition: transform var(--transition-speed) ease;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+        .highlight-card h3 {
+            margin: 0 0 1rem 0;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
+        }
+        .highlight-card a {
+            color: var(--color-dark-blue);
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Our Story Section --- */
+        #story {
+            background-color: var(--color-gold);
+            color: var(--color-dark-blue);
+            padding: 5rem 1.5rem;
+        }
+        #story .section-title, #story .section-subtitle {
+            color: var(--color-dark-blue);
+        }
+
+        /* --- Visit Section --- */
+        #visit { background-color: var(--color-dark-blue); }
+        .visit-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .visit-content p {
+            font-size: 1.5rem;
+            font-family: var(--font-serif);
+            margin: 0;
+            text-align: left;
+        }
+        
+        /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             .desktop-nav { display: none; }
             .mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; z-index: 1001; }
+            .hero-logo-main { max-width: 90%; }
+            .section { padding: 3rem 0; }
+            .visit-content { flex-direction: column; justify-content: center; text-align: center; }
+            .visit-content p { text-align: center; }
         }
     </style>
 </head>
@@ -159,8 +227,8 @@
             </div>
         </section>
 
-        <div class="container page-grid">
-            <section id="pairings" class="grid-item grid-item-pairings">
+        <section id="pairings" class="section">
+            <div class="container">
                 <h2 class="section-title">Signature Pairings</h2>
                 <div class="signature-pairing">
                     <img src="assets/pickle-icon.png" alt="Pickle Icon" class="pairing-icon">
@@ -172,34 +240,50 @@
                 <p class="section-subtitle">
                     Savor our unique blend of flavors, with dishes inspired by the classic combination of tart pickles and sweet peaches.
                 </p>
-            </section>
+            </div>
+        </section>
 
-            <section id="menu" class="grid-item grid-item-menu">
+        <div class="section-divider-decorative">
+            <!-- IMPORTANT: Create a divider.png and place it in your assets folder -->
+            <img src="assets/divider.png" alt="Decorative Divider">
+        </div>
+
+        <section id="menu" class="section">
+            <div class="container">
                 <h2 class="section-title">Menu Highlights</h2>
                 <div class="menu-highlights-grid">
                     <div class="highlight-card"><h3>Artisan Sandwiches</h3><a href="#">View Full Menu</a></div>
                     <div class="highlight-card"><h3>Seasonal Salads</h3><a href="#">View Full Menu</a></div>
                     <div class="highlight-card"><h3>Homemade Cakes</h3><a href="#">View Full Menu</a></div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="story" class="grid-item grid-item-story">
-                <h2 class="section-title" style="color: var(--color-dark-blue);">Our Story</h2>
-                <p class="section-subtitle" style="color: rgba(26, 46, 57, 0.8);">
+        <div class="section-divider-decorative">
+            <img src="assets/divider.png" alt="Decorative Divider">
+        </div>
+
+        <section id="story" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Story</h2>
+                <p class="section-subtitle">
                     Born from a love of good food and inclusive dining, Pickle & Peach is a place for community, comfort, and culinary eves.
                 </p>
-            </section>
+            </div>
+        </section>
         
-            <section id="visit" class="grid-item grid-item-visit">
-                 <div class="section-divider">
-                     <img src="assets/leaf-icon.png" class="divider-icon" alt="">
-                </div>
+        <div class="section-divider-decorative">
+            <img src="assets/divider.png" alt="Decorative Divider">
+        </div>
+        
+        <section id="visit" class="section">
+            <div class="container">
                 <div class="visit-content">
                     <p>Monday–Saturday<br>8am to 4pm</p>
                     <a href="#" class="btn btn-filled">Book a Table</a>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
     <script>
