@@ -22,7 +22,6 @@
 
         /* --- Global Reset & Setup --- */
         *, *::before, *::after { box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
         
         body {
@@ -36,20 +35,7 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         
         /* --- Reusable Components --- */
-        .btn {
-            display: inline-block;
-            background-color: transparent;
-            border: 2px solid var(--color-gold);
-            color: var(--color-gold);
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all var(--transition-speed) ease;
-        }
+        .btn { display: inline-block; background-color: transparent; border: 2px solid var(--color-gold); color: var(--color-gold); padding: 0.75rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; transition: all var(--transition-speed) ease; }
         .btn:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled:hover { background-color: transparent; color: var(--color-gold); }
@@ -74,105 +60,68 @@
         .mobile-nav-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
 
         /* --- Hero Section --- */
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 1.5rem; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 1.5rem; position: relative; overflow: hidden; }
         .hero-logo-main { width: 100%; max-width: 550px; height: auto; margin-bottom: 2rem; }
         .hero-actions { display: flex; justify-content: center; gap: 1rem; }
         
         /* --- General Section Styling --- */
-        .section {
-            padding: 5rem 0;
-            text-align: center;
+        .section { padding: 5rem 0; text-align: center; position: relative; overflow: hidden; }
+        .section-title { font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0; font-weight: 700; position: relative; z-index: 2; }
+        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem auto; line-height: 1.8; color: rgba(245, 240, 230, 0.8); position: relative; z-index: 2; }
+        
+        /* --- NEW: Watermark Styling --- */
+        .watermark {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.03;
+            z-index: 1;
+            pointer-events: none;
         }
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 1rem 0;
-            font-weight: 700;
+        .pickle-watermark {
+            background-image: url('assets/pickle-icon.png');
+            top: 50%;
+            left: -150px;
+            transform: translateY(-50%) rotate(-15deg);
         }
-        .section-subtitle {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            line-height: 1.8;
-            color: rgba(245, 240, 230, 0.8);
-        }
-
-        /* --- NEW: Decorative Divider Styling --- */
-        .section-divider-decorative {
-            text-align: center;
-            padding: 2rem 0;
-        }
-        .section-divider-decorative img {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
+        .peach-watermark {
+            background-image: url('assets/peach-icon.png');
+            top: 50%;
+            right: -150px;
+            transform: translateY(-50%) rotate(15deg);
         }
 
-        /* --- Signature Pairings Section --- */
-        .signature-pairing { display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-        .pairing-icon { width: 80px; }
+        /* --- Decorative Divider --- */
+        .section-divider-decorative { text-align: center; padding: 2rem 0; }
+        .section-divider-decorative img { width: 100%; max-width: 450px; height: auto; }
+
+        /* --- Signature Pairings Section (REFINED) --- */
+        #pairings .signature-pairing {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative; z-index: 2;
+        }
+        #pairings .pairing-icon { width: 70px; }
         
         /* --- Menu Highlights Section --- */
-        #menu { background-color: var(--color-dark-blue); }
-        .menu-highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        .highlight-card {
-            background-color: var(--color-gold);
-            color: var(--color-dark-blue);
-            padding: 2.5rem 2rem;
-            border-radius: 8px;
-            transition: transform var(--transition-speed) ease;
-        }
-        .highlight-card:hover {
-            transform: translateY(-5px);
-        }
-        .highlight-card h3 {
-            margin: 0 0 1rem 0;
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 1.2rem;
-        }
-        .highlight-card a {
-            color: var(--color-dark-blue);
-            opacity: 0.7;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .menu-highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+        .highlight-card { background-color: var(--color-cream); color: var(--color-dark-blue); padding: 2.5rem 2rem; border-radius: 8px; transition: transform var(--transition-speed) ease; }
+        .highlight-card:hover { transform: translateY(-5px); }
+        .highlight-card h3 { margin: 0 0 1rem 0; font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 1px; font-size: 1.2rem; }
+        .highlight-card a { color: var(--color-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- Our Story Section --- */
-        #story {
-            background-color: var(--color-gold);
-            color: var(--color-dark-blue);
-            padding: 5rem 1.5rem;
-        }
-        #story .section-title, #story .section-subtitle {
-            color: var(--color-dark-blue);
-        }
+        #story { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        #story .section-title, #story .section-subtitle { color: var(--color-dark-blue); }
 
         /* --- Visit Section --- */
-        #visit { background-color: var(--color-dark-blue); }
-        .visit-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .visit-content p {
-            font-size: 1.5rem;
-            font-family: var(--font-serif);
-            margin: 0;
-            text-align: left;
-        }
+        .visit-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; position: relative; z-index: 2; }
+        .visit-content p { font-size: 1.5rem; font-family: var(--font-serif); margin: 0; text-align: left; }
         
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
@@ -182,6 +131,9 @@
             .section { padding: 3rem 0; }
             .visit-content { flex-direction: column; justify-content: center; text-align: center; }
             .visit-content p { text-align: center; }
+            .watermark { width: 300px; height: 300px; opacity: 0.02; }
+            .pickle-watermark { left: -100px; }
+            .peach-watermark { right: -100px; }
         }
     </style>
 </head>
@@ -218,6 +170,8 @@
 
     <main>
         <section class="hero">
+            <!-- You can optionally add a watermark to the hero too -->
+            <!-- <div class="watermark pickle-watermark"></div> -->
             <div class="container">
                 <img src="assets/pickle-peach-main-logo.png" alt="Pickle & Peach" class="hero-logo-main">
                 <div class="hero-actions">
@@ -228,14 +182,12 @@
         </section>
 
         <section id="pairings" class="section">
+            <div class="watermark pickle-watermark"></div>
             <div class="container">
                 <h2 class="section-title">Signature Pairings</h2>
                 <div class="signature-pairing">
-                    <img src="assets/pickle-icon.png" alt="Pickle Icon" class="pairing-icon">
-                    <span>=</span>
+                    <!-- The text and logo are impactful on their own now -->
                     <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="pairing-icon">
-                    <span>=</span>
-                    <img src="assets/peach-icon.png" alt="Peach Icon" class="pairing-icon">
                 </div>
                 <p class="section-subtitle">
                     Savor our unique blend of flavors, with dishes inspired by the classic combination of tart pickles and sweet peaches.
@@ -244,11 +196,11 @@
         </section>
 
         <div class="section-divider-decorative">
-            <!-- IMPORTANT: Create a divider.png and place it in your assets folder -->
             <img src="assets/divider.png" alt="Decorative Divider">
         </div>
 
         <section id="menu" class="section">
+            <div class="watermark peach-watermark"></div>
             <div class="container">
                 <h2 class="section-title">Menu Highlights</h2>
                 <div class="menu-highlights-grid">
@@ -264,6 +216,7 @@
         </div>
 
         <section id="story" class="section">
+            <!-- No watermark on the gold section for contrast -->
             <div class="container">
                 <h2 class="section-title">Our Story</h2>
                 <p class="section-subtitle">
@@ -277,6 +230,7 @@
         </div>
         
         <section id="visit" class="section">
+            <div class="watermark pickle-watermark"></div>
             <div class="container">
                 <div class="visit-content">
                     <p>Monday–Saturday<br>8am to 4pm</p>
