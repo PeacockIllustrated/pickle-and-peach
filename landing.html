@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     
-    <!-- Open Graph -->
+    <!-- Open Graph & SEO -->
     <meta property="og:title" content="Pickle & Peach — Coffee shop & eatery in South Shields">
     <meta property="og:description" content="Artisan sandwiches, seasonal salads, homemade cakes, and our signature pickle + peach pairings.">
     <meta property="og:image" content="https://yourdomain.com/og-hero.jpg"> <!-- Replace with a real image URL -->
@@ -20,7 +20,7 @@
     <style>
         :root {
             --color-dark-blue: #1A2E39;
-            --color-gold: #CEAA62; /* Lighter gold for better contrast */
+            --color-gold: #CEAA62; /* Using the lighter, higher-contrast gold */
             --color-cream: #F5F0E6;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Poppins', sans-serif;
@@ -45,10 +45,13 @@
         
         /* --- Reusable Components --- */
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             border: 2px solid var(--color-gold);
             color: var(--color-gold);
             padding: 0.75rem 2rem;
+            min-height: 44px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
@@ -56,120 +59,33 @@
             letter-spacing: 1px;
             font-size: 0.9rem;
             transition: all var(--transition-speed) ease;
-            min-height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
         .btn:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled { background-color: var(--color-gold); color: var(--color-dark-blue); }
         .btn-filled:hover { background-color: transparent; color: var(--color-gold); }
         
-        .section-divider-decorative {
-            text-align: center;
-            padding: 2rem 0;
-        }
-        .section-divider-decorative img {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            opacity: 0.8;
-        }
+        .section-divider-decorative { text-align: center; padding: 2rem 0; }
+        .section-divider-decorative img { width: 100%; max-width: 450px; height: auto; opacity: 0.8; }
 
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 1rem 0;
-            font-weight: 700;
-            text-align: center;
-        }
-        .section-subtitle {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            line-height: 1.8;
-            color: rgba(245, 240, 230, 0.8);
-            text-align: center;
-        }
+        .section-title { font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0; font-weight: 700; text-align: center; }
+        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.8; color: rgba(245, 240, 230, 0.8); text-align: center; }
 
         /* --- Header & Sticky Nav --- */
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background-color: rgba(26, 46, 57, 0.85);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(206, 170, 98, 0.2);
-        }
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        .sticky-header { position: sticky; top: 0; z-index: 40; background-color: rgba(26, 46, 57, 0.85); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(206, 170, 98, 0.2); }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .logo-link { display: flex; align-items: center; gap: 0.75rem; }
         .logo-img { height: 2.5rem; width: auto; }
-        .main-nav { display: none; }
+        .main-nav { display: none; } /* Mobile first */
         
         /* --- Hero Section --- */
-        .hero-section {
-            position: relative;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-        }
-        .hero-image {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(26, 46, 57, 0.8), rgba(26, 46, 57, 0.5));
-        }
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            color: white;
-            text-align: left;
-        }
-        .hero-headline {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 700;
-            line-height: 1.1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .hero-subhead {
-            margin-top: 1rem;
-            font-size: clamp(1.1rem, 3vw, 1.25rem);
-            max-width: 600px;
-            line-height: 1.7;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-        }
-        .hero-util-strip {
-            margin-top: 1.5rem;
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 600;
-        }
-        .hero-actions {
-            margin-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
+        .hero-section { position: relative; height: 70vh; display: flex; align-items: center; }
+        .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26, 46, 57, 0.8), rgba(26, 46, 57, 0.5)); }
+        .hero-content { position: relative; z-index: 10; color: var(--color-cream); text-align: left; }
+        .hero-headline { font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero-subhead { margin-top: 1rem; font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 600px; line-height: 1.7; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+        .hero-util-strip { margin-top: 1.5rem; font-size: 1rem; opacity: 0.9; font-weight: 600; }
+        .hero-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
         /* --- Trust Strip --- */
         .trust-strip { background-color: var(--color-cream); color: var(--color-dark-blue); padding: 3rem 1.5rem; }
@@ -178,38 +94,33 @@
         .review-quote p { font-style: italic; margin: 0.5rem 0; }
         .review-quote footer { font-weight: 600; font-family: var(--font-serif); }
 
-        /* --- Pairings & Menu --- */
+        /* --- Pairings & Menu Section --- */
         .section-padding { padding: 5rem 1.5rem; }
-        .pairings-grid, .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .menu-card { background-color: var(--color-cream); color: var(--color-dark-blue); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .menu-card-img { width: 100%; height: 250px; object-fit: cover; }
-        .menu-card-content { padding: 1.5rem; }
-        .menu-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
-        .menu-card-title { font-family: var(--font-serif); font-size: 1.5rem; margin: 0; }
-        .menu-card-price { font-weight: 600; font-size: 1.2rem; color: var(--color-gold); }
-        .menu-card-desc { margin: 0.5rem 0 1rem 0; }
-        .menu-card-tag { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--color-gold); }
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .content-card { background-color: var(--color-cream); color: var(--color-dark-blue); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card-img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+        .card-title { font-family: var(--font-serif); font-size: 1.5rem; margin: 0; }
+        .card-price { font-weight: 600; font-size: 1.2rem; color: var(--color-gold); }
+        .card-desc { margin: 0.5rem 0 1rem 0; }
+        .card-tag { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--color-gold); }
         
         /* --- Visit Section --- */
         .visit-section { background-color: var(--color-gold); color: var(--color-dark-blue); }
-        .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-        .visit-info h2 { color: var(--color-dark-blue); }
+        .visit-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+        .visit-info h2 { color: var(--color-dark-blue); text-align: left; }
         .visit-info p { margin-bottom: 1.5rem; font-size: 1.1rem; }
         .visit-map { width: 100%; height: 350px; border-radius: 12px; border: 0; }
         .visit-actions { display: flex; gap: 0.75rem; }
         .visit-btn-call, .visit-btn-directions { background-color: var(--color-dark-blue); color: var(--color-cream); border-color: var(--color-dark-blue); }
 
-        /* --- Media Queries --- */
+        /* Media Queries */
         @media (min-width: 768px) {
             .main-nav { display: flex; }
             .mobile-menu-toggle { display: none; }
-        }
-        @media (max-width: 767px) {
-            .desktop-nav { display: none; }
-            .mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
-            .visit-grid { grid-template-columns: 1fr; }
-            .visit-info { text-align: center; }
-            .visit-actions { justify-content: center; }
+            .visit-grid { grid-template-columns: 1fr 1fr; }
+            .visit-info { text-align: left; }
         }
     </style>
 </head>
@@ -220,7 +131,7 @@
             <a href="/" class="logo-link">
                 <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach" class="logo-img">
             </a>
-            <nav class="desktop-nav">
+            <nav class="main-nav">
                 <a href="#menu">Menu</a>
                 <a href="#pairings">Pairings</a>
                 <a href="#story">Story</a>
@@ -270,28 +181,30 @@
         <section id="pairings" class="section-padding">
             <div class="container">
                 <h2 class="section-title">Signature Pairings</h2>
-                <div class="pairings-grid">
-                    <article class="menu-card">
-                      <img src="https://images.unsplash.com/photo-1625194659349-9d0f757c2cba?auto=format&fit=crop&w=600&q=80" alt="Smoked Ham sandwich with pickled onions" class="menu-card-img">
-                      <div class="menu-card-content">
-                          <div class="menu-card-header">
-                            <h3 class="menu-card-title">Smoked Ham & Peach Chutney</h3>
-                            <span class="menu-card-price">£8.50</span>
+                <p class="section-subtitle">The sweet-tart combo we’re known for.</p>
+                <div class="content-grid">
+                    <article class="content-card">
+                      <img src="https://images.unsplash.com/photo-1625194659349-9d0f757c2cba?auto=format&fit=crop&w=600&q=80" alt="Smoked Ham sandwich with pickled onions" class="card-img">
+                      <div class="card-content">
+                          <div class="card-header">
+                            <h3 class="card-title">Smoked Ham & Peach Chutney</h3>
+                            <span class="card-price">£8.50</span>
                           </div>
-                          <p class="menu-card-desc">Tangy, sweet, and salty on toasted sourdough with pickled red onion.</p>
+                          <p class="card-desc">Tangy, sweet, and salty on toasted sourdough with pickled red onion.</p>
                       </div>
                     </article>
-                     <article class="menu-card">
-                      <img src="https://images.unsplash.com/photo-1627207569112-2146c6412423?auto=format&fit=crop&w=600&q=80" alt="Halloumi sandwich" class="menu-card-img">
-                      <div class="menu-card-content">
-                          <div class="menu-card-header">
-                            <h3 class="menu-card-title">Halloumi & Chili-Peach Glaze</h3>
-                            <span class="menu-card-price">£8.00</span>
+                     <article class="content-card">
+                      <img src="https://images.unsplash.com/photo-1627207569112-2146c6412423?auto=format&fit=crop&w=600&q=80" alt="Halloumi sandwich" class="card-img">
+                      <div class="card-content">
+                          <div class="card-header">
+                            <h3 class="card-title">Halloumi & Chili-Peach Glaze</h3>
+                            <span class="card-price">£8.00</span>
                           </div>
-                          <p class="menu-card-desc">Crispy, cool, and spicy with pickled cucumber and rocket.</p>
-                          <div class="menu-card-tag">V</div>
+                          <p class="card-desc">Crispy, cool, and spicy with pickled cucumber and rocket.</p>
+                          <div class="card-tag">V</div>
                       </div>
                     </article>
+                    <!-- Add a third pairing card here if desired -->
                 </div>
             </div>
         </section>
@@ -303,36 +216,36 @@
         <section id="menu" class="section-padding">
             <div class="container">
                 <h2 class="section-title">Menu Highlights</h2>
-                 <div class="menu-grid">
-                    <article class="menu-card">
-                      <img src="https://images.unsplash.com/photo-1528738337581-133a83359550?auto=format&fit=crop&w=600&q=80" alt="Roast veg & feta sandwich" class="menu-card-img">
-                      <div class="menu-card-content">
-                          <div class="menu-card-header">
-                            <h3 class="menu-card-title">Roast Veg & Feta</h3>
-                            <span class="menu-card-price">£7.50</span>
+                 <div class="content-grid">
+                    <article class="content-card">
+                      <img src="https://images.unsplash.com/photo-1528738337581-133a83359550?auto=format&fit=crop&w=600&q=80" alt="Roast veg & feta sandwich" class="card-img">
+                      <div class="card-content">
+                          <div class="card-header">
+                            <h3 class="card-title">Roast Veg & Feta</h3>
+                            <span class="card-price">£7.50</span>
                           </div>
-                          <p class="menu-card-desc">Basil pesto, roasted peppers, rocket.</p>
-                          <div class="menu-card-tag">V</div>
+                          <p class="card-desc">Basil pesto, roasted peppers, rocket.</p>
+                          <div class="card-tag">V</div>
                       </div>
                     </article>
-                    <article class="menu-card">
-                      <img src="https://images.unsplash.com/photo-1626352820549-3486c4a30e84?auto=format&fit=crop&w=600&q=80" alt="Chicken Caesar sandwich" class="menu-card-img">
-                      <div class="menu-card-content">
-                          <div class="menu-card-header">
-                            <h3 class="menu-card-title">Chicken Caesar</h3>
-                            <span class="menu-card-price">£7.95</span>
+                    <article class="content-card">
+                      <img src="https://images.unsplash.com/photo-1626352820549-3486c4a30e84?auto=format&fit=crop&w=600&q=80" alt="Chicken Caesar sandwich" class="card-img">
+                      <div class="card-content">
+                          <div class="card-header">
+                            <h3 class="card-title">Chicken Caesar</h3>
+                            <span class="card-price">£7.95</span>
                           </div>
-                          <p class="menu-card-desc">House dressing, parmesan, pickled shallots.</p>
+                          <p class="card-desc">House dressing, parmesan, pickled shallots.</p>
                       </div>
                     </article>
-                     <article class="menu-card">
-                      <img src="https://images.unsplash.com/photo-1589114442113-5b8a5d3368a5?auto=format&fit=crop&w=600&q=80" alt="Homemade cake slice" class="menu-card-img">
-                      <div class="menu-card-content">
-                          <div class="menu-card-header">
-                            <h3 class="menu-card-title">Seasonal Cake Slice</h3>
-                            <span class="menu-card-price">£4.50</span>
+                     <article class="content-card">
+                      <img src="https://images.unsplash.com/photo-1589114442113-5b8a5d3368a5?auto=format&fit=crop&w=600&q=80" alt="Homemade cake slice" class="card-img">
+                      <div class="card-content">
+                          <div class="card-header">
+                            <h3 class="card-title">Seasonal Cake Slice</h3>
+                            <span class="card-price">£4.50</span>
                           </div>
-                          <p class="menu-card-desc">Ask our team for today's selection of homemade cakes.</p>
+                          <p class="card-desc">Ask our team for today's selection of homemade cakes.</p>
                       </div>
                     </article>
                 </div>
