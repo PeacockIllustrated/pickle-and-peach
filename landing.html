@@ -3,275 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Metadata -->
     <title>Pickle & Peach — Coffee shop & eatery in South Shields</title>
     <meta name="description" content="Artisan sandwiches, seasonal salads, homemade cakes, and our signature pickle + peach pairings.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- Open Graph & SEO -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Pickle & Peach — Coffee shop & eatery in South Shields">
     <meta property="og:description" content="Artisan sandwiches, seasonal salads, homemade cakes, and our signature pickle + peach pairings.">
-    <meta property="og:image" content="https://yourdomain.com/og-hero.jpg"> <!-- Replace with a real image URL -->
+    <!-- IMPORTANT: Replace with a real URL to a high-quality hero image -->
+    <meta property="og:image" content="https://yourdomain.com/assets/og-hero.jpg">
     <meta property="og:type" content="restaurant">
-    
-    <style>
-        :root {
-            --color-dark-blue: #1A2E39;
-            --color-gold: #CEAA62; /* Using the lighter, higher-contrast gold */
-            --color-cream: #F5F0E6;
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Poppins', sans-serif;
-            --transition-speed: 0.4s;
-        }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/pickle-peach-round-logo.png">
 
-        /* --- Global Reset & Setup --- */
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        
-        body {
-            margin: 0;
-            background-color: var(--color-dark-blue);
-            font-family: var(--font-sans);
-            color: var(--color-cream);
-            -webkit-font-smoothing: antialiased;
-            font-size: 18px;
-            line-height: 1.6;
-        }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-        
-        /* --- Reusable Components --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--color-gold);
-            color: var(--color-gold);
-            padding: 0.75rem 2rem;
-            min-height: 44px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all var(--transition-speed) ease;
-        }
-        .btn:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
-        .btn-filled { background-color: var(--color-gold); color: var(--color-dark-blue); }
-        .btn-filled:hover { background-color: transparent; color: var(--color-gold); }
-        
-        .section-divider-decorative { text-align: center; padding: 2rem 0; }
-        .section-divider-decorative img { width: 100%; max-width: 450px; height: auto; opacity: 0.8; }
-
-        .section-title { font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0; font-weight: 700; text-align: center; }
-        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 3rem auto; line-height: 1.8; color: rgba(245, 240, 230, 0.8); text-align: center; }
-
-        /* --- Header & Sticky Nav --- */
-        .sticky-header { position: sticky; top: 0; z-index: 40; background-color: rgba(26, 46, 57, 0.85); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(206, 170, 98, 0.2); }
-        .nav-container { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem; max-width: 1200px; margin: 0 auto; }
-        .logo-link { display: flex; align-items: center; gap: 0.75rem; }
-        .logo-img { height: 2.5rem; width: auto; }
-        .main-nav { display: none; } /* Mobile first */
-        
-        /* --- Hero Section --- */
-        .hero-section { position: relative; height: 70vh; display: flex; align-items: center; }
-        .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26, 46, 57, 0.8), rgba(26, 46, 57, 0.5)); }
-        .hero-content { position: relative; z-index: 10; color: var(--color-cream); text-align: left; }
-        .hero-headline { font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .hero-subhead { margin-top: 1rem; font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 600px; line-height: 1.7; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
-        .hero-util-strip { margin-top: 1.5rem; font-size: 1rem; opacity: 0.9; font-weight: 600; }
-        .hero-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
-
-        /* --- Trust Strip --- */
-        .trust-strip { background-color: var(--color-cream); color: var(--color-dark-blue); padding: 3rem 1.5rem; }
-        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; align-items: center; }
-        .review-quote { text-align: center; }
-        .review-quote p { font-style: italic; margin: 0.5rem 0; }
-        .review-quote footer { font-weight: 600; font-family: var(--font-serif); }
-
-        /* --- Pairings & Menu Section --- */
-        .section-padding { padding: 5rem 1.5rem; }
-        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .content-card { background-color: var(--color-cream); color: var(--color-dark-blue); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 250px; object-fit: cover; }
-        .card-content { padding: 1.5rem; }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
-        .card-title { font-family: var(--font-serif); font-size: 1.5rem; margin: 0; }
-        .card-price { font-weight: 600; font-size: 1.2rem; color: var(--color-gold); }
-        .card-desc { margin: 0.5rem 0 1rem 0; }
-        .card-tag { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--color-gold); }
-        
-        /* --- Visit Section --- */
-        .visit-section { background-color: var(--color-gold); color: var(--color-dark-blue); }
-        .visit-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
-        .visit-info h2 { color: var(--color-dark-blue); text-align: left; }
-        .visit-info p { margin-bottom: 1.5rem; font-size: 1.1rem; }
-        .visit-map { width: 100%; height: 350px; border-radius: 12px; border: 0; }
-        .visit-actions { display: flex; gap: 0.75rem; }
-        .visit-btn-call, .visit-btn-directions { background-color: var(--color-dark-blue); color: var(--color-cream); border-color: var(--color-dark-blue); }
-
-        /* Media Queries */
-        @media (min-width: 768px) {
-            .main-nav { display: flex; }
-            .mobile-menu-toggle { display: none; }
-            .visit-grid { grid-template-columns: 1fr 1fr; }
-            .visit-info { text-align: left; }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="sticky-header">
-        <div class="nav-container">
-            <a href="/" class="logo-link">
-                <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach" class="logo-img">
-            </a>
-            <nav class="main-nav">
-                <a href="#menu">Menu</a>
-                <a href="#pairings">Pairings</a>
-                <a href="#story">Story</a>
-                <a href="#visit">Visit</a>
-                <a href="#gift-cards">Gift Cards</a>
-                <a href="#book" class="btn btn-filled" style="margin-left: 1rem;">Book a Table</a>
-            </nav>
-            <button class="mobile-menu-toggle">☰</button>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero-section">
-            <img src="https://images.unsplash.com/photo-1511920183353-3b2a5d5539aa?auto=format&fit=crop&w=1200&q=80" alt="A steaming cup of freshly brewed coffee" class="hero-image">
-            <div class="hero-overlay"></div>
-            <div class="hero-content container">
-                <h1 class="hero-headline">Bold coffee. Bright pickles. Sweet peaches.</h1>
-                <p class="hero-subhead">South Shields coffee shop & eatery—artisan sandwiches, seasonal salads, and homemade cakes.</p>
-                <div id="util" class="hero-util-strip">
-                    📍 South Shields · <span>Mon–Sat 8am–4pm</span> · <span id="openStatus">Checking hours…</span>
-                </div>
-                <div class="hero-actions">
-                    <a href="#book" class="btn btn-filled">Book a Table</a>
-                    <a href="#menu" class="btn">View Menu</a>
-                    <a href="https://maps.google.com?q=Pickle+%26+Peach+South+Shields" target="_blank" class="btn">Get Directions</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="trust-strip">
-            <div class="container trust-grid">
-                <div class="review-quote">
-                    <p>"Absolutely my new favourite spot. The coffee is perfect!"</p>
-                    <footer>- Sarah L. (Google Review ★★★★★)</footer>
-                </div>
-                <div class="review-quote">
-                     <p>"A beautiful, cosy cafe with such a friendly atmosphere."</p>
-                    <footer>- Mark D. (Google Review ★★★★★)</footer>
-                </div>
-                <div class="review-quote">
-                    <p>"The attention to detail is amazing. That peach chutney is incredible."</p>
-                    <footer>- Emily R. (Google Review ★★★★★)</footer>
-                </div>
-            </div>
-        </section>
-
-        <section id="pairings" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">Signature Pairings</h2>
-                <p class="section-subtitle">The sweet-tart combo we’re known for.</p>
-                <div class="content-grid">
-                    <article class="content-card">
-                      <img src="https://images.unsplash.com/photo-1625194659349-9d0f757c2cba?auto=format&fit=crop&w=600&q=80" alt="Smoked Ham sandwich with pickled onions" class="card-img">
-                      <div class="card-content">
-                          <div class="card-header">
-                            <h3 class="card-title">Smoked Ham & Peach Chutney</h3>
-                            <span class="card-price">£8.50</span>
-                          </div>
-                          <p class="card-desc">Tangy, sweet, and salty on toasted sourdough with pickled red onion.</p>
-                      </div>
-                    </article>
-                     <article class="content-card">
-                      <img src="https://images.unsplash.com/photo-1627207569112-2146c6412423?auto=format&fit=crop&w=600&q=80" alt="Halloumi sandwich" class="card-img">
-                      <div class="card-content">
-                          <div class="card-header">
-                            <h3 class="card-title">Halloumi & Chili-Peach Glaze</h3>
-                            <span class="card-price">£8.00</span>
-                          </div>
-                          <p class="card-desc">Crispy, cool, and spicy with pickled cucumber and rocket.</p>
-                          <div class="card-tag">V</div>
-                      </div>
-                    </article>
-                    <!-- Add a third pairing card here if desired -->
-                </div>
-            </div>
-        </section>
-        
-        <div class="section-divider-decorative">
-            <img src="assets/divider.png" alt="Decorative Divider">
-        </div>
-
-        <section id="menu" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">Menu Highlights</h2>
-                 <div class="content-grid">
-                    <article class="content-card">
-                      <img src="https://images.unsplash.com/photo-1528738337581-133a83359550?auto=format&fit=crop&w=600&q=80" alt="Roast veg & feta sandwich" class="card-img">
-                      <div class="card-content">
-                          <div class="card-header">
-                            <h3 class="card-title">Roast Veg & Feta</h3>
-                            <span class="card-price">£7.50</span>
-                          </div>
-                          <p class="card-desc">Basil pesto, roasted peppers, rocket.</p>
-                          <div class="card-tag">V</div>
-                      </div>
-                    </article>
-                    <article class="content-card">
-                      <img src="https://images.unsplash.com/photo-1626352820549-3486c4a30e84?auto=format&fit=crop&w=600&q=80" alt="Chicken Caesar sandwich" class="card-img">
-                      <div class="card-content">
-                          <div class="card-header">
-                            <h3 class="card-title">Chicken Caesar</h3>
-                            <span class="card-price">£7.95</span>
-                          </div>
-                          <p class="card-desc">House dressing, parmesan, pickled shallots.</p>
-                      </div>
-                    </article>
-                     <article class="content-card">
-                      <img src="https://images.unsplash.com/photo-1589114442113-5b8a5d3368a5?auto=format&fit=crop&w=600&q=80" alt="Homemade cake slice" class="card-img">
-                      <div class="card-content">
-                          <div class="card-header">
-                            <h3 class="card-title">Seasonal Cake Slice</h3>
-                            <span class="card-price">£4.50</span>
-                          </div>
-                          <p class="card-desc">Ask our team for today's selection of homemade cakes.</p>
-                      </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="visit" class="visit-section section-padding">
-          <div class="container visit-grid">
-            <div class="visit-info">
-              <h2 class="section-title" style="text-align:left;">Visit us</h2>
-              <p>123 Example St, South Shields</p>
-              <p>Mon–Sat 8am–4pm · <strong id="openStatus2">Open now</strong></p>
-              <p>Step-free access · Free 1-hr street parking after 10am</p>
-              <div class="visit-actions">
-                <a href="tel:+440191000000" class="btn visit-btn-call">Call</a>
-                <a href="https://maps.google.com?q=Pickle+%26+Peach+South+Shields" target="_blank" class="btn visit-btn-directions">Get Directions</a>
-              </div>
-            </div>
-            <iframe class="visit-map" loading="lazy"
-              src="https://www.google.com/maps?q=Pickle%20%26%20Peach%20South%20Shields&output=embed"></iframe>
-          </div>
-        </section>
-        
-        <!-- TODO: Add Email capture & Footer sections here -->
-    </main>
-
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
       "@context":"https://schema.org",
@@ -280,24 +25,367 @@
       "address":{"@type":"PostalAddress","addressLocality":"South Shields"},
       "openingHours":["Mo-Sa 08:00-16:00"],
       "servesCuisine":["Cafe","Sandwiches","Desserts"],
-      "telephone":"+440191000000",
-      "menu":"https://yourdomain.com/menu",
+      "telephone":"+44XXXXXXXXX", // IMPORTANT: Add your phone number
+      "menu":"https://yourdomain.com/menu", // IMPORTANT: Add your menu URL
       "acceptsReservations": "True"
     }
     </script>
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-dark-blue: #1A2E39;
+            --color-gold: #B88A44;
+            --color-cream: #F5F0E6;
+            --color-green-tag: #4A6B53;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Poppins', sans-serif;
+            --transition-speed: 0.3s;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+        
+        body {
+            margin: 0;
+            background-color: var(--color-cream);
+            font-family: var(--font-sans);
+            color: var(--color-dark-blue);
+            font-size: 18px; /* Bumped up base font size */
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* --- STICKY NAVIGATION --- */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--color-dark-blue);
+            padding: 1rem 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .sticky-nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { width: 50px; height: auto; }
+        .desktop-nav { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: var(--color-cream); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .mobile-menu-toggle { display: none; }
+
+        /* --- REUSABLE COMPONENTS --- */
+        .btn {
+            display: inline-block;
+            border: 2px solid var(--color-gold);
+            padding: 0 2rem;
+            min-height: 44px; /* Minimum button height */
+            line-height: 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+        }
+        .btn-primary { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        .btn-primary:hover { background-color: transparent; color: var(--color-gold); }
+        .btn-secondary { background-color: transparent; color: var(--color-gold); }
+        .btn-secondary:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding: 5rem 0;
+            color: var(--color-cream);
+            background-image: linear-gradient(rgba(26, 46, 57, 0.7), rgba(26, 46, 57, 0.7)), url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin: 0 0 1rem 0;
+            max-width: 12ch;
+        }
+        .hero p { font-size: 1.25rem; max-width: 45ch; margin: 0 0 2rem 0; }
+        .utility-strip { display: flex; gap: 1.5rem; margin-bottom: 2.5rem; align-items: center; font-weight: 600; }
+        .live-status.is-open { color: #86efac; }
+        .live-status.is-closed { color: #fca5a5; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+        /* --- GENERAL SECTION STYLING --- */
+        .section { padding: 5rem 0; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title { font-family: var(--font-serif); font-size: 2.5rem; margin: 0; }
+        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0.5rem auto 0 auto; color: var(--text-secondary); }
+        
+        /* --- TRUST STRIP --- */
+        #trust { background-color: #fff; }
+        .trust-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+        .google-rating span { font-size: 1.5rem; font-weight: 700; color: var(--color-gold); }
+        .review-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .review-quotes blockquote { margin: 0; font-style: italic; }
+
+        /* --- PAIRINGS & MENU --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .pairing-card, .menu-highlight-card { background-color: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.07); }
+        .card-image { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 1.5rem; }
+        .card-content h3 { font-family: var(--font-serif); margin: 0 0 0.5rem 0; }
+        .card-content .price { font-weight: 600; color: var(--color-gold); margin-top: 1rem; }
+        .card-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .card-tags span { background-color: var(--color-green-tag); color: #fff; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* --- VISIT SECTION --- */
+        #visit { background-color: var(--color-dark-blue); color: var(--color-cream); }
+        .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .visit-info li { list-style: none; margin-bottom: 1rem; }
+        .visit-map iframe { width: 100%; height: 400px; border: 0; border-radius: 12px; }
+
+        /* --- NEWSLETTER & FOOTER --- */
+        #newsletter { text-align: center; }
+        .newsletter-form { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        .newsletter-form input { padding: 0 1.5rem; min-height: 44px; border: 1px solid #ccc; border-radius: 50px; }
+        
+        .main-footer { background-color: var(--color-dark-blue); color: var(--color-cream); padding: 4rem 0; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer-grid h4 { color: var(--color-gold); }
+        .footer-grid ul { list-style: none; padding: 0; }
+        .footer-grid ul li { margin-bottom: 0.5rem; }
+        .footer-grid a { color: var(--color-cream); text-decoration: none; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            .desktop-nav { display: none; }
+            .mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
+            .hero-actions { flex-direction: column; align-items: flex-start; }
+            .visit-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-nav">
+        <div class="container">
+            <a href="#"><img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="nav-logo"></a>
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="#menu-highlights">Menu</a></li>
+                    <li><a href="#reservations">Book</a></li>
+                    <li><a href="#order">Order</a></li>
+                    <li><a href="#pairings">Pairings</a></li>
+                    <li><a href="#story">Story</a></li>
+                    <li><a href="#visit">Visit</a></li>
+                    <li><a href="#gift-cards">Gift Cards</a></li>
+                </ul>
+                <a href="#reservations" class="btn btn-primary">Book a Table</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Open Menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Bold coffee. Bright pickles. Sweet peaches.</h1>
+                <p>South Shields coffee shop & eatery—artisan sandwiches, seasonal salads, and homemade cakes.</p>
+                <div class="utility-strip">
+                    <span>📍 South Shields</span>
+                    <span>Mon–Sat 8–16</span>
+                    <span id="live-status" class="live-status"></span>
+                </div>
+                <div class="hero-actions">
+                    <a href="#reservations" class="btn btn-primary">Book a Table</a>
+                    <a href="#menu-highlights" class="btn btn-secondary">View Menu</a>
+                    <a href="tel:+44XXXXXXXXX" class="btn btn-secondary">Get Directions / Call</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="trust">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="google-rating">
+                        <span>4.7 ★ on Google</span>
+                    </div>
+                    <div class="review-quotes">
+                        <blockquote>“The best coffee in South Shields, hands down. A wonderful atmosphere.”</blockquote>
+                        <blockquote>“Absolutely love the sandwiches. The pickle and peach combo is surprisingly delicious!”</blockquote>
+                        <blockquote>“My new favourite place to work and relax. The cakes are to die for.”</blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="pairings">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Signature Pairings</h2>
+                    <p class="section-subtitle">The sweet-tart combos we’re known for.</p>
+                </div>
+                <div class="card-grid">
+                    <div class="pairing-card">
+                        <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Ham+&+Peach" alt="Smoked Ham Sandwich">
+                        <div class="card-content">
+                            <h3>Smoked Ham & Peach Chutney</h3>
+                            <p>Tangy, sweet, and salty on toasted sourdough with pickled red onion.</p>
+                            <p class="price">£8.50</p>
+                        </div>
+                    </div>
+                    <div class="pairing-card">
+                        <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Halloumi" alt="Halloumi Sandwich">
+                        <div class="card-content">
+                            <h3>Halloumi & Chili-Peach Glaze</h3>
+                            <p>Crispy, cool, and spicy with pickled cucumber and fresh rocket.</p>
+                            <p class="price">£8.00</p>
+                        </div>
+                    </div>
+                    <div class="pairing-card">
+                         <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Salad" alt="Seasonal Salad">
+                        <div class="card-content">
+                            <h3>Roasted Veg & Pickled Peach</h3>
+                            <p>A vibrant seasonal salad with a zesty vinaigrette and crunchy seeds.</p>
+                            <p class="price">£9.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="menu-highlights" style="background-color:#fff;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Menu Highlights</h2>
+                </div>
+                <div class="card-grid">
+                    <div class="menu-highlight-card">
+                        <img class="card-image" src="https://placehold.co/600x400/F5F0E6/1A2E39?text=Roast+Veg" alt="Roast Veg Sandwich">
+                        <div class="card-content">
+                            <h3>Roast Veg & Feta</h3>
+                            <p>Basil pesto, roasted peppers, rocket.</p>
+                            <div class="card-tags"><span>V</span></div>
+                            <p class="price">£7.50</p>
+                        </div>
+                    </div>
+                    <div class="menu-highlight-card">
+                        <img class="card-image" src="https://placehold.co/600x400/F5F0E6/1A2E39?text=Chicken+Caesar" alt="Chicken Caesar Sandwich">
+                        <div class="card-content">
+                            <h3>Chicken Caesar</h3>
+                            <p>House dressing, parmesan, pickled shallots.</p>
+                            <div class="card-tags"></div>
+                            <p class="price">£7.95</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;"><a href="#" class="btn btn-primary">View Full Menu</a></div>
+            </div>
+        </section>
+
+        <section class="section" id="seasonal" style="background-color: var(--color-gold); color: var(--color-dark-blue);">
+            <div class="container">
+                 <h2 class="section-title">This Week's Special</h2>
+                 <p class="section-subtitle" style="color: var(--color-dark-blue);">Spiced Peach & Almond Cake — Ends Saturday!</p>
+            </div>
+        </section>
+        
+        <section class="section" id="visit">
+             <div class="container">
+                <div class="visit-grid">
+                    <div class="visit-info">
+                        <h2 class="section-title" style="text-align:left;">Visit Us</h2>
+                        <ul>
+                            <li><strong>Find us:</strong> 87 Ocean Rd, South Shields</li>
+                            <li><strong>Hours:</strong> Monday–Saturday, 8am–4pm</li>
+                            <li><strong>Parking:</strong> Free 1-hr street parking after 10am</li>
+                            <li><strong>Access:</strong> Step-free access from the main entrance</li>
+                        </ul>
+                    </div>
+                    <div class="visit-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.793267597017!2d-1.428587684241682!3d54.9961789803588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e6e584506f351%3A0x6e969a531f6e1b65!2sOcean+Rd%2C+South+Shields!5e0!3m2!1sen!2suk!4v1562586828564!5m2!1sen!2suk" loading="lazy"></iframe>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <section class="section" id="newsletter">
+            <div class="container">
+                <h2 class="section-title">Join the Club</h2>
+                <p class="section-subtitle">Get new bakes + seasonal pairings—2× / month. Plus a free mini-cookie on your first visit!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="your.email@example.com" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>Pickle & Peach</h4>
+                    <p>87 Ocean Rd, South Shields</p>
+                </div>
+                <div>
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Allergens</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Socials</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>In-Store Wi-Fi</h4>
+                    <p>Password: <strong>picklepeach</strong></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-      (function(){
-        const el = document.getElementById('openStatus');
-        const el2 = document.getElementById('openStatus2');
-        const now = new Date();
-        const day = now.getDay(); // 0 Sun … 6 Sat
-        const hours = now.getHours();
-        const open = (day >= 1 && day <= 6) && (hours >= 8 && hours < 16);
-        const statusText = open ? 'Open now' : 'Closed now';
-        if (el) el.textContent = statusText;
-        if (el2) el2.textContent = statusText;
-      })();
+        document.addEventListener('DOMContentLoaded', () => {
+            // Live status indicator
+            const statusEl = document.getElementById('live-status');
+            if (statusEl) {
+                const now = new Date();
+                const day = now.getDay(); // Sunday = 0, Monday = 1...
+                const hour = now.getHours();
+                
+                if (day > 0 && day < 7 && hour >= 8 && hour < 16) {
+                    statusEl.textContent = '● Open now';
+                    statusEl.classList.add('is-open');
+                } else {
+                    statusEl.textContent = '● Closed';
+                    statusEl.classList.add('is-closed');
+                }
+            }
+        });
     </script>
 </body>
 </html>
