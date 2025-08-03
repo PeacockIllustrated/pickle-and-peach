@@ -3,377 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickle & Peach | Coffee Shop & Eatery - South Shields</title>
     
-    <!-- SEO & Metadata -->
-    <title>Pickle & Peach — Coffee shop & eatery in South Shields</title>
-    <meta name="description" content="Artisan sandwiches, seasonal salads, homemade cakes, and our signature pickle + peach pairings.">
-    <meta property="og:title" content="Pickle & Peach — Coffee shop & eatery in South Shields">
-    <meta property="og:description" content="Artisan sandwiches, seasonal salads, homemade cakes, and our signature pickle + peach pairings.">
-    <meta property="og:image" content="https://yourdomain.com/assets/og-hero.jpg">
-    <meta property="og:type" content="restaurant">
-    <link rel="icon" type="image/png" href="assets/pickle-peach-round-logo.png">
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context":"https://schema.org",
-      "@type":"Restaurant",
-      "name":"Pickle & Peach",
-      "address":{"@type":"PostalAddress","addressLocality":"South Shields"},
-      "openingHours":["Mo-Sa 08:00-16:00"],
-      "servesCuisine":["Cafe","Sandwiches","Desserts"],
-      "telephone":"+44XXXXXXXXX",
-      "menu":"https://yourdomain.com/menu",
-      "acceptsReservations": "True"
-    }
-    </script>
-    
-    <!-- Fonts and Icons -->
+    <!-- Fonts - Inferred from the design -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
     <style>
         :root {
             --color-dark-blue: #1A2E39;
             --color-gold: #B88A44;
             --color-cream: #F5F0E6;
-            --color-green-tag: #4A6B53;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Poppins', sans-serif;
-            --transition-speed: 0.3s;
+            --transition-speed: 0.4s;
         }
+
+        /* --- Global Reset & Setup --- */
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
         body {
             margin: 0;
-            background-color: var(--color-cream);
+            background-color: var(--color-dark-blue);
             font-family: var(--font-sans);
-            color: var(--color-dark-blue);
-            font-size: 18px;
-            line-height: 1.6;
+            color: var(--color-cream);
             -webkit-font-smoothing: antialiased;
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-
-        /* --- STICKY NAVIGATION --- */
-        .sticky-nav { position: sticky; top: 0; width: 100%; background-color: var(--color-dark-blue); padding: 1rem 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .sticky-nav .container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { width: 50px; height: auto; }
-        .desktop-nav { display: flex; align-items: center; gap: 2rem; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { color: var(--color-cream); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-        .mobile-menu-toggle { display: none; }
-
-        /* --- REUSABLE COMPONENTS --- */
-        .btn { display: inline-block; border: 2px solid var(--color-gold); padding: 0 2rem; min-height: 44px; line-height: 40px; border-radius: 50px; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; text-align: center; transition: all var(--transition-speed) ease; }
-        .btn-primary { background-color: var(--color-gold); color: var(--color-dark-blue); }
-        .btn-primary:hover { background-color: transparent; color: var(--color-gold); }
-        .btn-secondary { background-color: transparent; color: var(--color-gold); }
-        .btn-secondary:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
         
-        /* --- HERO SECTION (UPDATED) --- */
+        /* --- Reusable Components --- */
+        .btn { display: inline-block; background-color: transparent; border: 2px solid var(--color-gold); color: var(--color-gold); padding: 0.75rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; transition: all var(--transition-speed) ease; }
+        .btn:hover { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        .btn-filled { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        .btn-filled:hover { background-color: transparent; color: var(--color-gold); }
+
+        /* --- Header & Navigation --- */
+        .main-header { padding: 1.5rem 0; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; }
+        .main-nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { width: 70px; height: auto; }
+        .desktop-nav { display: flex; align-items: center; gap: 2rem; }
+        .desktop-nav .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .desktop-nav .nav-links a { color: var(--color-cream); text-decoration: none; font-weight: 600; font-size: 0.9rem; position: relative; padding-bottom: 5px; }
+        .desktop-nav .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--color-gold); transition: width var(--transition-speed) ease; }
+        .desktop-nav .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-toggle { display: none; }
+        
+        /* --- Mobile Navigation --- */
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 300px; height: 100%; background-color: var(--color-dark-blue); box-shadow: -10px 0 30px rgba(0,0,0,0.2); transition: right var(--transition-speed) ease; z-index: 1000; padding: 4rem 2rem; display: flex; flex-direction: column; align-items: center; }
+        .mobile-nav.is-open { right: 0; }
+        .mobile-nav .nav-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+        .mobile-nav .nav-links li { margin-bottom: 2rem; }
+        .mobile-nav .nav-links a { color: var(--color-cream); text-decoration: none; font-size: 1.5rem; font-weight: 600; }
+        .mobile-nav-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
+
+        /* --- Hero Section (UPDATED) --- */
         .hero {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 5rem 1.5rem;
-            color: var(--color-cream);
-            background-color: var(--color-dark-blue);
-            position: relative;
-            overflow: hidden;
+            padding: 6rem 1.5rem;
+            position: relative; /* Required for the pseudo-element */
+            overflow: hidden; /* Ensures pseudo-element doesn't spill out */
         }
-        .hero::before { /* Tiled background pattern */
+        /* NEW: Tiled background pattern layer */
+        .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-image: url('assets/bean-tile.png');
+            background-size: 512px 512px;
             background-repeat: repeat;
-            opacity: 0.4; /* 40% opacity */
-            z-index: 1;
+            opacity: 0.2;
+            z-index: 1; /* Sits behind the content */
+            pointer-events: none; /* Not interactive */
         }
+        /* Ensure content sits on top of the new background layer */
         .hero .container {
             position: relative;
             z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-        .hero-logo-main {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin-bottom: 2.5rem;
+        .hero-logo-main { width: 100%; max-width: 550px; height: auto; margin-bottom: 2rem; }
+        .hero-actions { display: flex; justify-content: center; gap: 1rem; }
+        
+        /* --- General Section Styling --- */
+        .section { padding: 5rem 0; text-align: center; position: relative; overflow: hidden; }
+        .section-title { font-family: var(--font-serif); font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 1rem 0; font-weight: 700; position: relative; z-index: 2; }
+        .section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem auto; line-height: 1.8; color: rgba(245, 240, 230, 0.8); position: relative; z-index: 2; }
+        
+        /* --- Watermark Styling --- */
+        .watermark {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.04;
+            z-index: 1;
+            pointer-events: none;
         }
-        .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-        .utility-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; align-items: center; font-weight: 600; }
-        .live-status.is-open { color: #86efac; }
-        .live-status.is-closed { color: #fca5a5; }
-
-
-        /* --- GENERAL SECTION STYLING --- */
-        .section { padding: 5rem 0; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title { font-family: var(--font-serif); font-size: 2.5rem; margin: 0; }
-        .section-subtitle { font-size: 1.25rem; max-width: 50ch; margin: 0.5rem auto 0 auto; color: var(--text-secondary); }
+        .pickle-watermark { background-image: url('assets/pickle-icon.png'); top: 50%; left: -180px; transform: translateY(-50%) rotate(-15deg); }
+        .peach-watermark { background-image: url('assets/peach-icon.png'); top: 50%; right: -180px; transform: translateY(-50%) rotate(15deg); }
         
-        /* --- TRUST STRIP --- */
-        #trust { background-color: #fff; }
-        .trust-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; text-align: center; }
-        .google-rating span { font-size: 1.5rem; font-weight: 700; color: var(--color-gold); }
-        .review-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .review-quotes blockquote { margin: 0; font-style: italic; }
+        /* --- Decorative Divider --- */
+        .section-divider-decorative { text-align: center; padding: 2rem 0; }
+        .section-divider-decorative img { width: 100%; max-width: 450px; height: auto; }
 
-        /* --- PAIRINGS & MENU --- */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .pairing-card, .menu-highlight-card { background-color: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.07); }
-        .card-image { width: 100%; height: 250px; object-fit: cover; }
-        .card-content { padding: 1.5rem; }
-        .card-content h3 { font-family: var(--font-serif); margin: 0 0 0.5rem 0; }
-        .card-content .price { font-weight: 600; color: var(--color-gold); margin-top: 1rem; }
-        .card-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .card-tags span { background-color: var(--color-green-tag); color: #fff; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        /* --- Signature Pairings Section --- */
+        #pairings .signature-pairing { display: block; }
         
-        /* --- VISIT SECTION --- */
-        #visit { background-color: var(--color-dark-blue); color: var(--color-cream); }
-        .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-        .visit-info li { list-style: none; margin-bottom: 1rem; }
-        .visit-map iframe { width: 100%; height: 400px; border: 0; border-radius: 12px; }
+        /* --- Menu Highlights Section --- */
+        .menu-highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; position: relative; z-index: 2; }
+        .highlight-card { background-color: var(--color-cream); color: var(--color-dark-blue); padding: 2.5rem 2rem; border-radius: 8px; transition: transform var(--transition-speed) ease; }
+        .highlight-card:hover { transform: translateY(-5px); }
+        .highlight-card h3 { margin: 0 0 1rem 0; font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 1px; font-size: 1.2rem; }
+        .highlight-card a { color: var(--color-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- NEWSLETTER & FOOTER --- */
-        #newsletter { text-align: center; }
-        .newsletter-form { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
-        .newsletter-form input { padding: 0 1.5rem; min-height: 44px; border: 1px solid #ccc; border-radius: 50px; }
+        /* --- Our Story Section --- */
+        #story { background-color: var(--color-gold); color: var(--color-dark-blue); }
+        #story .section-title, #story .section-subtitle { color: var(--color-dark-blue); }
+
+        /* --- Visit Section --- */
+        .visit-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; position: relative; z-index: 2; }
+        .visit-content p { font-size: 1.5rem; font-family: var(--font-serif); margin: 0; text-align: left; }
         
-        .main-footer { background-color: var(--color-dark-blue); color: var(--color-cream); padding: 4rem 0; font-size: 0.9rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
-        .footer-grid h4 { color: var(--color-gold); }
-        .footer-grid ul { list-style: none; padding: 0; }
-        .footer-grid ul li { margin-bottom: 0.5rem; }
-        .footer-grid a { color: var(--color-cream); text-decoration: none; }
-
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
-            body { font-size: 16px; }
             .desktop-nav { display: none; }
-            .mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; }
-            .hero-actions { flex-direction: column; align-items: center; }
-            .visit-grid { grid-template-columns: 1fr; }
-            .newsletter-form { flex-direction: column; }
+            .mobile-menu-toggle { display: block; background: none; border: none; color: var(--color-cream); font-size: 2rem; cursor: pointer; z-index: 1001; }
+            .hero-logo-main { max-width: 90%; }
+            .section { padding: 3rem 0; }
+            .visit-content { flex-direction: column; justify-content: center; text-align: center; }
+            .visit-content p { text-align: center; }
+            .watermark { width: 350px; height: 350px; opacity: 0.03; }
+            .pickle-watermark { left: -120px; }
+            .peach-watermark { right: -120px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="sticky-nav">
+    <header class="main-header">
         <div class="container">
-            <a href="#"><img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="nav-logo"></a>
-            <nav class="desktop-nav">
-                <ul class="nav-links">
-                    <li><a href="#menu-highlights">Menu</a></li>
-                    <li><a href="#reservations">Book</a></li>
-                    <li><a href="#order">Order</a></li>
-                    <li><a href="#pairings">Pairings</a></li>
-                    <li><a href="#story">Story</a></li>
-                    <li><a href="#visit">Visit</a></li>
-                    <li><a href="#gift-cards">Gift Cards</a></li>
-                </ul>
-                <a href="#reservations" class="btn btn-primary">Book a Table</a>
+            <nav class="main-nav">
+                <a href="#"><img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="nav-logo"></a>
+                <div class="desktop-nav">
+                    <ul class="nav-links">
+                        <li><a href="#pairings">Pairings</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#story">Story</a></li>
+                        <li><a href="#visit">Visit</a></li>
+                    </ul>
+                    <a href="#" class="btn btn-filled">Book a Table</a>
+                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-open" aria-label="Open Menu">☰</button>
             </nav>
-            <button class="mobile-menu-toggle" aria-label="Open Menu">☰</button>
         </div>
     </header>
 
+    <div class="mobile-nav" id="mobile-nav-panel">
+        <button class="mobile-nav-close" id="mobile-menu-close" aria-label="Close Menu">×</button>
+        <ul class="nav-links">
+            <li><a href="#pairings">Pairings</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#story">Story</a></li>
+            <li><a href="#visit">Visit</a></li>
+            <li><a href="#" class="btn btn-filled" style="margin-top: 2rem;">Book a Table</a></li>
+        </ul>
+    </div>
+
     <main>
-        <section class="hero" id="home">
+        <section class="hero">
             <div class="container">
                 <img src="assets/pickle-peach-main-logo.png" alt="Pickle & Peach" class="hero-logo-main">
                 <div class="hero-actions">
-                    <a href="#menu-highlights" class="btn btn-secondary">View Menu</a>
-                    <a href="#reservations" class="btn btn-primary">Book a Table</a>
-                </div>
-                 <div class="utility-strip">
-                    <span>📍 South Shields</span>
-                    <span>Mon–Sat 8–16</span>
-                    <span id="live-status" class="live-status"></span>
+                    <a href="#menu" class="btn">View Menu</a>
+                    <a href="#" class="btn btn-filled">Book a Table</a>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="trust">
+        <section class="intro-section">
+            <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Emblem" class="intro-logo">
+        </section>
+
+        <section id="pairings" class="section">
+            <div class="watermark pickle-watermark"></div>
             <div class="container">
-                <div class="trust-grid">
-                    <div class="google-rating">
-                        <span>4.7 ★ on Google</span>
-                    </div>
-                    <div class="review-quotes">
-                        <blockquote>“The best coffee in South Shields, hands down. A wonderful atmosphere.”</blockquote>
-                        <blockquote>“Absolutely love the sandwiches. The pickle and peach combo is surprisingly delicious!”</blockquote>
-                        <blockquote>“My new favourite place to work and relax. The cakes are to die for.”</blockquote>
-                    </div>
+                <h2 class="section-title">Signature Pairings</h2>
+                <p class="section-subtitle">
+                    Savor our unique blend of flavors, with dishes inspired by the classic combination of tart pickles and sweet peaches.
+                </p>
+            </div>
+        </section>
+
+        <div class="section-divider-decorative">
+            <img src="assets/divider.png" alt="Decorative Divider">
+        </div>
+
+        <section id="menu" class="section">
+            <div class="watermark peach-watermark"></div>
+            <div class="container">
+                <h2 class="section-title">Menu Highlights</h2>
+                <div class="menu-highlights-grid">
+                    <div class="highlight-card"><h3>Artisan Sandwiches</h3><a href="#">View Full Menu</a></div>
+                    <div class="highlight-card"><h3>Seasonal Salads</h3><a href="#">View Full Menu</a></div>
+                    <div class="highlight-card"><h3>Homemade Cakes</h3><a href="#">View Full Menu</a></div>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="pairings">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Bold coffee. Bright pickles. Sweet peaches.</h2>
-                    <p class="section-subtitle">Coffee, sandwiches, and the sweet-tart combo we’re known for.</p>
-                </div>
-                <div class="card-grid">
-                    <div class="pairing-card">
-                        <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Ham+&+Peach" alt="Smoked Ham Sandwich">
-                        <div class="card-content">
-                            <h3>Smoked Ham & Peach Chutney</h3>
-                            <p>Tangy, sweet, and salty on toasted sourdough with pickled red onion.</p>
-                            <p class="price">£8.50</p>
-                        </div>
-                    </div>
-                    <div class="pairing-card">
-                        <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Halloumi" alt="Halloumi Sandwich">
-                        <div class="card-content">
-                            <h3>Halloumi & Chili-Peach Glaze</h3>
-                            <p>Crispy, cool, and spicy with pickled cucumber and fresh rocket.</p>
-                            <p class="price">£8.00</p>
-                        </div>
-                    </div>
-                    <div class="pairing-card">
-                         <img class="card-image" src="https://placehold.co/600x400/1A2E39/F5F0E6?text=Salad" alt="Seasonal Salad">
-                        <div class="card-content">
-                            <h3>Roasted Veg & Pickled Peach</h3>
-                            <p>A vibrant seasonal salad with a zesty vinaigrette and crunchy seeds.</p>
-                            <p class="price">£9.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="section-divider-decorative">
+            <img src="assets/divider.png" alt="Decorative Divider">
+        </div>
 
-        <section class="section" id="menu-highlights" style="background-color:#fff;">
+        <section id="story" class="section">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Menu Highlights</h2>
-                </div>
-                <div class="card-grid">
-                    <div class="menu-highlight-card">
-                        <img class="card-image" src="https://placehold.co/600x400/F5F0E6/1A2E39?text=Roast+Veg" alt="Roast Veg Sandwich">
-                        <div class="card-content">
-                            <h3>Roast Veg & Feta</h3>
-                            <p>Basil pesto, roasted peppers, rocket.</p>
-                            <div class="card-tags"><span>V</span></div>
-                            <p class="price">£7.50</p>
-                        </div>
-                    </div>
-                    <div class="menu-highlight-card">
-                        <img class="card-image" src="https://placehold.co/600x400/F5F0E6/1A2E39?text=Chicken+Caesar" alt="Chicken Caesar Sandwich">
-                        <div class="card-content">
-                            <h3>Chicken Caesar</h3>
-                            <p>House dressing, parmesan, pickled shallots.</p>
-                            <div class="card-tags"></div>
-                            <p class="price">£7.95</p>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 2rem;"><a href="#" class="btn btn-primary">View Full Menu</a></div>
-            </div>
-        </section>
-
-        <section class="section" id="seasonal" style="background-color: var(--color-gold); color: var(--color-dark-blue);">
-            <div class="container">
-                 <h2 class="section-title">This Week's Special</h2>
-                 <p class="section-subtitle" style="color: var(--color-dark-blue);">Spiced Peach & Almond Cake — Ends Saturday!</p>
+                <h2 class="section-title">Our Story</h2>
+                <p class="section-subtitle">
+                    Born from a love of good food and inclusive dining, Pickle & Peach is a place for community, comfort, and culinary eves.
+                </p>
             </div>
         </section>
         
-        <section class="section" id="visit">
-             <div class="container">
-                <div class="visit-grid">
-                    <div class="visit-info">
-                        <h2 class="section-title" style="text-align:left;">Visit Us</h2>
-                        <ul>
-                            <li><strong>Find us:</strong> 87 Ocean Rd, South Shields</li>
-                            <li><strong>Hours:</strong> Monday–Saturday, 8am–4pm</li>
-                            <li><strong>Parking:</strong> Free 1-hr street parking after 10am</li>
-                            <li><strong>Access:</strong> Step-free access from the main entrance</li>
-                        </ul>
-                    </div>
-                    <div class="visit-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2290.793267597017!2d-1.428587684241682!3d54.9961789803588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e6e584506f351%3A0x6e969a531f6e1b65!2sOcean+Rd%2C+South+Shields!5e0!3m2!1sen!2suk!4v1562586828564!5m2!1sen!2suk" loading="lazy"></iframe>
-                    </div>
-                </div>
-             </div>
-        </section>
-
-        <section class="section" id="newsletter">
-            <div class="container">
-                <h2 class="section-title">Join the Club</h2>
-                <p class="section-subtitle">Get new bakes + seasonal pairings—2× / month. Plus a free mini-cookie on your first visit!</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="your.email@example.com" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>Pickle & Peach</h4>
-                    <p>87 Ocean Rd, South Shields</p>
-                </div>
-                <div>
-                    <h4>Links</h4>
-                    <ul>
-                        <li><a href="#">Gift Cards</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Allergens</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Socials</h4>
-                    <ul>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>In-Store Wi-Fi</h4>
-                    <p>Password: <strong>picklepeach</strong></p>
-                </div>
-            </div>
+        <div class="section-divider-decorative">
+            <img src="assets/divider.png" alt="Decorative Divider">
         </div>
-    </footer>
+        
+        <section id="visit" class="section">
+            <div class="watermark pickle-watermark"></div>
+            <div class="container">
+                <div class="visit-content">
+                    <p>Monday–Saturday<br>8am to 4pm</p>
+                    <a href="#" class="btn btn-filled">Book a Table</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Live status indicator
-            const statusEl = document.getElementById('live-status');
-            if (statusEl) {
-                const now = new Date();
-                const day = now.getDay(); // Sunday = 0, Monday = 1...
-                const hour = now.getHours();
-                
-                if (day > 0 && day < 7 && hour >= 8 && hour < 16) {
-                    statusEl.textContent = '● Open now';
-                    statusEl.classList.add('is-open');
-                } else {
-                    statusEl.textContent = '● Closed';
-                    statusEl.classList.add('is-closed');
-                }
-            }
+            const openBtn = document.getElementById('mobile-menu-open');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileNav = document.getElementById('mobile-nav-panel');
+            const navLinks = mobileNav.querySelectorAll('a');
+
+            function openNav() { mobileNav.classList.add('is-open'); }
+            function closeNav() { mobileNav.classList.remove('is-open'); }
+
+            openBtn.addEventListener('click', openNav);
+            closeBtn.addEventListener('click', closeNav);
+            navLinks.forEach(link => link.addEventListener('click', closeNav));
         });
     </script>
+
 </body>
 </html>
