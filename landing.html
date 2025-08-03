@@ -1,364 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickle & Peach | Coffee Shop & Eatery - South Shields</title>
-    
-    <!-- Fonts - Inferred from the design -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --color-dark-blue: #1A2E39;
-            --color-gold: #B88A44;
-            --color-cream: #F5F0E6;
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Poppins', sans-serif;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pickle & Peach — Coffee Shop & Eatery</title>
+<meta name="description" content="Pickle & Peach — Coffee Shop & Eatery. Vintage-Italian vibe: coffee, brunch, bakes." />
+<style>
+  /* ====== TOKENS ====== */
+  :root{
+    --ink:#0B1530; --ink2:#0E1A3D; --gold:#D3B26E; --gold2:#B9934A; --cream:#F6F3EA;
+    --ring:rgba(211,178,110,.20);
+    --shadow:0 8px 24px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+    --radius:16px;
+    --container:min(1120px,92vw);
+  }
 
-        /* --- Global Reset & Setup --- */
-        *, *::before, *::after { box-sizing: border-box; }
+  /* ====== BASE ====== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    color:var(--cream);
+    background:
+      radial-gradient(1000px 600px at 20% -10%, #13224F 0%, var(--ink) 50%) fixed;
+    font:400 16px/1.45 ui-serif, Georgia, "Times New Roman", serif;
+    text-rendering:optimizeLegibility;
+  }
+  .container{width:var(--container); margin-inline:auto}
+  a{color:inherit; text-decoration:none}
+  .btn{display:inline-block; padding:12px 18px; border-radius:999px; font-weight:700; letter-spacing:.03em}
+  .btn--gold{background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#2a1a00; border:1px solid #0002; box-shadow:var(--shadow)}
+  .btn--ghost{border:1px solid #ffffff22}
+  .eyebrow{letter-spacing:.16em; text-transform:uppercase; font-weight:700}
 
-        body {
-            margin: 0;
-            background-color: var(--color-dark-blue);
-            font-family: var(--font-sans);
-            color: var(--color-cream);
-            -webkit-font-smoothing: antialiased;
-        }
+  /* ====== NAV / APP BAR ====== */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, rgba(11,21,48,.92), rgba(11,21,48,.75));
+    border-bottom:1px solid #ffffff12; backdrop-filter:saturate(120%) blur(6px);
+  }
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:10px 0; gap:16px}
+  .brand{display:flex; align-items:center; gap:10px}
+  .brand img{height:40px; width:auto; display:block; filter: drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+  .brand span{font-weight:700; letter-spacing:.02em}
+  .nav{display:flex; align-items:center; gap:18px}
+  .nav a{opacity:.9}
+  .hamburger{display:none; width:32px; height:32px; place-items:center; border:1px solid #ffffff22; border-radius:8px}
 
-        /* --- Reusable Components --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
+  /* ====== BEAN BORDER (pure CSS, no extra asset) ====== */
+  .beans-border{
+    height:44px; position:relative; overflow:hidden; opacity:.28; border-top:1px solid #ffffff10; border-bottom:1px solid #ffffff10;
+    background:
+      radial-gradient(ellipse 11px 7px at 10px 50%, var(--gold) 2px, transparent 3px) 0 50% / 44px 22px repeat-x,
+      radial-gradient(ellipse 11px 7px at 32px 50%, var(--gold) 2px, transparent 3px) 0 50% / 44px 22px repeat-x;
+  }
 
-        .btn {
-            display: inline-block;
-            background-color: transparent;
-            border: 2px solid var(--color-gold);
-            color: var(--color-gold);
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            background-color: var(--color-gold);
-            color: var(--color-dark-blue);
-        }
+  /* ====== HERO ====== */
+  .hero{position:relative; padding:28px 0 40px}
+  .hero-top{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0}
+  .hero-top .mini-emblem{height:40px}
+  .hero-head{display:grid; gap:14px; place-items:center; padding:24px 0}
+  .hero-logo{width:min(840px, 86vw); height:auto; display:block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45))}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
 
-        .section-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-        .section-divider::before,
-        .section-divider::after {
-            content: '';
-            height: 1px;
-            flex-grow: 1;
-            background-color: var(--color-gold);
-            opacity: 0.3;
-        }
-        .divider-icon {
-            width: 30px;
-            height: auto;
-            opacity: 0.5;
-        }
+  /* ====== SECTION TITLES ====== */
+  .section{padding:38px 0}
+  .section-title{
+    color:var(--gold); text-align:center; letter-spacing:.02em;
+    font-size:clamp(28px,4vw,42px); margin:0 0 18px; position:relative;
+  }
+  .section-title::after{
+    content:""; display:block; margin:10px auto 0; width:120px; height:8px; 
+    background:
+      radial-gradient(ellipse 10px 6px at 10px 50%, var(--gold) 2px, transparent 3px) 0 50% / 40px 12px repeat-x;
+    opacity:.6;
+  }
 
-        /* --- Header & Navigation --- */
-        .main-header {
-            padding: 1.5rem 0;
-        }
-        .main-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-logo {
-            width: 70px;
-            height: auto;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .nav-links a {
-            color: var(--color-cream);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-gold);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        .nav-actions .btn {
-            background-color: var(--color-gold);
-            color: var(--color-dark-blue);
-        }
-        .nav-actions .btn:hover {
-            background-color: transparent;
-            color: var(--color-gold);
-        }
-        .mobile-menu-toggle { display: none; }
+  /* ====== SIGNATURE PAIRINGS ====== */
+  .pairings{background:linear-gradient(180deg, #f3ecd9, #efe6d1); color:#2a1a00}
+  .pairings .inner{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center}
+  .combo{display:flex; gap:18px; align-items:center; justify-content:center}
+  .combo img{height:72px; width:auto; filter: drop-shadow(0 3px 8px rgba(0,0,0,.2))}
+  .equals{font-weight:900; font-size:32px; margin:0 2px}
+  .micro{color:#2a1a00; opacity:.8; text-align:center; max-width:70ch; margin:10px auto 0}
 
+  /* ====== MENU HIGHLIGHTS ====== */
+  .menu{background:var(--ink2)}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .card{
+    position:relative; background:rgba(11,21,48,.92); border:1px solid #ffffff12; border-radius:22px; padding:16px; box-shadow:var(--shadow);
+  }
+  .card h3{margin:0 0 8px; color:var(--gold); letter-spacing:.02em}
+  .card ul{margin:0 0 12px; padding:0 0 0 18px}
+  .card .sub{opacity:.85}
 
-        /* --- Hero Section --- */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-        }
-        .hero-logo-main {
-            width: 100%;
-            max-width: 550px;
-            height: auto;
-            margin-bottom: 2rem;
-        }
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
+  /* bottom pattern overlay look (CSS-only approx) */
+  .card::before{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:40%;
+    background:
+      radial-gradient(ellipse 10px 6px at 10px 50%, var(--gold) 2px, transparent 3px) 0 100% / 44px 14px repeat-x,
+      radial-gradient(ellipse 10px 6px at 32px 50%, var(--gold) 2px, transparent 3px) 0 100% / 44px 14px repeat-x;
+    opacity:.18; pointer-events:none;
+  }
 
-        /* --- Section Styling --- */
-        .section {
-            padding: 4rem 0;
-            text-align: center;
-        }
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 1rem 0;
-            font-weight: 700;
-        }
-        .section-subtitle {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            line-height: 1.8;
-            color: rgba(245, 240, 230, 0.8);
-        }
-        .signature-pairing {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2.5rem;
-        }
-        .pairing-icon {
-            width: 80px;
-        }
-        
-        /* Menu Highlights */
-        .menu-highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .highlight-card {
-            background-color: var(--color-cream);
-            color: var(--color-dark-blue);
-            padding: 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-        .highlight-card a {
-            color: var(--color-gold);
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-            display: block;
-        }
+  /* ====== STORY ====== */
+  .story{background:linear-gradient(180deg, #f3ecd9, #efe6d1); color:#2a1a00}
 
-        /* Our Story Section */
-        #story {
-            background-color: var(--color-gold);
-            color: var(--color-dark-blue);
-            border-radius: 16px;
-        }
+  /* ====== VISIT ====== */
+  .visit .panel{
+    position:relative; overflow:hidden; border-radius:26px; border:1px solid #ffffff1a; padding:18px; background:linear-gradient(180deg, rgba(11,21,48,.6), rgba(11,21,48,.95));
+    box-shadow:var(--shadow);
+  }
 
-        /* Visit Section */
-        .visit-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .visit-content p {
-            font-size: 1.5rem;
-            font-family: var(--font-serif);
-            margin: 0;
-        }
-        
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            .nav-links, .nav-actions {
-                display: none;
-            }
-            .mobile-menu-toggle {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--color-cream);
-                font-size: 2rem;
-                cursor: pointer;
-            }
-            .hero-logo-main {
-                max-width: 90%;
-            }
-            .signature-pairing {
-                flex-direction: column;
-            }
-            .menu-highlights-grid {
-                grid-template-columns: 1fr;
-            }
-            .visit-content {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-        }
-    </style>
+  /* ====== FOOTER ====== */
+  .site-footer{padding:26px 0; border-top:1px solid #ffffff12; background:linear-gradient(180deg, rgba(11,21,48,.85), rgba(11,21,48,1)) }
+  .footer-inner{text-align:center; opacity:.9; font-size:14px}
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width:960px){
+    .pairings .inner{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .nav{display:none}
+    .hamburger{display:grid}
+    .cards{grid-template-columns:1fr}
+    .beans-border{height:36px}
+  }
+</style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container">
-            <nav class="main-nav">
-                <!-- IMPORTANT: Replace with path to your logo file -->
-                <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="nav-logo">
-                <ul class="nav-links">
-                    <li><a href="#pairings">Pairings</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#story">Story</a></li>
-                    <li><a href="#visit">Visit</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <a href="#" class="btn">Book a Table</a>
-                </div>
-                <button class="mobile-menu-toggle" aria-label="Open Menu">
-                    ☰ <!-- Hamburger Icon -->
-                </button>
-            </nav>
+  <!-- ====== HEADER ====== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Pickle & Peach home">
+        <img src="pickle-peach-round-logo.png" alt="Pickle & Peach emblem" />
+        <span>Pickle &amp; Peach</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#pairings">Pairings</a>
+        <a href="#menu">Menu</a>
+        <a href="#story">Story</a>
+        <a href="#visit" class="btn btn--gold">Book a Table</a>
+      </nav>
+      <button class="hamburger" aria-label="Open menu">☰</button>
+    </div>
+    <div class="beans-border" aria-hidden="true"></div>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-top">
+        <img class="mini-emblem" src="pickle-peach-round-logo.png" alt="P&P emblem" />
+      </div>
+
+      <div class="beans-border" aria-hidden="true"></div>
+
+      <div class="hero-head container">
+        <img class="hero-logo" src="pickle-peach-main-logo.png" alt="Pickle & Peach — Coffee Shop & Eatery" />
+        <div class="hero-ctas">
+          <a class="btn btn--gold" href="#menu">VIEW MENU</a>
+          <a class="btn btn--ghost" href="#visit">BOOK A TABLE</a>
         </div>
-    </header>
+      </div>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <!-- IMPORTANT: Replace with path to your main logo PNG -->
-                <img src="assets/pickle-peach-main-logo.png" alt="Pickle & Peach" class="hero-logo-main">
-                <div class="hero-actions">
-                    <a href="#menu" class="btn">View Menu</a>
-                    <a href="#" class="btn">Book a Table</a>
-                </div>
-            </div>
-        </section>
+      <div class="beans-border" aria-hidden="true"></div>
+    </section>
 
-        <section id="pairings" class="section">
-            <div class="container">
-                <h2 class="section-title">Signature Pairings</h2>
-                <div class="signature-pairing">
-                    <!-- IMPORTANT: Replace with path to your pickle icon -->
-                    <img src="assets/pickle-icon.png" alt="Pickle Icon" class="pairing-icon">
-                    <p>=</p>
-                    <!-- IMPORTANT: Replace with path to your logo file -->
-                    <img src="assets/pickle-peach-round-logo.png" alt="Pickle & Peach Logo" class="pairing-icon">
-                    <p>=</p>
-                    <!-- IMPORTANT: Replace with path to your peach icon -->
-                    <img src="assets/peach-icon.png" alt="Peach Icon" class="pairing-icon">
-                </div>
-                <p class="section-subtitle">
-                    Savor our unique blend of flavors, with dishes inspired by the classic combination of tart pickles and sweet peaches.
-                </p>
+    <!-- ====== SIGNATURE PAIRINGS ====== -->
+    <section id="pairings" class="section pairings">
+      <div class="container">
+        <h2 class="section-title">Signature Pairings</h2>
+        <div class="inner">
+          <div>
+            <div class="combo">
+              <img src="pickle-icon.png" alt="Pickle icon" />
+              <div class="equals">=</div>
+              <img src="peach-icon.png" alt="Peach icon" />
             </div>
-        </section>
-
-        <div class="container">
-            <div class="section-divider">
-                <!-- IMPORTANT: Replace with path to your leaf icon -->
-                <img src="assets/leaf-icon.png" class="divider-icon" alt="">
-            </div>
+            <p class="micro">
+              Opposites attract: briny &amp; bright with lush &amp; sweet. That tension drives our menu—and our name.
+            </p>
+          </div>
+          <div class="combo" aria-hidden="true" style="opacity:.85">
+            <img src="pickle-peach-round-logo.png" alt="" />
+          </div>
         </div>
+      </div>
+    </section>
 
-        <section id="menu" class="section">
-            <div class="container">
-                <h2 class="section-title">Menu Highlights</h2>
-                <div class="menu-highlights-grid">
-                    <div class="highlight-card">
-                        <h3>Artisan Sandwiches</h3>
-                        <a href="#">View Full Menu</a>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>Seasonal Salads</h3>
-                        <a href="#">View Full Menu</a>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>Homemade Cakes</h3>
-                        <a href="#">View Full Menu</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="container">
-            <div class="section-divider">
-                 <img src="assets/leaf-icon.png" class="divider-icon" alt="">
-            </div>
+    <!-- ====== MENU HIGHLIGHTS ====== -->
+    <section id="menu" class="section menu">
+      <div class="container">
+        <h2 class="section-title">Menu Highlights</h2>
+        <div class="cards">
+          <article class="card">
+            <h3 class="eyebrow" style="color:var(--gold);">ESPRESSO &amp; MILK</h3>
+            <ul>
+              <li>Double Espresso</li><li>Flat White</li><li>Cappuccino</li><li>Macchiato</li>
+            </ul>
+            <a class="btn btn--ghost" href="#visit">View full menu</a>
+          </article>
+          <article class="card">
+            <h3 class="eyebrow" style="color:var(--gold);">BAKERY</h3>
+            <ul>
+              <li>Almond Croissant</li><li>Bomboloni</li><li>Olive Oil Cake</li><li>Seasonal Tarts</li>
+            </ul>
+            <a class="btn btn--ghost" href="#visit">See the counter</a>
+          </article>
+          <article class="card">
+            <h3 class="eyebrow" style="color:var(--gold);">BRUNCH</h3>
+            <ul>
+              <li>Prosciutto &amp; Peach Toast</li><li>Herbed Frittata</li><li>Ricotta Pancakes</li><li>Market Salad</li>
+            </ul>
+            <a class="btn btn--ghost" href="#visit">Weekend menu</a>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <section id="story" class="section">
-            <div class="container">
-                <h2 class="section-title">Our Story</h2>
-                <p class="section-subtitle">
-                    Born from a love of good food and inclusive dining, Pickle & Peach is a place for community, comfort, and culinary eves.
-                </p>
-            </div>
-        </section>
-        
-        <div class="container">
-            <div class="section-divider">
-                 <img src="assets/leaf-icon.png" class="divider-icon" alt="">
-            </div>
+    <!-- ====== STORY ====== -->
+    <section id="story" class="section story">
+      <div class="container">
+        <h2 class="section-title">Our Story</h2>
+        <p class="micro" style="max-width:70ch; margin-inline:auto;">
+          We keep the details tight—sourcing, roasting, laminating—but the atmosphere loose.
+          Think Milanese poster sensibility: elegant, minimal, and a little playful.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====== VISIT ====== -->
+    <section id="visit" class="section visit">
+      <div class="container">
+        <h2 class="section-title">Visit</h2>
+        <div class="panel">
+          <p><strong style="color:var(--gold)">South Shields</strong><br/>Mon–Fri 7–17 · Sat–Sun 8–18</p>
+          <a class="btn btn--gold" href="#">BOOK A TABLE</a>
         </div>
-        
-        <section id="visit" class="section">
-            <div class="container">
-                <div class="visit-content">
-                    <p>Monday–Saturday<br>8am to 4pm</p>
-                    <a href="#" class="btn">Book a Table</a>
-                </div>
-            </div>
-        </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="beans-border" aria-hidden="true"></div>
+    <div class="container footer-inner">
+      © <span id="year"></span> Pickle &amp; Peach — Coffee Shop &amp; Eatery
+    </div>
+  </footer>
+
+<script>
+  // Year + super-light mobile menu toggle
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const btn = document.querySelector('.hamburger'), nav = document.querySelector('.nav');
+  btn && btn.addEventListener('click', ()=> nav.style.display = (nav.style.display==='flex'?'none':'flex'));
+</script>
 </body>
 </html>
